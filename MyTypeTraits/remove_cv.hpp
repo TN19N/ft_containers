@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enable_if.hpp                                      :+:      :+:    :+:   */
+/*   remove_cv.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 00:36:23 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/14 16:27:24 by mannouao         ###   ########.fr       */
+/*   Created: 2022/04/14 22:55:22 by mannouao          #+#    #+#             */
+/*   Updated: 2022/04/15 01:10:36 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENABLE_IF_HPP
+#ifndef REMOVE_CV_HPP
 
-# define ENABLE_IF_HPP
+# define REMOVE_CV_HPP
+
+# include "remove_volatile.hpp"
+# include "remove_const.hpp"
+
+/*
+	remove volatile and const from the type , Otherwise leave the type as it is.
+*/
 
 namespace ft
 {
 
-template<bool, class T = void>
-struct enable_if {};
-
-template<class T>
-struct enable_if<true, T>
+template<typename T>
+struct remove_cv
 {
-	typedef T type;
+	typedef typename ft::remove_volatile<typename ft::remove_const<T>::type>::type type;
 };
 
 } // ft

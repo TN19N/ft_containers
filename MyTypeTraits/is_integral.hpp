@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 16:27:20 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/14 21:43:13 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/15 01:08:04 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 # define IS_INTEGRAL_HPP
 
-# include <type_traits>
+# include "integral_constant.hpp"
+# include "remove_cv.hpp"
+
+/*
+	be either true or false, depending on whether T is an integral type.
+*/
 
 namespace ft
 {
 
-typedef std::integral_constant<bool, true>  true_type;
-typedef std::integral_constant<bool, false> false_type;
+typedef ft::integral_constant<bool, true>  true_type;
+typedef ft::integral_constant<bool, false> false_type;
 
 template <class _Tp> struct tmp_template                     : public false_type {};
 template <>          struct tmp_template<bool>               : public true_type {};
@@ -39,7 +44,7 @@ template <>          struct tmp_template<unsigned long long> : public true_type 
 
 
 template<typename T>
-struct is_integral : public tmp_template<typename std::remove_cv<T>::type> {};
+struct is_integral : public tmp_template<typename ft::remove_cv<T>::type> {};
 
 } // ft
 

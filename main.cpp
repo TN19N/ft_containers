@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:59:48 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/14 21:44:58 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/15 00:55:39 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # include "Vector/vector.hpp"
 # include <vector>
 
-# include "Tools/enable_if.hpp"
-# include "Tools/is_integral.hpp"
+# include "MyTypeTraits/enable_if.hpp"
+# include "MyTypeTraits/is_integral.hpp"
 # include <type_traits>
 
 // ....... for testing enable_if ........
@@ -49,6 +49,12 @@
 
 // .......................................
 
+template<typename T, T v>
+T p(void)
+{
+	return (v);
+}
+
 int main()
 {
 	// .............. testing enable_if ...............
@@ -66,8 +72,8 @@ int main()
 	// ............. testing is_integral ...............
 
 	{
-		std::cout << std::is_integral<int>::value << std::endl;
-		std::cout << ft::is_integral<int>::value << std::endl;
+		std::cout << std::is_integral<int const>::value << std::endl;
+		std::cout << ft::is_integral<int const>::value << std::endl;
 
 		std::cout << std::is_integral<float>::value << std::endl;
 		std::cout << ft::is_integral<float>::value << std::endl;

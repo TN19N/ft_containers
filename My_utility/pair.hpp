@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   pair.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 17:59:48 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/17 18:18:57 by mannouao         ###   ########.fr       */
+/*   Created: 2022/04/16 20:17:33 by mannouao          #+#    #+#             */
+/*   Updated: 2022/04/16 20:18:58 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <iostream>
+#ifndef PAIR_HPP
 
-# include "Vector/vector.hpp"
-# include <vector>
+# define PAIR_HPP
 
-# include "My_type_traits/enable_if.hpp"
-# include "My_type_traits/is_integral.hpp"
-# include <type_traits>
-
-
-# include <algorithm>
-# include "My_algorithm/equal.hpp"
-# include "My_algorithm/lexicographical_compare.hpp"
-
-# include <iterator>
-# include "My_iterator/vector_iterator.hpp"
-
-# include <utility>
-
-int main()
+namespace ft
 {
-}
+	
+struct pair
+{
+	
+};
+	
+} // ft
+
+#endif

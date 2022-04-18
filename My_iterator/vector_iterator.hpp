@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:31:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/17 18:26:53 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/17 20:51:56 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,35 @@ struct iterator
 		*this += -n;
 		return (*this);
 	}
+
+	// a[5]
+	reference operator [] (difference_type n) const { return (this->m_ptr[n]); }
 };
-	
+
+// a == b
+template <typename T_1, typename T_2>
+bool operator == (const iterator<T_1>& x, const iterator<T_2>& y) { return (x.base() == y.base()); }
+
+// a < b
+template <typename T_1, typename T_2>
+bool operator < (const iterator<T_1>& x, const iterator<T_2>& y) { return (x.base() < y.base()); }
+
+// a != b
+template <typename T_1, typename T_2>
+bool operator != (const iterator<T_1>& x, const iterator<T_2>& y) { return (!(x.base() == y.base())); }
+
+// a > b
+template <typename T_1, typename T_2>
+bool operator > (const iterator<T_1>& x, const iterator<T_2>& y) { return (y < x); }
+
+// a >= b
+template <typename T_1, typename T_2>
+bool operator >= (const iterator<T_1>& x, const iterator<T_2>& y) { return (!(x < y)); }
+
+// a <= b
+template <typename T_1, typename T_2>
+bool operator <= (const iterator<T_1>& x, const iterator<T_2>& y) { return (!(y < x)); }
+
 } // ft
 
 #endif

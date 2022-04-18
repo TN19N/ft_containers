@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 21:15:47 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/17 16:27:12 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/18 20:21:03 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 # define ITERATORS_TRAITS_HPP
 
-# include "../My_type_traits/remove_pointer.hpp"
+# include "../My_type_traits/remove_cv.hpp"
 
 namespace ft
 {

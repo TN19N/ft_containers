@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 21:16:15 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/18 17:30:07 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/19 22:41:43 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ struct reverse_iterator
 	protected:
 		iter current;
 	
+	public:
 	// default constructer
-	reverse_iterator() {};
+	reverse_iterator() {}
 	
 	// initalization constructor
-	reverse_iterator(iter cur) : current(cur) {};
+	reverse_iterator(iter cur) : current(cur) {}
 	
 	// copy constructer
 	reverse_iterator(const reverse_iterator<iter>& other)

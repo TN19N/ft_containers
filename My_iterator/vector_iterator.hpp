@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:31:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/17 20:51:56 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/19 22:44:35 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,14 @@ struct iterator
 	private:
 		pointer m_ptr;
 	
+	public:
 	// default constructer
-	iterator() {};
+	iterator() {}
+
+	// parameterised constructor
+	iterator(iterator_type x)
+		: m_ptr(x)
+	{}
 
 	// copy constructer
 	iterator(const iterator<T>& other)
@@ -42,7 +48,7 @@ struct iterator
 	}
 
 	// assignment operator
-	iterator_type& operator = (const iterator<T>& other)
+	iterator& operator = (const iterator<T>& other)
 	{
 		this->m_ptr = other.base();
 		return (*this);

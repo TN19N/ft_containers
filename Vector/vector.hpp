@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:01:29 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/19 17:43:56 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/19 22:41:53 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class vector
 		typedef typename ft::iterator<pointer>					iterator;
 		typedef typename ft::iterator<const_pointer>			const_iterator;
 		typedef typename ft::reverse_iterator<iterator>			reverse_iterator;
-		typedef typename ft::reverse_iterator<const_iterator>	const_rverse_iterator;
+		typedef typename ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 		typedef typename allocator_type::size_type				size_type;
     	typedef typename allocator_type::difference_type		difference_type;
 	
@@ -44,25 +44,28 @@ class vector
 		size_type		_capacity;
 		allocator_type	_alloc;
 	
+	public:
 	// default constructer
 	vector(const allocator_type& alloc = allocator_type())
 		: _begin(nullptr),
 		  _size(0),
-		  _capacity(0)
-	{};
+		  _capacity(0),
+		  _alloc(alloc)
+	{}
 	
 	// fill constructer
 	vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 		: _begin(nullptr),
 		  _size(n),
-		  _capacity(n)
+		  _capacity(n),
+		  _alloc(alloc)
 	{
 		if (n > 0)
 		{
-			_begin = alloc.allocate(n);
+			_begin = _alloc.allocate(n);
 			pointer tmp = _begin;
 			for(int i = 0; i < n; i++)
-				alloc.construct(tmp++, val);
+				_alloc.construct(tmp++, val);
 		}
 	}
 
@@ -71,15 +74,16 @@ class vector
 	vector(Iterator first, Iterator last, const allocator_type& alloc = allocator_type())
 		: _begin(nullptr),
 		  _size(0),
-		  _capacity(0)
+		  _capacity(0),
+		  _alloc(alloc)
 	{
 		typename Iterator::difference_type n = first - last;
 		if (n > 0)
 		{
-			this->_begin = alloc.allocate(n);
+			this->_begin = _alloc.allocate(n);
 			pointer tmp = _begin;
 			for(; first != last; first++)
-			 	alloc.construct(tmp++, *first);
+			 	_alloc.construct(tmp++, *first);
 		}
 	}
 
@@ -94,8 +98,8 @@ class vector
 		{
 			_begin = _alloc.allocate(other._size);
 			pointer tmp = _begin;
-			for (int i = 0; i < other.size; i++)
-				_alloc.construct(tmp++, other[i]);
+			for (int i = 0; i < other._size; i++)
+				_alloc.construct(tmp++, other._begin[i]);
 		}
 	}
 
@@ -109,19 +113,31 @@ class vector
 	iterator end() { return (iterator(_begin + _size)); }
 
 	// const end()
-	const_iterator end() { return (const_iterator(_begin + _size)); }
+	const_iterator end() const { return (const_iterator(_begin + _size)); }
 
 	// begin()
-	reverse_iterator rbegin() { return (reverse_iterator(_begin)); }
+	reverse_iterator rbegin() { return (reverse_iterator(end())); }
 
 	//  const begin()
-	const_reverse_iterator rbegine() const { return (const_reverse_iterator(_begin)); }
+	const_reverse_iterator rbegine() const { return (const_reverse_iterator(end())); }
 
 	// end()
-	reverse_iterator rend() { return (reverse_iterator(_begin + _size)); }
+	reverse_iterator rend() { return (reverse_iterator(begin())); }
 
 	// const end()
-	const_reverse_iterator rend() { return (const_reverse_iterator(_begin + _size)); }
+	const_reverse_iterator rend() const { return (const_reverse_iterator(begin())); }
+
+	// size()
+	size_type size() const
+	{
+		return (_size);
+	}
+
+	// capacity()
+	size_type capacity() const
+	{
+		return (_capacity);
+	}
 };
 
 } // ft

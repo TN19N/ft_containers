@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:01:29 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/19 22:41:53 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 14:41:41 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,15 @@ class vector
 		}
 	}
 
+	// operator =
+	vector operator = (const vector& other)
+	{
+		if (this != &other)
+		{
+			
+		}
+	}
+
 	// begin()
 	iterator begin() { return (iterator(_begin)); }
 
@@ -137,6 +146,48 @@ class vector
 	size_type capacity() const
 	{
 		return (_capacity);
+	}
+
+	// clear()
+	void clear()
+	{
+		pointer tmp = _begin;
+		for(int i = 0; i < _size; i++)
+			_alloc.destroy(tmp++);
+		_size = 0;
+	}
+
+	// assign() // range
+	template <class Iterator>
+	void assign(Iterator first, Iterator last)
+	{
+		clear();
+		for (; first != last; first++)
+			push_back(*first);
+	}
+
+	// assign() // fill
+
+	// push_back()
+	void push_back (const value_type& val)
+	{
+		if (_size == _capacity)
+			reserve(_capacity * 2);
+		_begin[_size++] = val;
+	}
+
+	// reserve()
+	void reserve(size_type n)
+	{
+		if (n > _capacity)
+		{
+			vector tmp(*this);
+			clear();
+			_alloc.deallocate(_begin, _capacity);
+			_alloc.allocate(n, _begin);
+			_capacity = n;
+			assign(tmp.begin(), tmp.end());
+		}
 	}
 };
 

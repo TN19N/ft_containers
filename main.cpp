@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:59:48 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/19 22:45:23 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 14:42:43 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,10 @@
 
 int main()
 {
-	std::vector<int> a(3);
-	ft::vector<int> b(3);
+	std::allocator<int> n;
+	std::vector<int> a(5), b(a);
 
-	a.end();
-	std::vector<int>::iterator iter;
-	//ft::vector<int>::iterator iter;
-
-	for (;iter != a.end(); iter++)
-		std::cout << *iter << std::endl;
-	std::cout << "std: size = " << a.size() << ", capacity = " << a.capacity() << std::endl;
-	std::cout << "ft: size = " << b.size() << ", capacity = " << b.capacity() << std::endl;
+	//b.reserve(51);
+	std::cout << b.size() << " - " << b.capacity() << std::endl;
+	//a.operator=
 }

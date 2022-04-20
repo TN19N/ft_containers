@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:01:29 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 15:47:58 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 16:34:06 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 # define VECTOR_HPP
 
+# include "../My_type_traits/enable_if.hpp"
 # include "../My_iterator/vector_iterator.hpp"
 # include "../My_iterator/vector_reverse_iterator.hpp"
 # include <memory>
@@ -64,14 +65,15 @@ class vector
 		{
 			_begin = _alloc.allocate(n);
 			pointer tmp = _begin;
-			for(int i = 0; i < n; i++)
+			for(size_type i = 0; i < n; i++)
 				_alloc.construct(tmp++, val);
 		}
 	}
 
 	// range constructer
 	template <class Iterator>
-	vector(Iterator first, Iterator last, const allocator_type& alloc = allocator_type())
+	vector(Iterator first, Iterator last, const allocator_type& alloc = allocator_type()
+	, typename ft::enable_if<std::__is_input_iterator<Iterator>::value, bool>::type = true)
 		: _begin(nullptr),
 		  _size(0),
 		  _capacity(0),

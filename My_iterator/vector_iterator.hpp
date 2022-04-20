@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:31:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/19 22:44:35 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 20:11:26 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 # define ITERATOR_HPP
 
+# include "../My_type_traits/enable_if.hpp"
 # include "iterators_traits.hpp"
+# include <type_traits>
 
 namespace ft
 {
@@ -42,13 +44,16 @@ struct iterator
 	{}
 
 	// copy constructer
-	iterator(const iterator<T>& other)
+	template <typename Up>
+	iterator(const iterator<Up>& other
+	, typename ft::enable_if<std::is_convertible<Up, iterator_type>::value, bool>::type = true)
 	{
 		*this = other;
 	}
 
 	// assignment operator
-	iterator& operator = (const iterator<T>& other)
+	template <typename Up>
+	iterator& operator = (const iterator<Up>& other)
 	{
 		this->m_ptr = other.base();
 		return (*this);
@@ -149,6 +154,22 @@ bool operator >= (const iterator<T_1>& x, const iterator<T_2>& y) { return (!(x 
 // a <= b
 template <typename T_1, typename T_2>
 bool operator <= (const iterator<T_1>& x, const iterator<T_2>& y) { return (!(y < x)); }
+
+
+// a - b
+template <typename T_1, typename T_2>
+typename iterator<T_1>::difference_type operator - (const iterator<T_1>& x, const iterator<T_2>& y)
+{
+	return (x.base() - y.base());
+}
+
+// 5 + b
+template <typename T>
+iterator<T>  operator + (typename iterator<T>::difference_type n, iterator<T> x)
+{
+	x += n;
+	return (x);
+}
 
 } // ft
 

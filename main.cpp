@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:59:48 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 15:47:30 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 20:06:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@
 
 # include <utility>
 
+void ft_main()
+{
+	typedef std::vector<int> vector;
+
+	vector v(3, 4);
+    ft::reverse_iterator<std::vector<int>::iterator> my_rit(v.end()), my_rit1(v.end() - 1);
+
+	std::cout << (my_rit == my_rit1) << std::endl;
+}
+
 int main()
 {
+	ft_main();
+	//system("leaks a.out");
 }

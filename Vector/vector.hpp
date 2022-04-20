@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:01:29 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 14:41:41 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 15:26:27 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,22 @@ class vector
 	template <class Iterator>
 	void assign(Iterator first, Iterator last)
 	{
+		size_type n = 0;
+		Iterator tmp = first;
+		for (; tmp != last; tmp++)
+			n++;
+		if (n > _capacity)
+			reserve(n);
 		clear();
 		for (; first != last; first++)
 			push_back(*first);
 	}
 
 	// assign() // fill
+	void assign(size_type n, const value_type& val)
+	{
+		clear();
+	}
 
 	// push_back()
 	void push_back (const value_type& val)

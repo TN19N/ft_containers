@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:01:29 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 15:26:27 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 15:47:58 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,15 +175,23 @@ class vector
 	// assign() // fill
 	void assign(size_type n, const value_type& val)
 	{
+		if (n > _capacity)
+			reserve(n);
 		clear();
+		for (size_type i = 0; i < n; i++)
+			push_back(val);
 	}
 
 	// push_back()
 	void push_back (const value_type& val)
 	{
-		if (_size == _capacity)
+		if (_capacity == 0)
+			reserve(1);
+		else if (_size == _capacity)
 			reserve(_capacity * 2);
-		_begin[_size++] = val;
+		std::cout << _size << std::endl;
+		_alloc.construct(_begin + _size, val);
+		_size++;
 	}
 
 	// reserve()
@@ -193,8 +201,9 @@ class vector
 		{
 			vector tmp(*this);
 			clear();
-			_alloc.deallocate(_begin, _capacity);
-			_alloc.allocate(n, _begin);
+			if (_begin != nullptr)
+				_alloc.deallocate(_begin, _capacity);
+			_begin = _alloc.allocate(n);
 			_capacity = n;
 			assign(tmp.begin(), tmp.end());
 		}

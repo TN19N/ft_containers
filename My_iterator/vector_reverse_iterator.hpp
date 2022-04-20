@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 21:16:15 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 20:11:02 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 20:30:23 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,7 @@ struct reverse_iterator
 	}
 
 	// a->...
-	pointer operator -> () const
-	{
-		iter tmp(this->current);
-		return(--tmp);
-	}
+	pointer operator -> () const { return(&operator*()); }
 
 	// ++a
 	reverse_iterator& operator ++ ()
@@ -175,7 +171,7 @@ typename reverse_iterator<T_1>::difference_type operator - (const reverse_iterat
 template <typename T>
 reverse_iterator<T>  operator + (typename reverse_iterator<T>::difference_type n, reverse_iterator<T>& x)
 {
-	return (reverse_iterator<T>(x.base - n));
+	return (reverse_iterator<T>(x.base() - n));
 }
 
 } // ft

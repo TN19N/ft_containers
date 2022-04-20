@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:01:29 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 16:34:06 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 21:23:44 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,17 @@ class vector
 	// range constructer
 	template <class Iterator>
 	vector(Iterator first, Iterator last, const allocator_type& alloc = allocator_type()
-	, typename ft::enable_if<std::__is_input_iterator<Iterator>::value, bool>::type = true)
+	, typename ft::enable_if<std::is_convertible<Iterator, iterator>::value, bool>::type = true)
 		: _begin(nullptr),
 		  _size(0),
 		  _capacity(0),
 		  _alloc(alloc)
 	{
-		typename Iterator::difference_type n = first - last;
+		size_type n = last - first;
 		if (n > 0)
 		{
 			this->_begin = _alloc.allocate(n);
-			pointer tmp = _begin;
-			for(; first != last; first++)
-			 	_alloc.construct(tmp++, *first);
+			assign(first, last);
 		}
 	}
 
@@ -100,25 +98,24 @@ class vector
 		{
 			_begin = _alloc.allocate(other._size);
 			pointer tmp = _begin;
-			for (int i = 0; i < other._size; i++)
+			for (size_type i = 0; i < other._size; i++)
 				_alloc.construct(tmp++, other._begin[i]);
 		}
 	}
 
 	// operator =
-	vector operator = (const vector& other)
+	vector& operator = (const vector& other)
 	{
 		if (this != &other)
-		{
-			
-		}
+			assign(other.begin(), other.end());
+		return (*this);
 	}
 
 	// begin()
 	iterator begin() { return (iterator(_begin)); }
 
 	//  const begin()
-	const_iterator begine() const { return (const_iterator(_begin)); }
+	const_iterator begin() const { return (const_iterator(_begin)); }
 
 	// end()
 	iterator end() { return (iterator(_begin + _size)); }
@@ -154,7 +151,7 @@ class vector
 	void clear()
 	{
 		pointer tmp = _begin;
-		for(int i = 0; i < _size; i++)
+		for(size_type i = 0; i < _size; i++)
 			_alloc.destroy(tmp++);
 		_size = 0;
 	}
@@ -163,10 +160,7 @@ class vector
 	template <class Iterator>
 	void assign(Iterator first, Iterator last)
 	{
-		size_type n = 0;
-		Iterator tmp = first;
-		for (; tmp != last; tmp++)
-			n++;
+		size_type n = last - first;
 		if (n > _capacity)
 			reserve(n);
 		clear();
@@ -191,7 +185,6 @@ class vector
 			reserve(1);
 		else if (_size == _capacity)
 			reserve(_capacity * 2);
-		std::cout << _size << std::endl;
 		_alloc.construct(_begin + _size, val);
 		_size++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:59:48 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 20:06:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 21:20:55 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,9 @@
 
 void ft_main()
 {
-	typedef std::vector<int> vector;
+	ft::vector<std::string> const ft_v2(10, "string2");
 
-	vector v(3, 4);
-    ft::reverse_iterator<std::vector<int>::iterator> my_rit(v.end()), my_rit1(v.end() - 1);
-
-	std::cout << (my_rit == my_rit1) << std::endl;
+	ft::vector<std::string>::const_iterator rit = ft_v2.begin();
 }
 
 int main()

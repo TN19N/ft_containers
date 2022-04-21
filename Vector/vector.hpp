@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:01:29 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 21:23:44 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 23:58:44 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ class vector
 	// range constructer
 	template <class Iterator>
 	vector(Iterator first, Iterator last, const allocator_type& alloc = allocator_type()
-	, typename ft::enable_if<std::is_convertible<Iterator, iterator>::value, bool>::type = true)
+	, typename ft::enable_if<std::is_convertible<Iterator, iterator>::value || std::is_convertible<Iterator, reverse_iterator>::value, bool>::type = true)
 		: _begin(nullptr),
 		  _size(0),
 		  _capacity(0),
@@ -127,7 +127,7 @@ class vector
 	reverse_iterator rbegin() { return (reverse_iterator(end())); }
 
 	//  const begin()
-	const_reverse_iterator rbegine() const { return (const_reverse_iterator(end())); }
+	const_reverse_iterator rbegin() const { return (const_reverse_iterator(end())); }
 
 	// end()
 	reverse_iterator rend() { return (reverse_iterator(begin())); }
@@ -201,6 +201,41 @@ class vector
 			_begin = _alloc.allocate(n);
 			_capacity = n;
 			assign(tmp.begin(), tmp.end());
+		}
+	}
+
+	// max_size()
+	size_type max_size() const
+	{
+		return (_alloc.max_size());
+	}
+
+	// resize()
+	void resize (size_type n, value_type val = value_type())
+	{
+		if (n < _size)
+		{
+			pointer tmp = _begin + n;
+			for (size_type i = n; i < _size; i++)
+				_alloc.destroy(tmp++);
+			_size = n;
+		}
+		else if (n > _size)
+		{
+			if (n > _capacity)
+			{
+				if (n > _capacity * 2)
+					reserve (n);
+				else
+					reserve (_capacity * 2);
+			}
+			pointer tmp = _begin + n;
+			for (size_type i = _size; i < n; i++)
+			{
+				std::cout << i << " - " << *(tmp - 1) << std::endl;
+				_alloc.construct(tmp++, val);
+			}
+			_size = n;
 		}
 	}
 };

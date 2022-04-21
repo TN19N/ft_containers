@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:59:48 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 21:20:55 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/04/20 23:55:37 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,14 @@
 
 void ft_main()
 {
-	ft::vector<std::string> const ft_v2(10, "string2");
+	typedef ft::vector<std::string> vector;
+	vector vec(2, "string");
 
-	ft::vector<std::string>::const_iterator rit = ft_v2.begin();
+	vec.resize(3, "Hello");
+	vector::iterator iter = vec.begin();
+	for (; iter != vec.end(); iter++)
+		std::cout << *iter << std::endl;
+ 	std::cout << vec.size() << " - " << vec.capacity() << std::endl;
 }
 
 int main()

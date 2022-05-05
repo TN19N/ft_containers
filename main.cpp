@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:59:48 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 23:55:37 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/05/05 17:39:11 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,7 @@
 
 # include <utility>
 
-void ft_main()
-{
-	typedef ft::vector<std::string> vector;
-	vector vec(2, "string");
-
-	vec.resize(3, "Hello");
-	vector::iterator iter = vec.begin();
-	for (; iter != vec.end(); iter++)
-		std::cout << *iter << std::endl;
- 	std::cout << vec.size() << " - " << vec.capacity() << std::endl;
-}
-
 int main()
 {
-	ft_main();
-	//system("leaks a.out");
+	
 }

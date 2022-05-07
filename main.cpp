@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:59:48 by mannouao          #+#    #+#             */
-/*   Updated: 2022/05/05 17:39:11 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:53:41 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include <utility>
 
 int main()
-{
-	
+{	
+	std::vector<int> a, b;
+
+	a.assign(b.begin(), b.end());
 }

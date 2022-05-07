@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:01:29 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 23:58:44 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:08:58 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ class vector
 		allocator_type	_alloc;
 	
 	public:
+	
 	// default constructer
-	vector(const allocator_type& alloc = allocator_type())
+	explicit vector(const allocator_type& alloc = allocator_type())
 		: _begin(nullptr),
 		  _size(0),
 		  _capacity(0),
@@ -55,18 +56,23 @@ class vector
 	{}
 	
 	// fill constructer
-	vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+	explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 		: _begin(nullptr),
-		  _size(n),
-		  _capacity(n),
+		  _size(0),
+		  _capacity(0),
 		  _alloc(alloc)
 	{
 		if (n > 0)
 		{
-			_begin = _alloc.allocate(n);
+			if (n > max_size())
+				throw(std::length_error("Error : vector : length bigger than of std::allocator<T>::max_size() !!"));
+			try { _begin = _alloc.allocate(n); }
+			catch (const std::exception& e) { throw (e); }
+			_capacity = n;
 			pointer tmp = _begin;
 			for(size_type i = 0; i < n; i++)
 				_alloc.construct(tmp++, val);
+			_size = n;
 		}
 	}
 
@@ -79,10 +85,14 @@ class vector
 		  _capacity(0),
 		  _alloc(alloc)
 	{
-		size_type n = last - first;
+		typename iterator::difference_type n = last - first;
 		if (n > 0)
 		{
-			this->_begin = _alloc.allocate(n);
+			if (n > max_size())
+				throw(std::length_error("Error : vector : length bigger than of std::allocator<T>::max_size() !!"));
+			try { _begin = _alloc.allocate(n); }
+			catch (const std::exception& e) { throw (e); }
+			_capacity = n;
 			assign(first, last);
 		}
 	}
@@ -90,16 +100,19 @@ class vector
 	// copy constructor
 	vector(const vector& other)
 		: _begin(nullptr),
-		  _size(other._size),
-		  _capacity(other._size),
+		  _size(0),
+		  _capacity(0),
 		  _alloc(other._alloc)
 	{
 		if (other._size > 0)
 		{
-			_begin = _alloc.allocate(other._size);
+			try { _begin = _alloc.allocate(other._size); }
+			catch (const std::exception& e) { throw (e); }
+			_capacity = other._capacity;
 			pointer tmp = _begin;
 			for (size_type i = 0; i < other._size; i++)
 				_alloc.construct(tmp++, other._begin[i]);
+			_size = other._size;
 		}
 	}
 
@@ -160,7 +173,7 @@ class vector
 	template <class Iterator>
 	void assign(Iterator first, Iterator last)
 	{
-		size_type n = last - first;
+		typename iterator::difference_type n = last - first;
 		if (n > _capacity)
 			reserve(n);
 		clear();
@@ -198,7 +211,8 @@ class vector
 			clear();
 			if (_begin != nullptr)
 				_alloc.deallocate(_begin, _capacity);
-			_begin = _alloc.allocate(n);
+			try { _begin = _alloc.allocate(n); }
+			catch(const std::exception& e) { throw(e); }
 			_capacity = n;
 			assign(tmp.begin(), tmp.end());
 		}

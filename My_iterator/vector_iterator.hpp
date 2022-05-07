@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:31:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/04/20 20:11:26 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/05/07 13:55:03 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,20 @@ struct iterator
 	// default constructer
 	iterator() {}
 
-	// parameterised constructor
-	iterator(iterator_type x)
-		: m_ptr(x)
+	// parametrise constructer
+	iterator(const iterator_type& ptr) 
+		: m_ptr(ptr)
 	{}
 
 	// copy constructer
-	template <typename Up>
-	iterator(const iterator<Up>& other
-	, typename ft::enable_if<std::is_convertible<Up, iterator_type>::value, bool>::type = true)
-	{
-		*this = other;
-	}
+	iterator(const iterator& other) 
+		: m_ptr(other.base())
+	{}
 
 	// assignment operator
-	template <typename Up>
-	iterator& operator = (const iterator<Up>& other)
+	iterator& operator = (const iterator& other)
 	{
-		this->m_ptr = other.base();
+		m_ptr = other.base();
 		return (*this);
 	}
 

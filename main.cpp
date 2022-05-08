@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:59:48 by mannouao          #+#    #+#             */
-/*   Updated: 2022/05/07 16:53:41 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/05/08 18:54:21 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,16 @@
 
 # include <utility>
 
-int main()
-{	
-	std::vector<int> a, b;
+# include <list>
 
-	a.assign(b.begin(), b.end());
+int main()
+{
+	ft::vector<int> vec;
+
+	vec.reserve(3);
+	vec.push_back(1);
+	vec.push_back(2);
+	vec.push_back(3);
+	vec.insert(vec.end(), 1337);
+	std::cout << vec.size() << std::endl;
 }

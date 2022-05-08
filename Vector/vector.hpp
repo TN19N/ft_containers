@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:01:29 by mannouao          #+#    #+#             */
-/*   Updated: 2022/05/07 17:08:58 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/05/08 18:53:36 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,33 +65,32 @@ class vector
 		if (n > 0)
 		{
 			if (n > max_size())
-				throw(std::length_error("Error : vector : length bigger than of std::allocator<T>::max_size() !!"));
+				throw(std::length_error("Error : vector : length greater than std::allocator<T>::max_size() !!"));
 			try { _begin = _alloc.allocate(n); }
-			catch (const std::exception& e) { throw (e); }
+			catch (const std::bad_alloc& e) { throw (e); }
 			_capacity = n;
-			pointer tmp = _begin;
 			for(size_type i = 0; i < n; i++)
-				_alloc.construct(tmp++, val);
+				_alloc.construct(_begin + i, val);
 			_size = n;
 		}
 	}
 
 	// range constructer
 	template <class Iterator>
-	vector(Iterator first, Iterator last, const allocator_type& alloc = allocator_type()
-	, typename ft::enable_if<std::is_convertible<Iterator, iterator>::value || std::is_convertible<Iterator, reverse_iterator>::value, bool>::type = true)
+	vector(Iterator first, Iterator last, const allocator_type& alloc = allocator_type(), 
+	typename ft::enable_if<std::__is_input_iterator<Iterator>::value, bool>::type = true)
 		: _begin(nullptr),
 		  _size(0),
 		  _capacity(0),
 		  _alloc(alloc)
 	{
-		typename iterator::difference_type n = last - first;
+		size_type n = last - first;
 		if (n > 0)
 		{
 			if (n > max_size())
-				throw(std::length_error("Error : vector : length bigger than of std::allocator<T>::max_size() !!"));
+				throw(std::length_error("Error : vector : length greater than std::allocator<T>::max_size() !!"));
 			try { _begin = _alloc.allocate(n); }
-			catch (const std::exception& e) { throw (e); }
+			catch (const std::bad_alloc& e) { throw (e); }
 			_capacity = n;
 			assign(first, last);
 		}
@@ -107,11 +106,10 @@ class vector
 		if (other._size > 0)
 		{
 			try { _begin = _alloc.allocate(other._size); }
-			catch (const std::exception& e) { throw (e); }
+			catch (const std::bad_alloc& e) { throw (e); }
 			_capacity = other._capacity;
-			pointer tmp = _begin;
 			for (size_type i = 0; i < other._size; i++)
-				_alloc.construct(tmp++, other._begin[i]);
+				_alloc.construct(_begin + i, other._begin[i]);
 			_size = other._size;
 		}
 	}
@@ -163,9 +161,8 @@ class vector
 	// clear()
 	void clear()
 	{
-		pointer tmp = _begin;
 		for(size_type i = 0; i < _size; i++)
-			_alloc.destroy(tmp++);
+			_alloc.destroy(_begin + i);
 		_size = 0;
 	}
 
@@ -173,7 +170,7 @@ class vector
 	template <class Iterator>
 	void assign(Iterator first, Iterator last)
 	{
-		typename iterator::difference_type n = last - first;
+		size_type n = last - first;
 		if (n > _capacity)
 			reserve(n);
 		clear();
@@ -207,12 +204,14 @@ class vector
 	{
 		if (n > _capacity)
 		{
+			if (n > max_size())
+				throw(std::length_error("Error : vector : length greater than std::allocator<T>::max_size() !!"));
 			vector tmp(*this);
 			clear();
 			if (_begin != nullptr)
 				_alloc.deallocate(_begin, _capacity);
 			try { _begin = _alloc.allocate(n); }
-			catch(const std::exception& e) { throw(e); }
+			catch(const std::bad_alloc& e) { throw(e); }
 			_capacity = n;
 			assign(tmp.begin(), tmp.end());
 		}
@@ -236,21 +235,112 @@ class vector
 		}
 		else if (n > _size)
 		{
-			if (n > _capacity)
-			{
-				if (n > _capacity * 2)
-					reserve (n);
-				else
-					reserve (_capacity * 2);
-			}
-			pointer tmp = _begin + n;
+			if (n > _capacity * 2)
+				reserve (n);
+			else if (n > _capacity)
+				reserve (_capacity * 2);
 			for (size_type i = _size; i < n; i++)
-			{
-				std::cout << i << " - " << *(tmp - 1) << std::endl;
-				_alloc.construct(tmp++, val);
-			}
+				_alloc.construct(_begin + i, val);
 			_size = n;
 		}
+	}
+
+	// empty()
+	bool empty() const
+	{
+		return (_size == 0);
+	}
+
+	// operator []
+	reference operator[] (size_type n)
+	{
+		return (_begin[n]);
+	}
+	
+	// operator [] // const
+	const_reference operator[] (size_type n) const
+	{
+		return (_begin[n]);
+	}
+
+	// at()
+	reference at (size_type n)
+	{
+		if (n >= _size)
+			throw(std::out_of_range("Error : vector : n out of range !!"));
+		return (_begin[n]);
+	}
+
+	// at() // const
+	const_reference at (size_type n) const
+	{
+		if (n >= _size)
+			throw(std::out_of_range("Error : vector : n out of range !!"));
+		return (_begin[n]);
+	}
+
+	// front()
+	reference front()
+	{
+		return (*_begin);
+	}
+
+	// front() // const
+	const_reference front() const
+	{
+		return (*_begin);
+	}
+
+	// back()
+	reference back()
+	{
+		return(*(_begin + _size - 1));
+	}
+
+	// back() // const
+	const_reference back() const
+	{
+		return(*(_begin + _size - 1));
+	}
+
+	// pop_back()
+	void pop_back()
+	{
+		_alloc.destroy(_begin + _size - 1);
+		if (_size > 0)
+			--_size;
+	}
+
+	// insert() // single element
+	iterator insert (iterator position, const value_type& val)
+	{
+		size_type len = _size - (position - begin());
+		if (_capacity == 0)
+			reserve(1);
+		else if (_size == _capacity)
+			reserve(_capacity * 2);
+		pointer p = _begin + (_size - len);
+		vector tmp(*this);
+		for (int i = 0; i < len; i++)
+			_alloc.destroy(p + i);
+		_alloc.construct(p, val);
+		for (int i = 1; i < len + 1; i++)
+			_alloc.construct(p + i, tmp[(_size - len) + (i - 1)]);
+		_size++;
+		return (iterator(p));
+	}
+
+	// insert() // fill	
+    void insert (iterator position, size_type n, const value_type& val)
+	{
+		
+	}
+
+	// insert() // range	
+	template <class InputIterator>
+    void insert (iterator position, InputIterator first, InputIterator last)
+	{
+			
 	}
 };
 

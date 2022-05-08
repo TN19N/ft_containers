@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:31:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/05/07 13:55:03 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/05/08 13:21:55 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ struct iterator
     typedef typename ft::iterator_traits<iterator_type>::reference			reference;
 	
 	private:
-		pointer m_ptr;
+		iterator_type m_ptr;
 	
 	public:
 	// default constructer
@@ -44,7 +44,8 @@ struct iterator
 	{}
 
 	// copy constructer
-	iterator(const iterator& other) 
+	template <typename Up>
+	iterator(const iterator<Up>& other)
 		: m_ptr(other.base())
 	{}
 
@@ -62,15 +63,15 @@ struct iterator
 	}
 
 	// *a
-	reference operator * () const { return (*this->m_ptr); }
+	reference operator * () const { return (*m_ptr); }
 
 	// a->...
-	pointer operator -> () const { return (this->m_ptr); }
+	pointer operator -> () const { return (m_ptr); }
 
 	// ++a;
 	iterator& operator ++()
 	{
-		++this->m_ptr;
+		++m_ptr;
 		return (*this);
 	}
 	
@@ -109,7 +110,7 @@ struct iterator
 	// a += 5
 	iterator& operator += (difference_type n)
 	{
-		this->m_ptr += n;
+		m_ptr += n;
 		return (*this);
 	}
 
@@ -124,7 +125,7 @@ struct iterator
 	}
 
 	// a[5]
-	reference operator [] (difference_type n) const { return (this->m_ptr[n]); }
+	reference operator [] (difference_type n) const { return (m_ptr[n]); }
 };
 
 // a == b

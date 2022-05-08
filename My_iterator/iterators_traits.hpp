@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 21:15:47 by mannouao          #+#    #+#             */
-/*   Updated: 2022/05/07 15:38:02 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/05/08 13:27:58 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ template<class T>
 struct iterator_traits<const T*>
 {
 	typedef long int							difference_type;
-	typedef T								value_type;
-	typedef T* 									pointer;
-	typedef T&									reference;
+	typedef T									value_type;
+	typedef const T* 									pointer;
+	typedef const T&									reference;
 	typedef std::random_access_iterator_tag		iterator_category;
 };
 

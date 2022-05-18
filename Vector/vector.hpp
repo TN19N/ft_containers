@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 18:01:29 by mannouao          #+#    #+#             */
-/*   Updated: 2022/05/08 18:53:36 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/05/08 19:20:57 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,7 +333,20 @@ class vector
 	// insert() // fill	
     void insert (iterator position, size_type n, const value_type& val)
 	{
-		
+		size_type len = _size - (position - begin());
+		if (n + _capacity > _capacity * 2)
+			reserve(n + _capacity);
+		else if (n + _capacity > _capacity)
+			reserve(_capacity * 2);
+		pointer p = _begin + (_size - len);
+		vector tmp(*this);
+		for (int i = 0; i < len; i++)
+			_alloc.destroy(p + i);
+		for (int i = 0; i < n; i++)
+			_alloc.construct(p + i, val);
+		for (int i = n; i < len + 1; i++)
+			_alloc.construct(p + i, tmp[(_size - len) + (i - n)]);
+		_size += n;
 	}
 
 	// insert() // range	

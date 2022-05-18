@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:59:48 by mannouao          #+#    #+#             */
-/*   Updated: 2022/05/08 18:54:21 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/05/14 10:29:48 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,10 @@
 
 int main()
 {
-	ft::vector<int> vec;
+	ft::vector<std::string> vec(5, "Hello");
 
-	vec.reserve(3);
-	vec.push_back(1);
-	vec.push_back(2);
-	vec.push_back(3);
-	vec.insert(vec.end(), 1337);
-	std::cout << vec.size() << std::endl;
+	vec.insert(vec.end(), 5 , "By");
+
+	for  (int i = 0; i < vec.size(); i++)
+		std::cout << " -- > " <<  vec[i] << std::endl;
 }

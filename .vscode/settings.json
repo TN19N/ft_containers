@@ -1,6 +1,12 @@
 {
 	"makefile.extensionOutputFolder": "./.vscode",
 	"files.associations": {
-		"iterator": "cpp"
+		"iterator": "cpp",
+		"algorithm": "cpp",
+		"__bit_reference": "cpp",
+		"type_traits": "cpp",
+		"__config": "cpp",
+		"cstddef": "cpp",
+		"__cxx_version": "cpp"
 	}
 }

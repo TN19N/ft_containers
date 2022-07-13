@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 18:08:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/04 18:26:09 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/13 18:50:11 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ namespace ft
 		static const _Tp 			value = __v;
 		typedef _Tp					value_type;
 		typedef	integral_constant	type;
-		operator value_type() const { return value; };
+		operator value_type() const { return value; }
 	};
 	typedef ft::integral_constant<bool, true>	true_type; // true_type
 	typedef ft::integral_constant<bool, false>	false_type; // false_type

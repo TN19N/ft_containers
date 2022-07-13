@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 17:05:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/13 17:40:12 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/13 18:57:05 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ namespace ft
 	
 	// __equal_to -------------------------------------------------------------------------------------------------------------------------------------
 	template<typename T1, typename T2>
-	struct __equal_to { bool operator () (const T1& __x, const T2& __y) { return __x == __y; }; };
+	struct __equal_to { bool operator () (const T1& __x, const T2& __y) { return __x == __y; } };
 	// ------------------------------------------------------------------------------------------------------------------------------------------------
 
 	// equal ------------------------------------------------------------------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ namespace ft
 			if(!__pred(*__first1, *__first2))
 				return (false);
 		return (true);
-	};
+	}
 	
 	template<typename _InputIterator1, typename _InputIterator2>
 	bool equal(_InputIterator1 __first1, _InputIterator1 __last1, _InputIterator2 __first2)
@@ -40,12 +40,12 @@ namespace ft
 		typedef typename ft::iterator_traits<_InputIterator2>::value_type __v2;
 
 		return ft::equal(__first1, __last1, __first2, ft::__equal_to<__v1, __v2>());
-	};
+	}
 	// ------------------------------------------------------------------------------------------------------------------------------------------------
 
 	// __less -----------------------------------------------------------------------------------------------------------------------------------------
 	template<typename T1, typename T2>
-	struct __less { bool operator () (const T1& __x, const T2& __y) { return __x < __y; }; };
+	struct __less { bool operator () (const T1& __x, const T2& __y) { return __x < __y; } };
 	// ------------------------------------------------------------------------------------------------------------------------------------------------
 
 	// lexicographical_compare ------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ namespace ft
 				return (false);
 		}
 		return(false);
-	};
+	}
 
 	template<typename _InputIterator1, typename _InputIterator2>
 	bool lexicographical_compare(_InputIterator1 __first1, _InputIterator1 __last1, _InputIterator2 __first2, _InputIterator2 __last2)
@@ -69,7 +69,7 @@ namespace ft
 		typedef typename ft::iterator_traits<_InputIterator2>::value_type __v2;
 
 		return ft::lexicographical_compare(__first1, __last1, __first2, __last2, ft::__less<__v1, __v2>());
-	};
+	}
 	// ------------------------------------------------------------------------------------------------------------------------------------------------
 
 } // ft

@@ -7,6 +7,8 @@
 		"type_traits": "cpp",
 		"__config": "cpp",
 		"cstddef": "cpp",
-		"__cxx_version": "cpp"
+		"__cxx_version": "cpp",
+		"vector": "cpp",
+		"map": "cpp"
 	}
 }

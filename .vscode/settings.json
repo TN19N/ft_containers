@@ -29,6 +29,10 @@
 		"initializer_list": "cpp",
 		"memory": "cpp",
 		"string_view": "cpp",
-		"unordered_map": "cpp"
+		"unordered_map": "cpp",
+		"__node_handle": "cpp",
+		"memory_resource": "cpp",
+		"exception": "cpp",
+		"functional": "cpp"
 	}
 }

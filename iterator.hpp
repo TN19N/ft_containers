@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/14 14:27:14 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/14 16:57:57 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,13 @@ namespace ft
 	ft::reverse_iterator<_Iter> operator + (typename ft::reverse_iterator<_Iter>::difference_type __n, const ft::reverse_iterator<_Iter>& __x)
 	{ return (ft::reverse_iterator<_Iter>(__x.base() - __n)); }
 	// -------------------------------------------------------------------------------------------------------------------------------
+	
+	// reverse_iterator --------------------------------------------------------------------------------------------------------------
+	template<typename _InputIter>
+	typename ft::iterator_traits<_InputIter>::difference_type
+	distance(_InputIter __first, _InputIter __last) { return (__last - __first); }
+	// -------------------------------------------------------------------------------------------------------------------------------
+	
 } // ft
 
 # endif

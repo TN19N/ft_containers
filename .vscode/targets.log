@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Thu Jul 14 09:34:25 2022
+# Make data base, printed on Thu Jul 14 14:08:15 2022
 
 # Variables
 
@@ -16,6 +16,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
+ 
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # automatic
@@ -145,7 +146,6 @@ LANG = C
 # environment
 VSCODE_PID = 70046
 # variable set hash-table stats:
- 
 # Load=66/1024=6%, Rehash=0, Collisions=1/92=1%
 
 # Pattern-specific Variable Values
@@ -154,9 +154,9 @@ VSCODE_PID = 70046
 
 # Directories
 
-# . (device 16777227, inode 6462681): 11 files, no impossibilities.
+# . (device 16777227, inode 6462681): 12 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -190,7 +190,7 @@ all:
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/10=10%
 #  commands to execute (from `Makefile', line 14):
-	c++ -std=c++98 -Wall -Wextra -Werror main.cpp -o run
+	c++ -std=c++11 -Wall -Wextra -Werror main.cpp -o run
 	
 
 # Not a target:
@@ -202,7 +202,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-14 09:34:24
+#  Last modified 2022-07-14 14:08:08
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -235,6 +235,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Jul 14 09:34:25 2022
+# Finished Make data base on Thu Jul 14 14:08:15 2022
 
  

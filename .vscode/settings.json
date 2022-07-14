@@ -21,6 +21,14 @@
 		"ostream": "cpp",
 		"sstream": "cpp",
 		"span": "cpp",
-		"stdexcept": "cpp"
+		"stdexcept": "cpp",
+		"__hash_table": "cpp",
+		"__split_buffer": "cpp",
+		"__tree": "cpp",
+		"array": "cpp",
+		"initializer_list": "cpp",
+		"memory": "cpp",
+		"string_view": "cpp",
+		"unordered_map": "cpp"
 	}
 }

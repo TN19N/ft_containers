@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/14 10:16:59 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/14 14:33:40 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 #include <algorithm>
 #include "algorithm.hpp"
 
-# include "iterator.hpp"
+#include <iterator>
+#include "iterator.hpp"
 
 #include <vector>
+#include "vector.hpp"
 
 int main()
 {
-	std::vector<int> v;
 }

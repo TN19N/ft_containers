@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/14 10:03:08 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/14 11:49:09 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 namespace ft
 {
 
-	// iterator_traits ---------------------------------------------------------------------------------
+	// iterator_traits ---------------------------------------------------------------------------------------------------------------
 	template<typename _Tp>
 	struct iterator_traits
 	{
@@ -38,9 +38,22 @@ namespace ft
 		typedef _Tp& 								reference;
 		typedef std::random_access_iterator_tag 	iterator_category;
 	};
-	// -------------------------------------------------------------------------------------------------
+	// -------------------------------------------------------------------------------------------------------------------------------
 
-	// __wrap_iter -------------------------------------------------------------------------------------
+	// iterator ----------------------------------------------------------------------------------------------------------------------
+	template <typename _Category, typename _Tp, typename _Distance = ptrdiff_t,
+	          typename _Pointer = _Tp*, typename _Reference = _Tp&>
+	struct iterator
+	{
+		typedef _Tp			value_type;
+		typedef _Distance	difference_type;
+		typedef _Pointer	pointer;
+		typedef _Reference	reference;
+		typedef _Category	iterator_category; 
+	};
+	// -------------------------------------------------------------------------------------------------------------------------------
+
+	// __wrap_iter -------------------------------------------------------------------------------------------------------------------
 	template<typename _Iter>
 	class __wrap_iter
 	{
@@ -103,8 +116,48 @@ namespace ft
 	template<typename _Iter>
 	__wrap_iter<_Iter> operator + (typename ft::__wrap_iter<_Iter>::difference_type __n, const ft::__wrap_iter<_Iter> __x)
 	{ __x += __n; return (__x); }
-	// -------------------------------------------------------------------------------------------------
+	// -------------------------------------------------------------------------------------------------------------------------------
 
+	// reverse_iterator --------------------------------------------------------------------------------------------------------------
+	template<typename _Iter>
+	class reverse_iterator 
+		: public ft::iterator<typename ft::iterator_traits<_Iter>::iterator_category,
+							  typename ft::iterator_traits<_Iter>::value_type,
+							  typename ft::iterator_traits<_Iter>::difference_type,
+							  typename ft::iterator_traits<_Iter>::pointer,
+							  typename ft::iterator_traits<_Iter>::reference>
+	{
+	protected:
+		_Iter current;
+	public:
+		typedef _Iter	iterator_type;
+
+		reverse_iterator () : current() {}
+		explicit reverse_iterator (_Iter __x) : current(__x) {}
+		template<typename _Up> reverse_iterator (const reverse_iterator<_Up>& __u) : current(__u.base()) {}
+		template<typename _Up> operator = (const reverse_iterator<_Up>& __u) { current = __u.base(); return (*this); } 
+		
+		_Iter base() const { return (current); }
+
+		reference			operator *  () const { _Iter __tmp = current; return (*--tmp); }
+		pointer				operator -> () const { return (&operator*()); }
+		reverse_iterator&	operator ++ () { --current; return (*this); }
+		reverse_iterator	operator ++ (int) { reverse_iterator __tmp(*this); --current; return (__tmp); }
+		reverse_iterator&	operator -- () { ++current; return (*this); }
+		reverse_iterator	operator -- (int) { reverse_iterator __tmp(*this); ++current; return (__tmp); }
+		reverse_iterator	operator +  (difference_type __n) const { return (reverse_iterator(current - __n)); }
+		reverse_iterator&	operator += (difference_type __n) { current -= __n; return (*this); }
+		reverse_iterator	operator -  (difference_type __n) const { return (reverse_iterator(current + __n)); }
+		reverse_iterator&	operator -= (difference_type __n) { current += __n; return (*this); }
+		reference			operator [] (difference_type __n) { return(current[__n]); }
+	};
+	template<typename _Iter1, typename _Iter2>
+	bool operator == (const ft::reverse_iterator<_Iter1>& __x, const ft::reverse_iterator<_Iter2>& __y)
+	{ return (__x.base() == __y.base()); }
+
+	template<typename _Iter1, typename _Iter2>
+	bool 
+	// -------------------------------------------------------------------------------------------------------------------------------
 } // ft
 
 # endif

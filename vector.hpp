@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/14 10:16:59 by mannouao         ###   ########.fr       */
+/*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
+/*   Updated: 2022/07/14 10:27:58 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+# ifndef VECTOR_HPP
+# define VECTOR_HPP
 
-#include <type_traits>
-#include "type_traits.hpp"
+# include "type_traits.hpp"
+# include "algorithm.hpp"
 
-#include <algorithm>
-#include "algorithm.hpp"
-
-# include "iterator.hpp"
-
-#include <vector>
-
-int main()
+namespace ft
 {
-	std::vector<int> v;
-}
+
+	template<typename _Tp, typename _Allocater = std::allocator<_Tp> >
+	class vector
+	{
+		
+	}
+	
+} // ft
+
+# endif

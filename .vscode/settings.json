@@ -33,6 +33,7 @@
 		"__node_handle": "cpp",
 		"memory_resource": "cpp",
 		"exception": "cpp",
-		"functional": "cpp"
+		"functional": "cpp",
+		"utility": "cpp"
 	}
 }

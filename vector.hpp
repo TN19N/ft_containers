@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/14 17:04:03 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/14 18:00:16 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ namespace ft
 				__n > max_size() && std::__throw_length_error("vector");
 				try { __begin_ = __end_ = __alloc_.allocate(__n) } catch (const std::bad_alloc& e) { throw (e); }
 				__capacity_ = __n;
-				for (size_type i = 0; i < __n; ++i)
-					__alloc_.construct(__begin_ + i, val);
+				while (--__n >= 0)
+					__alloc_.construct(__end_++, val);
 			}
 		}
 
@@ -73,20 +73,45 @@ namespace ft
 				__n > max_size() && std::__throw_length_error("vector");
 				try { __begin_ = __end_ = __alloc_.allocate(__n) } catch (const std::bad_alloc& e) { throw (e); }
 				__capacity_ = __n;
+				for (; first != secend; ++first)
+					__alloc_.construct(__end_++, *first);
 			}
 		}
 
 		reverse_iterator		rbegin()		{ return (reverse_iterator(end())); }
 		const_reverse_iterator	rbegin() const	{ return (const_reverse_iterator(end())); }
 		reverse_iterator		rend()			{ return (reverse_iterator(begin())); }
-		const_reverse_iterator	rend()	const	{ return (const_reverse_iterator(begin())); }
+		const_reverse_iterator	rend()   const	{ return (const_reverse_iterator(begin())); }
 		iterator				begin()			{ return (iterator(__begin_)); }
-		const_iterator			begin() const	{ return (const_iterator(__begin_)); }
+		const_iterator			begin()  const	{ return (const_iterator(__begin_)); }
 		iterator				end()			{ return (iterator(__end_)); }
-		const_iterator			end() const		{ return (const_iterator(__end_)); }
+		const_iterator			end()    const	{ return (const_iterator(__end_)); }
 
-		size_type	max_size() const { return (__alloc_.max_size()); }
-		size_type	capacity() const { return (__capacity_); }
+		size_type	max_size() 	const { return (__alloc_.max_size()); }
+		size_type	capacity() 	const { return (__capacity_); }
+		size_type	size() 		const { return (static_cast<size_type>(ft::distance(__begin_, __end_))); }
+
+		void push_back(const value_type& val)
+		{
+			__capacity_ == 1 && reserve(1);
+			__capacity_ == size() && reserve(__capacity_ * 2);
+			__alloc_.construct(__end_++, val);
+		}
+
+		void reserve(size_type __n)
+		{
+			if (__n > __capacity_)
+			{
+				__n > max_size() && std::__throw_length_error("vector");
+				ft::vector __tmp(*this);
+				if (__begin_ != NULL)
+					__alloc_.deallocate(__alloc_, __capacity_);
+				try { __begin_ = __end_ = __alloc_.allocate(__n) } catch (const std::bad_alloc& e) { throw (e); }
+				__capacity_ = __n;
+				for (size_type i = 0; i < __tmp.size(); ++i)
+					__alloc_.construct(__end_++, __tmp[i]);
+			}
+		}
 
 	private:
 		pointer			__begin_;

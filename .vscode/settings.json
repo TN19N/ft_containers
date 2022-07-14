@@ -9,6 +9,17 @@
 		"cstddef": "cpp",
 		"__cxx_version": "cpp",
 		"vector": "cpp",
-		"map": "cpp"
+		"map": "cpp",
+		"__locale": "cpp",
+		"__string": "cpp",
+		"bitset": "cpp",
+		"chrono": "cpp",
+		"string": "cpp",
+		"iosfwd": "cpp",
+		"istream": "cpp",
+		"locale": "cpp",
+		"ostream": "cpp",
+		"sstream": "cpp",
+		"span": "cpp"
 	}
 }

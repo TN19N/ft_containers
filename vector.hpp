@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/15 10:29:59 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/15 10:40:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ namespace ft
 
 		void push_back(const value_type& val)
 		{
-			if (__capacity_ == 1) reserve(1);
+			if (__capacity_ == 0) reserve(1);
 			else if (__capacity_ == size()) reserve(__capacity_ * 2);
 			__alloc_.construct(__end_++, val);
 		}

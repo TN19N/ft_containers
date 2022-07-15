@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/14 16:57:57 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/15 11:29:54 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ namespace ft
 		reference		operator [] (difference_type __n) const { return (__i[__n]); }
 
 		iterator_type base() const { return (__i); }
+
+	private:
+		__wrap_iter(iterator_type __x) : __i(__x) {}
+		
+		template<typename _Tp, typename _Alloc> friend class vector;
 	};
 
 	template<typename _Iter1, typename _Iter2>
@@ -114,7 +119,7 @@ namespace ft
 	{ return (__x.base() - __y.base()); }
 
 	template<typename _Iter>
-	__wrap_iter<_Iter> operator + (typename ft::__wrap_iter<_Iter>::difference_type __n, const ft::__wrap_iter<_Iter> __x)
+	__wrap_iter<_Iter> operator + (typename ft::__wrap_iter<_Iter>::difference_type __n, ft::__wrap_iter<_Iter> __x)
 	{ __x += __n; return (__x); }
 	// -------------------------------------------------------------------------------------------------------------------------------
 
@@ -180,7 +185,7 @@ namespace ft
 	{ return (__x.base() >= __y.base()); }
 
 	template<typename _Iter1, typename _Iter2>
-	typename ft::reverse_iterator<_Iter1>::differnece_type
+	typename ft::reverse_iterator<_Iter1>::difference_type
 	operator - (const ft::reverse_iterator<_Iter1>& __x, const ft::reverse_iterator<_Iter2>& __y)
 	{ return (__y.base() - __x.base()); }
 

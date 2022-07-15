@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/15 10:30:53 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/15 11:25:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@
 
 int main()
 {
-	ft::vector<int> v(10);
+	ft::vector<int> v;
 
-	std::cout << "size : " << v.size() << ", capacity : " << v.capacity() << std::endl;
+	v.push_back(1337);
+	v.push_back(42);
 
-	v.reserve(100);
-	std::cout << "size : " << v.size() << ", capacity : " << v.capacity() << std::endl;
+	ft::vector<int>::reverse_iterator iter1 = v.rbegin();
+	ft::vector<int>::reverse_iterator iter2 = v.rend();
+
+	std::cout << " => " << (iter2 - iter1) << std::endl;
 }

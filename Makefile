@@ -6,11 +6,11 @@
 #    By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/01 17:37:59 by mannouao          #+#    #+#              #
-#    Updated: 2022/07/14 14:08:08 by mannouao         ###   ########.fr        #
+#    Updated: 2022/07/15 10:00:05 by mannouao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 all :
-	c++ -std=c++11 -Wall -Wextra -Werror main.cpp -o run
+	c++ -std=c++98 -Wall -Wextra -Werror main.cpp -o run
 clean :
 	rm run

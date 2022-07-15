@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/15 09:43:21 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/15 09:59:50 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ namespace ft
 			if (__n > 0)
 			{
 				__n > max_size() && std::__throw_length_error("vector");
-				try { __begin_ = __end_ = __alloc_.allocate(__n) } catch (const std::bad_alloc& e) { throw (e); }
+				try { __begin_ = __end_ = __alloc_.allocate(__n); } catch (const std::bad_alloc& e) { throw (e); }
 				__capacity_ = __n;
 				while (--__n >= 0)
 					__alloc_.construct(__end_++, val);
@@ -71,7 +71,7 @@ namespace ft
 			if (__n > 0)
 			{
 				__n > max_size() && std::__throw_length_error("vector");
-				try { __begin_ = __end_ = __alloc_.allocate(__n) } catch (const std::bad_alloc& e) { throw (e); }
+				try { __begin_ = __end_ = __alloc_.allocate(__n); } catch (const std::bad_alloc& e) { throw (e); }
 				__capacity_ = __n;
 				for (; first != secend; ++first)
 					__alloc_.construct(__end_++, *first);
@@ -91,6 +91,14 @@ namespace ft
 		size_type	capacity() 	const { return (__capacity_); }
 		size_type	size() 		const { return (static_cast<size_type>(ft::distance(__begin_, __end_))); }
 
+		void clear()
+		{
+			pointer __tmp = __begin_;
+			for (; __begin_ != __end_ ; ++__begin_)
+				__alloc_.destroy(__begin_);
+			__begin_ = __end_ = __tmp;
+		}
+
 		void push_back(const value_type& val)
 		{
 			if (__capacity_ == 1) reserve(1);
@@ -103,15 +111,20 @@ namespace ft
 			if (__n > __capacity_)
 			{
 				__n > max_size() && std::__throw_length_error("vector");
-				ft::vector __tmp(*this);
+				vector __tmp(*this);
 				if (__begin_ != NULL)
 					__alloc_.deallocate(__alloc_, __capacity_);
-				try { __begin_ = __end_ = __alloc_.allocate(__n) } catch (const std::bad_alloc& e) { throw (e); }
+				try { __begin_ = __end_ = __alloc_.allocate(__n); } catch (const std::bad_alloc& e) { throw (e); }
 				__capacity_ = __n;
 				for (size_type i = 0; i < __tmp.size(); ++i)
 					__alloc_.construct(__end_++, __tmp[i]);
 			}
 		}
+
+		reference front() { return (*__begin_); }
+		const_reference front() const { return (*__begin_); }
+		reference back() { return (*(__begin_ + size())); }
+		const_reference back() const { return (*(__begin_ + size())); }
 
 	private:
 		pointer			__begin_;

@@ -1,5 +1,5 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/mannouao/Desktop/containers'
-c++ -std=c++11 -Wall -Wextra -Werror main.cpp -o run
+c++ -std=c++98 -Wall -Wextra -Werror main.cpp -o run
 make: Leaving directory `/Users/mannouao/Desktop/containers'
  

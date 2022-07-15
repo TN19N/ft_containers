@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/14 17:32:31 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/15 10:30:53 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,10 @@
 
 int main()
 {
-	std::vector<int> v;
+	ft::vector<int> v(10);
+
+	std::cout << "size : " << v.size() << ", capacity : " << v.capacity() << std::endl;
+
+	v.reserve(100);
+	std::cout << "size : " << v.size() << ", capacity : " << v.capacity() << std::endl;
 }

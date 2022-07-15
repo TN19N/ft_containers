@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/15 11:29:54 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/15 11:32:15 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ namespace ft
 		reverse_iterator&	operator += (difference_type __n) { current -= __n; return (*this); }
 		reverse_iterator	operator -  (difference_type __n) const { return (reverse_iterator(current + __n)); }
 		reverse_iterator&	operator -= (difference_type __n) { current += __n; return (*this); }
-		reference			operator [] (difference_type __n) { return(current[__n]); }
+		reference			operator [] (difference_type __n) { return *(*this + __n); }
 	};
 	template<typename _Iter1, typename _Iter2>
 	bool operator == (const ft::reverse_iterator<_Iter1>& __x, const ft::reverse_iterator<_Iter2>& __y)

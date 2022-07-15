@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/15 11:25:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:16:14 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@
 #include <vector>
 #include "vector.hpp"
 
+struct A
+{
+	A()  { std::cout << "A()" << std::endl; };
+	~A() { std::cout << "~A()" << std::endl; }
+
+};
+std::ostream& operator << (std::ostream& _cout , const A& a) { (void)a; _cout << "_:)_"; return(_cout); }
+
+
 int main()
 {
-	ft::vector<int> v;
-
-	v.push_back(1337);
-	v.push_back(42);
-
-	ft::vector<int>::reverse_iterator iter1 = v.rbegin();
-	ft::vector<int>::reverse_iterator iter2 = v.rend();
-
-	std::cout << " => " << (iter2 - iter1) << std::endl;
+	ft::vector<A> v(3);
+	std::cout << " -------------------------- " << std::endl;
+	std::cout << " -------------------------- " << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/15 10:40:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:14:59 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,34 @@ namespace ft
 				if(__n > max_size()) std::__throw_length_error("vector");
 				try { __begin_ = __end_ = __alloc_.allocate(__n); } catch (const std::bad_alloc& e) { throw (e); }
 				__capacity_ = __n;
-				for (; first != secend; ++first)
+				for (; first != secend ; ++first)
 					__alloc_.construct(__end_++, *first);
 			}
 		}
+
+		vector(const vector& other)
+			: __begin_(NULL),
+			  __end_(NULL),
+			  __capacity_(0),
+			  __alloc_(other.get_allocator())
+		{
+			if (other.size() > 0)
+			{
+				try { __begin_ = __end_ = __alloc_.allocate(other.size()); } catch (const std::bad_alloc& e) { throw (e); }
+				__capacity_ = other.capacity();
+				for (size_type i = 0; i < other.size(); ++i)
+					__alloc_.construct(__end_++, other[i]);
+			}
+		}
+
+		vector& operator = (const vector& other)
+		{
+			if (this != &other)
+				assing(other.begin(), other.end());
+			return (*this);
+		}
+
+		~vector() { clear(); if(__begin_) __alloc_.deallocate(__begin_, __capacity_); }
 
 		reverse_iterator		rbegin()		{ return (reverse_iterator(end())); }
 		const_reverse_iterator	rbegin() const	{ return (const_reverse_iterator(end())); }
@@ -87,10 +111,11 @@ namespace ft
 		iterator				end()			{ return (iterator(__end_)); }
 		const_iterator			end()    const	{ return (const_iterator(__end_)); }
 
-		size_type	max_size() 	const { return (__alloc_.max_size()); }
-		size_type	capacity() 	const { return (__capacity_); }
-		size_type	size() 		const { return (static_cast<size_type>(ft::distance(__begin_, __end_))); }
-		bool		empty()		const { return (size() == 0); };
+		size_type		max_size() 		const { return (__alloc_.max_size()); }
+		size_type		capacity() 		const { return (__capacity_); }
+		size_type		size() 			const { return (static_cast<size_type>(ft::distance(__begin_, __end_))); }
+		bool			empty()			const { return (size() == 0); };
+		allocater_type	get_allocator() const { return(__alloc_); }
 
 		void clear()
 		{
@@ -122,10 +147,30 @@ namespace ft
 			}
 		}
 
+		template<typename _Iter>
+		void assign(_Iter _first, _Iter _last)
+		{
+			size_type __n = static_cast<size_type>(ft::distance(_first, _last));
+			clear();
+			if(__n > __capacity_)
+				reserve(__n);
+			for (; _first != _last; ++_first)
+				__alloc_.construct(__end_++, *_first);
+		}
+
+		void assign(size_type __n, const value_type& val)
+		{
+			clear();
+			if (__n > __capacity_)
+				reserve(__n);
+			while (__n-- > 0)
+				__alloc_.construct(__end_++, val);
+		}
+
 		reference front() { return (*__begin_); }
 		const_reference front() const { return (*__begin_); }
-		reference back() { return (*(__begin_ + size())); }
-		const_reference back() const { return (*(__begin_ + size())); }
+		reference back() { return (*(__end_ - 1)); }
+		const_reference back() const { return (*(__end_ - 1)); }
 
 
 		reference operator [] (size_type __n) { return (__begin_[__n]); }

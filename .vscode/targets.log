@@ -6,12 +6,12 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Fri Jul 15 10:00:27 2022
+# Make data base, printed on Fri Jul 15 16:06:38 2022
 
 # Variables
 
+ 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -32,13 +32,12 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 _ = /usr/bin/make
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
- 
 # environment
 P9K_SSH = 0
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.xCQ8Avntfs/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.43uOTv5QZf/Render
 # environment
 PATH = /Users/mannouao/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # environment
@@ -48,7 +47,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.EwjpkG979C/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.DL96vvRVLk/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -114,7 +113,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000004.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000001.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -144,7 +143,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 75571
+VSCODE_PID = 9021
 # variable set hash-table stats:
 # Load=66/1024=6%, Rehash=0, Collisions=1/92=1%
 
@@ -154,7 +153,6 @@ VSCODE_PID = 75571
 
 # Directories
 
- 
 # . (device 16777227, inode 6462681): 12 files, no impossibilities.
 
 # 12 files, no impossibilities in 1 directories.
@@ -203,7 +201,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-15 10:00:06
+#  Last modified 2022-07-15 14:44:09
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -236,6 +234,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Jul 15 10:00:27 2022
+# Finished Make data base on Fri Jul 15 16:06:38 2022
 
  

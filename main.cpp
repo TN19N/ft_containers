@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/15 18:36:21 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/16 11:23:57 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,17 @@
 #include <vector>
 #include "vector.hpp"
 
-struct A
-{
-	A(const A& a) {(void)a; std::cout << "A(A& a)" << std::endl; }
-	A()  { std::cout << "A()" << std::endl; };
-	~A() { std::cout << "~A()" << std::endl; }
-};
-std::ostream& operator << (std::ostream& _cout , const A& a) { (void)a; _cout << "_:)_"; return(_cout); }
-
 int main()
 {
-	ft::vector<A> a(2, A());
-	
-	std::cout << " ------------------------- " << std::endl;
-	
-	a.reserve(10);
 
-	std::cout << " -------------------------- " << std::endl;
+	ft::vector<int> v;
+
+	v.push_back(1337);
+	v.push_back(1337);
+
+	v.insert(v.begin() + 1, 0, 42);
+
+	std::cout << "size : " << v.size() << ", cap : " << v.capacity() << std::endl;
+	for (size_t i = 0; i < v.size(); ++i)
+		std::cout << "=> " << v[i] << std::endl;
 }

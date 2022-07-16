@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/15 18:38:18 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/16 11:22:45 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ namespace ft
 		vector& operator = (const vector& other)
 		{
 			if (this != &other)
-				assing(other.begin(), other.end());
+				assign(other.begin(), other.end());
 			return (*this);
 		}
 
@@ -132,6 +132,12 @@ namespace ft
 			__alloc_.construct(__end_++, val);
 		}
 
+		void pop_back()
+		{
+			if(!empty())
+				__alloc_.destroy(--__end_);
+		}
+
 		void reserve(size_type __n)
 		{
 			if (__n > __capacity_)
@@ -144,6 +150,29 @@ namespace ft
 				__capacity_ = __n;
 				for (size_type i = 0; i < __tmp.size(); ++i)
 					__alloc_.construct(__end_++, __tmp[i]);
+			}
+		}
+
+		void resize(size_type __n, value_type val = value_type())
+		{
+			size_type __cs = size();
+			(void)val;
+
+			if (__n < __cs)
+			{
+				pointer __tmp = __begin_ + __n;
+				__end_ = __tmp;
+				for (size_type i = __n; i < __cs; ++i)
+					__alloc_.destroy(__tmp++);
+			}
+			else if (__n > __cs)
+			{
+				if (__n > __capacity_ * 2)
+					reserve(__n);
+				else if (__n > __capacity_)
+					reserve(__capacity_ * 2);
+				for (size_type i = size(); i < __n; ++i)
+					__alloc_.construct(__end_++, val);
 			}
 		}
 
@@ -177,6 +206,37 @@ namespace ft
 		const_reference operator [] (size_type __n) const { return (__begin_[__n]); }
 		reference at(size_type __n) { if(__n >= size()) std::__throw_out_of_range("vector"); return (__begin_[__n]); }
 		const_reference at(size_type __n) const { if(__n >= size()) std::__throw_out_of_range("vector"); return (__begin_[__n]); }
+
+		iterator insert(iterator __pos, const value_type& val)
+		{
+			size_type __len = ft::distance(begin(), __pos);
+			if(__capacity_ == 0) reserve(1);
+			else if (size() == __capacity_) reserve(__capacity_ * 2);
+			__pos = begin() + __len;
+			vector __tmp(__pos, end());
+			for (iterator __tp = __pos; __tp != end(); ++__tp)
+				__alloc_.destroy(__tp.base());
+			__alloc_.construct(__pos.base(), val);
+			for (size_type i = 0; i < __tmp.size(); ++i)
+				__alloc_.construct(__pos.base() + i + 1, __tmp[i]);
+			++__end_;
+			return(__pos);
+		}
+
+		void insert(iterator __pos, size_type __n, const value_type& val)
+		{
+			size_type __len = ft::distance(begin(), __pos);
+			if(__n + __capacity_ > __capacity_ * 2) reserve(__n + __capacity_);
+			else if (__n + __capacity_ > __capacity_) reserve(__capacity_ * 2);
+			__pos = begin() + __len;
+			vector __tmp(__pos, end());
+			for (iterator __tp = __pos; __tp != end(); ++__tp)
+				__alloc_.destroy(__tp.base());
+			for (size_type i = 0; i < __n; ++i, ++__end_)
+				__alloc_.construct(__pos.base() + i, val);
+			for (size_type i = 0; i < __tmp.size(); ++i)
+				__alloc_.construct(__pos.base() + i + __n, __tmp[i]);
+		}
 		
 	private:
 		pointer			__begin_;

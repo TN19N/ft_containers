@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/16 16:37:03 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/16 18:16:12 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,68 @@ namespace ft
 			for (size_type i = 0; i < __tmp.size(); ++i)
 				__alloc_.construct(__pos.base() + i + __n, __tmp[i]);
 		}
+
+		template<typename _Iter>
+		void insert(iterator __pos, _Iter __first, _Iter __last)
+		{
+			size_type __len = ft::distance(begin(), __pos);
+			size_type __n = ft::distance(__first, __last);
+			if(__n + size() > __capacity_ * 2) reserve(__n + __capacity_);
+			else if (__n + size() > __capacity_) reserve(__capacity_ * 2);
+			__pos = begin() + __len;
+			vector __tmp(__pos, end());
+			for (iterator __tp = __pos; __tp != end(); ++__tp)
+				__alloc_.destroy(__tp.base());
+			for (size_type i = 0; i < __n; ++i, ++__end_, ++__first)
+				__alloc_.construct(__pos.base() + i, *__first);
+			for (size_type i = 0; i < __tmp.size(); ++i)
+				__alloc_.construct(__pos.base() + i + __n, __tmp[i]);
+		}
+
+		iterator erase(iterator __pos)
+		{
+			vector __tmp(__pos + 1, end());
+			for (iterator __tp = __pos; __tp != end(); ++__tp)
+				__alloc_.destroy(__tp.base());
+			__end_--;
+			for (size_type i = 0; i < __tmp.size(); ++i)
+				__alloc_.construct(__pos.base() + i, __tmp[i]);
+			return (__pos);
+		}
+
+		iterator erase(iterator __first, iterator __last)
+		{
+			vector __tmp(__last, end());
+			for (iterator __tp = __first; __tp != end(); ++__tp)
+				__alloc_.destroy(__tp.base());
+			__end_ -= ft::distance(__first, __last);
+			for (size_type i = 0; i < __tmp.size(); ++i)
+				__alloc_.construct(__first.base() + i, __tmp[i]);
+			return (__first);
+		}
+
+		void swap(vector& __x)
+		{
+			pointer 		__p_tmp;
+			size_type 		__c_tmp;
+			allocater_type	__a_tmp;
+
+			__p_tmp = __begin_;
+			__begin_ = __x.__begin_;
+			__x.__begin_ = __p_tmp;
+
+			__p_tmp = __end_;
+			__end_ = __x.__end_;
+			__x.__end_ = __p_tmp;
+
+			__c_tmp = __capacity_;
+			__capacity_ = __x.__capacity_;
+			__x.__capacity_ = __c_tmp;
+
+			__a_tmp = __alloc_;
+			__alloc_ = __x.__alloc_;
+			__x.__alloc_ = __a_tmp;
+		}
 		
 	private:
 		pointer			__begin_;
@@ -244,6 +306,34 @@ namespace ft
 		size_type		__capacity_;
 		allocater_type	__alloc_;
 	};
+
+	template<typename _Tp, typename _Allocater>
+	bool operator == (const ft::vector<_Tp, _Allocater>& __x, const ft::vector<_Tp, _Allocater>& __y)
+	{ return __x.size() == __y.size() && ft::equal(__x.begin(), __x.end(), __y.begin()); }
+
+	template<typename _Tp, typename _Allocater>
+	bool operator != (const ft::vector<_Tp, _Allocater>& __x, const ft::vector<_Tp, _Allocater>& __y)
+	{ return !(__x == __y); }
+
+	template<typename _Tp, typename _Allocater>
+	bool operator < (const ft::vector<_Tp, _Allocater>& __x, const ft::vector<_Tp, _Allocater>& __y)
+	{ return ft::lexicographical_compare(__x.begin(), __x.end(), __y.begin(), __y.end()); }
+
+	template<typename _Tp, typename _Allocater>
+	bool operator <= (const ft::vector<_Tp, _Allocater>& __x, const ft::vector<_Tp, _Allocater>& __y)
+	{ return !(__y < __x); }
+
+	template<typename _Tp, typename _Allocater>
+	bool operator > (const ft::vector<_Tp, _Allocater>& __x, const ft::vector<_Tp, _Allocater>& __y)
+	{ return (__y < __x); }
+
+	template<typename _Tp, typename _Allocater>
+	bool operator >= (const ft::vector<_Tp, _Allocater>& __x, const ft::vector<_Tp, _Allocater>& __y)
+	{ return !(__x < __y); }
+
+	template<typename _Tp, typename _Allocater>
+	void swap (ft::vector<_Tp, _Allocater>& __x, ft::vector<_Tp, _Allocater>& __y)
+	{ __x.swap(__y); }
 	
 } // ft
 

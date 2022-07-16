@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/15 11:32:15 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/16 18:05:56 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,19 @@ namespace ft
 	struct iterator_traits <_Tp *>
 	{
 		typedef ptrdiff_t							difference_type;
-		typedef ft::remove_cv<_Tp>					value_type;
+		typedef _Tp									value_type;
 		typedef _Tp* 								pointer;
 		typedef _Tp& 								reference;
+		typedef std::random_access_iterator_tag 	iterator_category;
+	};
+
+	template<typename _Tp>
+	struct iterator_traits <const _Tp *>
+	{
+		typedef ptrdiff_t							difference_type;
+		typedef _Tp									value_type;
+		typedef const _Tp* 								pointer;
+		typedef const _Tp& 								reference;
 		typedef std::random_access_iterator_tag 	iterator_category;
 	};
 	// -------------------------------------------------------------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/16 11:22:45 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/16 16:37:03 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,8 +226,8 @@ namespace ft
 		void insert(iterator __pos, size_type __n, const value_type& val)
 		{
 			size_type __len = ft::distance(begin(), __pos);
-			if(__n + __capacity_ > __capacity_ * 2) reserve(__n + __capacity_);
-			else if (__n + __capacity_ > __capacity_) reserve(__capacity_ * 2);
+			if(__n + size() > __capacity_ * 2) reserve(__n + __capacity_);
+			else if (__n + size() > __capacity_) reserve(__capacity_ * 2);
 			__pos = begin() + __len;
 			vector __tmp(__pos, end());
 			for (iterator __tp = __pos; __tp != end(); ++__tp)

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/16 18:16:12 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/17 12:57:13 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,70 +210,47 @@ namespace ft
 		iterator insert(iterator __pos, const value_type& val)
 		{
 			size_type __len = ft::distance(begin(), __pos);
-			if(__capacity_ == 0) reserve(1);
-			else if (size() == __capacity_) reserve(__capacity_ * 2);
+			insert(__pos, 1, val);
 			__pos = begin() + __len;
-			vector __tmp(__pos, end());
-			for (iterator __tp = __pos; __tp != end(); ++__tp)
-				__alloc_.destroy(__tp.base());
-			__alloc_.construct(__pos.base(), val);
-			for (size_type i = 0; i < __tmp.size(); ++i)
-				__alloc_.construct(__pos.base() + i + 1, __tmp[i]);
-			++__end_;
 			return(__pos);
 		}
 
 		void insert(iterator __pos, size_type __n, const value_type& val)
 		{
-			size_type __len = ft::distance(begin(), __pos);
+			size_type __len = static_cast<size_type>(ft::distance(begin(), __pos));
 			if(__n + size() > __capacity_ * 2) reserve(__n + __capacity_);
 			else if (__n + size() > __capacity_) reserve(__capacity_ * 2);
 			__pos = begin() + __len;
-			vector __tmp(__pos, end());
-			for (iterator __tp = __pos; __tp != end(); ++__tp)
-				__alloc_.destroy(__tp.base());
+			for (iterator __tp = end(); __tp != __pos; --__tp)
+				__alloc_.construct(__tp.base() + __n - 1, *(__tp - 1));
 			for (size_type i = 0; i < __n; ++i, ++__end_)
 				__alloc_.construct(__pos.base() + i, val);
-			for (size_type i = 0; i < __tmp.size(); ++i)
-				__alloc_.construct(__pos.base() + i + __n, __tmp[i]);
 		}
 
 		template<typename _Iter>
 		void insert(iterator __pos, _Iter __first, _Iter __last)
 		{
-			size_type __len = ft::distance(begin(), __pos);
-			size_type __n = ft::distance(__first, __last);
+			size_type __len = static_cast<size_type>(ft::distance(begin(), __pos));
+			size_type __n = static_cast<size_type>(ft::distance(__first, __last));
 			if(__n + size() > __capacity_ * 2) reserve(__n + __capacity_);
 			else if (__n + size() > __capacity_) reserve(__capacity_ * 2);
 			__pos = begin() + __len;
-			vector __tmp(__pos, end());
-			for (iterator __tp = __pos; __tp != end(); ++__tp)
-				__alloc_.destroy(__tp.base());
+			for (iterator __tp = end(); __tp != __pos; --__tp)
+				__alloc_.construct(__tp.base() + __n - 1, *(__tp - 1));
 			for (size_type i = 0; i < __n; ++i, ++__end_, ++__first)
 				__alloc_.construct(__pos.base() + i, *__first);
-			for (size_type i = 0; i < __tmp.size(); ++i)
-				__alloc_.construct(__pos.base() + i + __n, __tmp[i]);
 		}
 
-		iterator erase(iterator __pos)
-		{
-			vector __tmp(__pos + 1, end());
-			for (iterator __tp = __pos; __tp != end(); ++__tp)
-				__alloc_.destroy(__tp.base());
-			__end_--;
-			for (size_type i = 0; i < __tmp.size(); ++i)
-				__alloc_.construct(__pos.base() + i, __tmp[i]);
-			return (__pos);
-		}
+		iterator erase(iterator __pos) { return (erase(__pos, __pos + 1)); }
 
 		iterator erase(iterator __first, iterator __last)
 		{
-			vector __tmp(__last, end());
-			for (iterator __tp = __first; __tp != end(); ++__tp)
+			for (iterator __tp = __first; __tp != __last; ++__tp)
 				__alloc_.destroy(__tp.base());
+			size_type __len = ft::distance(__last, end());
+			for (size_type i = 0; i < __len; ++i)
+				__alloc_.construct(__first.base() + i, *(__last + i));
 			__end_ -= ft::distance(__first, __last);
-			for (size_type i = 0; i < __tmp.size(); ++i)
-				__alloc_.construct(__first.base() + i, __tmp[i]);
 			return (__first);
 		}
 

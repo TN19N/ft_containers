@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/17 12:46:36 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/17 15:11:22 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,4 @@ struct A
 
 int main()
 {
-	ft::vector<std::string> v(3, "HELOO");
-
-	v.erase(v.begin(), v.begin() + 1);
-
-	for (size_t i = 0; i < v.size(); ++i)
-		std::cout << "=> " << v[i] << std::endl;
 }

@@ -6,14 +6,13 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/17 12:57:13 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/17 15:08:43 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-# include <memory>
 # include "algorithm.hpp"
 
 namespace ft
@@ -119,16 +118,15 @@ namespace ft
 
 		void clear()
 		{
-			pointer __tmp = __begin_;
-			for (; __begin_ != __end_ ; ++__begin_)
-				__alloc_.destroy(__begin_);
-			__begin_ = __end_ = __tmp;
+			for (pointer __tmp = __begin_; __tmp != __end_ ; ++__tmp)
+				__alloc_.destroy(__tmp);
+			__end_ = __begin_;
 		}
 
 		void push_back(const value_type& val)
 		{
-			if (__capacity_ == 0) reserve(1);
-			else if (__capacity_ == size()) reserve(__capacity_ * 2);
+			if (__capacity_ == size())
+				reserve(__capacity_ ? __capacity_ * 2 : 1);
 			__alloc_.construct(__end_++, val);
 		}
 
@@ -209,7 +207,7 @@ namespace ft
 
 		iterator insert(iterator __pos, const value_type& val)
 		{
-			size_type __len = ft::distance(begin(), __pos);
+			size_type __len = static_cast<size_type>(ft::distance(begin(), __pos));
 			insert(__pos, 1, val);
 			__pos = begin() + __len;
 			return(__pos);

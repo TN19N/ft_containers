@@ -6,15 +6,19 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/18 09:54:38 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/18 10:32:03 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef VECTOR_HPP
 # define VECTOR_HPP
 
+# include "iterator.hpp"
+# include "type_traits.hpp"
 # include "algorithm.hpp"
 # include "utility.hpp"
+# include <memory>
+# include <stdexcept>
 
 namespace ft
 {

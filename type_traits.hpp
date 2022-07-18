@@ -6,12 +6,15 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 18:08:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/18 09:26:58 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/18 10:34:43 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef TYPE_TRAITS_HPP
 # define TYPE_TRAITS_HPP
+
+# include <__config>
+# include <iterator>
 
 namespace ft
 {

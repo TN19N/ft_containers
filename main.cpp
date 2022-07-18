@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/17 17:16:55 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/18 09:43:30 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ struct A
 
 int main()
 {
-	std::stack<int> s;
+	std::pair<int, int> a , b;
 
-	std::stack<int> c(s);
+	a.swap(b);
 }

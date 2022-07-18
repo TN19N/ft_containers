@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/17 15:08:43 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/18 09:54:38 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define VECTOR_HPP
 
 # include "algorithm.hpp"
+# include "utility.hpp"
 
 namespace ft
 {
@@ -254,25 +255,10 @@ namespace ft
 
 		void swap(vector& __x)
 		{
-			pointer 		__p_tmp;
-			size_type 		__c_tmp;
-			allocater_type	__a_tmp;
-
-			__p_tmp = __begin_;
-			__begin_ = __x.__begin_;
-			__x.__begin_ = __p_tmp;
-
-			__p_tmp = __end_;
-			__end_ = __x.__end_;
-			__x.__end_ = __p_tmp;
-
-			__c_tmp = __capacity_;
-			__capacity_ = __x.__capacity_;
-			__x.__capacity_ = __c_tmp;
-
-			__a_tmp = __alloc_;
-			__alloc_ = __x.__alloc_;
-			__x.__alloc_ = __a_tmp;
+			ft::swap(__begin_, __x.__begin_);
+			ft::swap(__end_, __x.__end_);
+			ft::swap(__capacity_, __x.__capacity_);
+			ft::swap(__alloc_, __x.__alloc_);
 		}
 		
 	private:

@@ -6,14 +6,14 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 17:05:32 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/16 18:01:15 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/18 09:54:26 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef ALGORITHM_HPP
 # define ALGORITHM_HPP
 
-#include "iterator.hpp"
+# include "iterator.hpp"
 
 namespace ft
 {

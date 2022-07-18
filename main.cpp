@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/17 15:11:22 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:16:55 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 #include <vector>
 #include "vector.hpp"
 
+#include <stack>
+#include "stack.hpp"
+
 struct A
 {
 	A(const A&) { std::cout << "A(A&)" << std::endl; }
@@ -33,4 +36,7 @@ struct A
 
 int main()
 {
+	std::stack<int> s;
+
+	std::stack<int> c(s);
 }

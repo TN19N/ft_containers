@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/18 10:38:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:46:19 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@
 #include <utility>
 #include "utility.hpp"
 
+#include <map>
+#include "map.hpp"
+
 int main()
 {
-	
+	std::map<int, int> map;
 }

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 15:14:25 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/18 09:10:54 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/18 10:41:36 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ namespace ft
 		reference		top() 		  { return (c.back()); }
 		const_reference	top()   const { return (c.back()); }
 		
-		void push(const value_type& val) { c.push_back(val); }
-		void pop() { c.pop_back(); }
-		void swap(stack& __s) { swap(c, __s.c); }
+		void push(const value_type& val)	{ c.push_back(val); }
+		void pop() 							{ c.pop_back(); }
+		void swap(stack& __s) 				{ ft::swap(c, __s.c); }
 
 		template<typename T1, typename _C1> friend bool operator == (const stack<T1, _C1>& __x, const stack<T1, _C1>& __y);
 		template<typename T1, typename _C1> friend bool operator < (const stack<T1, _C1>& __x, const stack<T1, _C1>& __y);

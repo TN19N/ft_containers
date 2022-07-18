@@ -6,37 +6,31 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/18 10:34:51 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/18 10:38:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include <iostream>
+#include <iostream>
 
-// #include <type_traits>
-// #include "type_traits.hpp"
+#include <type_traits>
+#include "type_traits.hpp"
 
-// #include <algorithm>
-// #include "algorithm.hpp"
+#include <algorithm>
+#include "algorithm.hpp"
 
-// #include <iterator>
-// #include "iterator.hpp"
+#include <iterator>
+#include "iterator.hpp"
 
-// #include <vector>
-// #include "vector.hpp"
+#include <vector>
+#include "vector.hpp"
 
 #include <stack>
 #include "stack.hpp"
 
-// #include <utility>
-// #include "utility.hpp" 
-
-// struct A
-// {
-// 	A(const A&) { std::cout << "A(A&)" << std::endl; }
-// 	A() { std::cout << "A()" << std::endl; }
-// 	~A() { std::cout << "~A()" << std::endl; }
-// };
+#include <utility>
+#include "utility.hpp"
 
 int main()
 {
+	
 }

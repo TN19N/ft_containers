@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/19 11:18:10 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/19 14:37:57 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,19 @@ namespace ft
 			{ return(comp(__x.first, __y.first)); }
 		};
 	private:
-		typedef ft::tree<value_type, key_compare, allocator_type> tree_type;
+		typedef ft::tree<key_type, mapped_type, value_type, key_compare, allocator_type> tree_type;
 		tree_type	__tree;
 	public:
-		typedef tree_type::reference				reference;
-		typedef tree_type::const_reference			const_reference;
-		typedef tree_type::pointer					pointer;
-		typedef tree_type::const_pointer			const_pointer;
-		typedef tree_type::difference_type			difference_type;
-		typedef tree_type::size_type				size_type;
+		typedef typename tree_type::reference				reference;
+		typedef typename tree_type::const_reference			const_reference;
+		typedef typename tree_type::pointer					pointer;
+		typedef typename tree_type::const_pointer			const_pointer;
+		typedef typename tree_type::difference_type			difference_type;
+		typedef typename tree_type::size_type				size_type;
+		typedef typename tree_type::iterator				iterator;
+		typedef typename tree_type::const_iterator			const_iterator;
+		typedef typename tree_type::reverse_iterator		reverse_iterator;
+		typedef typename tree_type::const_reverse_iterator	const_reverse_iterator;
 
 	};
 

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/18 10:32:55 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:24:52 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,34 @@ namespace ft
 	template<typename _InputIter>
 	typename ft::iterator_traits<_InputIter>::difference_type
 	distance(_InputIter __first, _InputIter __last) { return (__last - __first); }
+	// -------------------------------------------------------------------------------------------------------------------------------
+	
+	// __map_iter --------------------------------------------------------------------------------------------------------------------
+	template<class _Iter, class _Node_ptr>
+	class __map_iter
+	{
+	public:
+		typedef _Iter															iterator_type;
+		typedef std::bidirectional_iterator_tag									iterator_category;
+    	typedef typename ft::iterator_traits<iterator_type>::value_type			value_type;
+    	typedef typename ft::iterator_traits<iterator_type>::difference_type	difference_type;
+    	typedef typename ft::iterator_traits<iterator_type>::pointer			pointer;
+    	typedef typename ft::iterator_traits<iterator_type>::reference			reference;
+	private:
+		_Node_ptr __i;
+	public:
+		__map_iter() {}
+		template<class _Up, class _Node_ptr>
+		__map_iter(const ft::__map_iter<_Up, _Node_iter>& __u) : __i(__u.__i) {}
+
+		reference	operator *  () const { return(__i->value); }
+		pointer		operator -> () const { return(&(__i->value)); }
+
+		__map_iter& operator ++ () {
+			
+		}
+
+	};
 	// -------------------------------------------------------------------------------------------------------------------------------
 	
 } // ft

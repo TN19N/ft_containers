@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   __tree.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/19 11:49:39 by mannouao         ###   ########.fr       */
+/*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
+/*   Updated: 2022/07/19 11:49:09 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+/* READ-BLACK-TREE */
 
-#include <type_traits>
-#include "type_traits.hpp"
+# ifndef __TREE_HPP
+# define __TREE_HPP
 
-#include <algorithm>
-#include "algorithm.hpp"
-
-#include <iterator>
-#include "iterator.hpp"
-
-#include <vector>
-#include "vector.hpp"
-
-#include <stack>
-#include "stack.hpp"
-
-#include <utility>
-#include "utility.hpp"
-
-#include <map>
-// #include "map.hpp"
-
-int main()
+namespace ft
 {
-}
+
+	template<class value_type, class key_compare, class allocator_type>
+	class tree
+	{
+	private:
+		enum color_type : bool { RED, BLACK };
+		struct node {
+			color_type	color;
+			void*		parent;
+			void*       left;
+			void*		right;
+			value_type	value:	
+		};
+	};
+
+} // ft
+
+# endif

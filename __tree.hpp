@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/19 15:44:02 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/20 12:15:14 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ namespace ft
 	private:
 		enum color_type : bool { RED, BLACK };
 		struct node {
-			color_type	color;
-			void*		parent;
-			void*       left;
-			void*		right;
-			value_type	value:
+			color_type	__color_;
+			void*		__parent_;
+			void*		__left_;
+			void*		__right_;
+			value_type	__value_:
 		};
 		allocator_type						value_alloc;
 		allocator_type::rebind<node>::other	node_alloc;
@@ -42,8 +42,8 @@ namespace ft
 		typedef typename allocator_type::const_reference 	const_reference;
 		typedef typename allocator_type::difference_type	difference_type;
 		typedef typename allocator_type::size_type			size_type;
-		typedef ft::__map_iter<pointer, node*>						iterator;
-		typedef ft::__map_iter<, const node*>					const_iterator;
+		typedef ft::__map_iter<pointer, node*>				iterator;
+		typedef ft::__map_iter<const_pointer, const node*>	const_iterator;
 	};
 
 } // ft

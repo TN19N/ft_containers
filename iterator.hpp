@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/19 16:24:52 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/20 12:11:07 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,10 +231,18 @@ namespace ft
 		reference	operator *  () const { return(__i->value); }
 		pointer		operator -> () const { return(&(__i->value)); }
 
-		__map_iter& operator ++ () {
-			
+		__map_iter& operator ++ ()
+		{
+			if(__i->right != NULL)
+				for(__i = __i->right; __i->left != NULL;)
+					__i = __i->left;
+			else
+			{
+				while(__i == __i->parent->right)
+					__i = __i->parent;
+			}
+			return(*this);
 		}
-
 	};
 	// -------------------------------------------------------------------------------------------------------------------------------
 	

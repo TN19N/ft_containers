@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/20 12:15:14 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/21 14:09:29 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,14 @@ namespace ft
 			void*		__parent_;
 			void*		__left_;
 			void*		__right_;
-			value_type	__value_:
+			value_type	*__value_:
+
+			node(color_type c, void* p, void* l, void* r)
+				: __color_(c),
+				  __parent_(p),
+				  __left_(l),
+				  __right_(r)
+			{}
 		};
 		allocator_type						value_alloc;
 		allocator_type::rebind<node>::other	node_alloc;
@@ -44,6 +51,39 @@ namespace ft
 		typedef typename allocator_type::size_type			size_type;
 		typedef ft::__map_iter<pointer, node*>				iterator;
 		typedef ft::__map_iter<const_pointer, const node*>	const_iterator;
+	private:
+		node*			__NIL_;
+		node*			__head_;
+		node*			__begin_;
+		node* 			__end_;
+		size_type		__count_;
+		key_compare		__compar_;
+	public:
+		tree(const key_compare& comp, const allocator_type& alloc)
+			: 
+			  __NIL_(get_node(BLACK))
+			  __head_(__NIL_),
+			  __begin_(__NIL_),
+			  __end_(__NIL_),
+			  __count_(0),
+			  __compar_(comp),
+			  value_alloc(alloc)
+		{}
+
+		iterator begin() { return (iterator(__begin_)); }
+		const_iterator begin() const { return (const_iterator(__begin_)); }
+		iterator end() { return (iterator(__end_)); }
+		const_iterator end() const { return (const_iterator(__end_)); }
+
+	private:
+		node*	get_node(color_type __c, void* p = NULL, void* l = NULL, void* r = NULL)
+		{
+			node*   __node;
+			try { __node = node_alloc.allocate(1) } catch (const std::bad_alloc& e) { throw e; }
+			node_alloc.construct(__node, node(__c, p, l, r));
+			try { __node->__value_ = value_alloc.allocate(1) } catch (const std::bad_alloc& e) { throw e; };
+			
+		}
 	};
 
 } // ft

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/19 14:37:57 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/21 11:27:49 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ namespace ft
 		};
 	private:
 		typedef ft::tree<key_type, mapped_type, value_type, key_compare, allocator_type> tree_type;
-		tree_type	__tree;
+		tree_type	__tree_;
 	public:
 		typedef typename tree_type::reference				reference;
 		typedef typename tree_type::const_reference			const_reference;
@@ -54,9 +54,41 @@ namespace ft
 		typedef typename tree_type::size_type				size_type;
 		typedef typename tree_type::iterator				iterator;
 		typedef typename tree_type::const_iterator			const_iterator;
-		typedef typename tree_type::reverse_iterator		reverse_iterator;
-		typedef typename tree_type::const_reverse_iterator	const_reverse_iterator;
+		typedef ft::reverse_iterator<iterator>				reverse_iterator;
+		typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
+		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+			: __tree_(comp, alloc)
+		{}
+
+		template<class _Iter>
+		map(_Iter first, _Iter secend, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+			: __tree_(comp, alloc)
+		{
+			insert(first, secend);
+		}
+		
+		iterator 				begin() 		{ return (__tree_.begin()); }
+		const_iterator			begin()  const	{ return (__tree_.begin()); }
+		iterator 				end() 			{ return (__tree_.end()); }
+		const_iterator			end()	 const	{ return (__tree_.end()); }
+		reverse_iterator 		rbegin() 		{ return (reverse_iterator(end())); }
+		const_reverse_iterator	rbegin() const	{ return (const_reverse_iterator(end())); }
+		reverse_iterator 		rend() 			{ return (reverse_iterator(begin())); }
+		const_reverse_iterator	rend()	 const	{ return (const_reverse_iterator(begin())); }
+
+		pair<iterator, bool> insert(const value_type& val)
+		{ return (__tree_.__insert(val)); }
+
+		iterator insert(iterator __p, const value_type& val)
+		{ return (__tree_.__insert(__p, val)); }
+
+		template<class _Iter>
+		void insert(_Iter first, _Iter last)
+		{
+			for (iterator __e = end(), first != last, ++first)
+				insert(__e, *first);	
+		}
 	};
 
 } // ft

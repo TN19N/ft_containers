@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/20 12:42:14 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/20 18:52:35 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ namespace ft
 	{
 		typedef ptrdiff_t							difference_type;
 		typedef _Tp									value_type;
-		typedef const _Tp* 								pointer;
-		typedef const _Tp& 								reference;
+		typedef const _Tp* 							pointer;
+		typedef const _Tp& 							reference;
 		typedef std::random_access_iterator_tag 	iterator_category;
 	};
 	// -------------------------------------------------------------------------------------------------------------------------------
@@ -78,7 +78,8 @@ namespace ft
 		iterator_type __i;
 	public:
 		__wrap_iter() {}
-		template<typename _Up> __wrap_iter(const __wrap_iter<_Up>& __u) : __i(__u.base()) {}
+		template<typename _Up> __wrap_iter(const ft::__wrap_iter<_Up>& __u) : __i(__u.base()) {}
+		template<typename _Up> __wrap_iter& opeartor = (const ft::__wrap_iter<_Up>& __u) { __i == __u.base(); return (*this); }
 
 		reference 		operator *  () const { return (*__i); }
 		pointer			operator -> () const { return (__i); }
@@ -152,9 +153,9 @@ namespace ft
 
 		reverse_iterator () : current() {}
 		explicit reverse_iterator (_Iter __x) : current(__x) {}
-		template<typename _Up> reverse_iterator (const reverse_iterator<_Up>& __u) : current(__u.base()) {}
+		template<typename _Up> reverse_iterator (const ft::reverse_iterator<_Up>& __u) : current(__u.base()) {}
 		template<typename _Up> 
-		reverse_iterator& operator = (const reverse_iterator<_Up>& __u) { current = __u.base(); return (*this); } 
+		reverse_iterator& operator = (const ft::reverse_iterator<_Up>& __u) { current = __u.base(); return (*this); } 
 		
 		_Iter base() const { return (current); }
 
@@ -227,6 +228,8 @@ namespace ft
 		__map_iter() {}
 		template<class _Up, class _Node_ptr>
 		__map_iter(const ft::__map_iter<_Up, _Node_iter>& __u) : __i(__u.__i) {}
+		template<class _Up, class _Node_ptr>
+		__map_iter& opeartor = (const ft::__map_iter<_Up, _Node_iter>& __u) { __i = __u.__i; return (*this); }
 
 		reference	operator *  () const { return(__i->__value_); }
 		pointer		operator -> () const { return(&(__i->__value_)); }
@@ -244,7 +247,7 @@ namespace ft
 			return(*this);
 		}
 		__map_iter operator ++ (int) { __map_iter __tmp(*this); ++*this; return(__tmp); }
-		__map_iter operator -- ()
+		__map_iter& operator -- ()
 		{
 			if (__i->__left_ != NULL)
 				for (__i = __i->__left_; __i->__right_ != NULL;)
@@ -258,8 +261,19 @@ namespace ft
 		}
 		__map_iter operator -- (int) {__map_iter __tmp(*this); --*this; return(__tmp); }
 	private:
+		__map_iter(_Node_ptr __x) : __i(__x) {}
 		
+		template<class key_type, class mapped_type, class value_type, class key_compare, class allocator_type> friend class tree;
+		template<class _Iter1, class _Node_ptr1, class _Iter2, class _Node_ptr2>
+		friend bool operator == (const __map_iter<_Iter1, _Node_ptr1>& __x, const __map_iter<_Iter2, _Node_ptr2>& __y);
 	};
+	template<class _Iter1, class _Node_ptr1, class _Iter2, class _Node_ptr2>
+	bool operator == (const __map_iter<_Iter1, _Node_ptr1>& __x, const __map_iter<_Iter2, _Node_ptr2>& __y)
+	{ return (__x.__i == __y.__i); }
+
+	template<class _Iter1, class _Node_ptr1, class _Iter2, class _Node_ptr2>
+	bool operator != (const __map_iter<_Iter1, _Node_ptr1>& __x, const __map_iter<_Iter2, _Node_ptr2>& __y)
+	{ return !(__x == __y); }
 	// -------------------------------------------------------------------------------------------------------------------------------
 	
 } // ft

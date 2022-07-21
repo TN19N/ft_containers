@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/20 12:40:50 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/21 12:13:00 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,10 @@
 
 int main()
 {
+	std::allocator<int> a;
+	std::map<int, int> m;
+
+	std::map<int, int>::iterator iter = m.end();
+
+	std::cout << iter->first << std::endl;
 }

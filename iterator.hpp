@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/20 18:52:35 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/22 10:05:02 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,15 @@ namespace ft
 		typedef _Iter															iterator_type;
 		typedef typename ft::iterator_traits<iterator_type>::iterator_category	iterator_category;
     	typedef typename ft::iterator_traits<iterator_type>::value_type			value_type;
-    	typedef typename ft::iterator_traits<iterator_type>::difference_type	difference_type;
-    	typedef typename ft::iterator_traits<iterator_type>::pointer			pointer;
-    	typedef typename ft::iterator_traits<iterator_type>::reference			reference;
+		typedef typename ft::iterator_traits<iterator_type>::difference_type	difference_type;
+		typedef typename ft::iterator_traits<iterator_type>::pointer			pointer;
+		typedef typename ft::iterator_traits<iterator_type>::reference			reference;
 	private:
 		iterator_type __i;
 	public:
 		__wrap_iter() {}
-		template<typename _Up> __wrap_iter(const ft::__wrap_iter<_Up>& __u) : __i(__u.base()) {}
-		template<typename _Up> __wrap_iter& opeartor = (const ft::__wrap_iter<_Up>& __u) { __i == __u.base(); return (*this); }
+		template<class _Up> __wrap_iter(const ft::__wrap_iter<_Up>& __u) : __i(__u.base()) {}
+		template<class _Up> __wrap_iter& operator = (const ft::__wrap_iter<_Up>& __u) { __i == __u.base(); return (*this); }
 
 		reference 		operator *  () const { return (*__i); }
 		pointer			operator -> () const { return (__i); }
@@ -218,21 +218,21 @@ namespace ft
 	public:
 		typedef _Iter															iterator_type;
 		typedef std::bidirectional_iterator_tag									iterator_category;
-    	typedef typename ft::iterator_traits<iterator_type>::value_type			value_type;
-    	typedef typename ft::iterator_traits<iterator_type>::difference_type	difference_type;
-    	typedef typename ft::iterator_traits<iterator_type>::pointer			pointer;
-    	typedef typename ft::iterator_traits<iterator_type>::reference			reference;
+		typedef typename ft::iterator_traits<iterator_type>::value_type			value_type;
+		typedef typename ft::iterator_traits<iterator_type>::difference_type	difference_type;
+		typedef typename ft::iterator_traits<iterator_type>::pointer			pointer;
+		typedef typename ft::iterator_traits<iterator_type>::reference			reference;
 	private:
 		_Node_ptr __i;
 	public:
 		__map_iter() {}
-		template<class _Up, class _Node_ptr>
-		__map_iter(const ft::__map_iter<_Up, _Node_iter>& __u) : __i(__u.__i) {}
-		template<class _Up, class _Node_ptr>
-		__map_iter& opeartor = (const ft::__map_iter<_Up, _Node_iter>& __u) { __i = __u.__i; return (*this); }
+		template<class _Up, class _Up_node>
+		__map_iter(const ft::__map_iter<_Up, _Up_node>& __u) : __i(__u.__i) {}
+		template<class _Up, class _Up_node>
+		__map_iter& operator = (const ft::__map_iter<_Up, _Up_node>& __u) { __i = __u.__i; return (*this); }
 
-		reference	operator *  () const { return(__i->__value_); }
-		pointer		operator -> () const { return(&(__i->__value_)); }
+		reference	operator *  () const { return(*(__i->__value_)); }
+		pointer		operator -> () const { return(__i->__value_); }
 
 		__map_iter& operator ++ ()
 		{

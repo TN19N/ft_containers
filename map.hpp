@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 11:49:23 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/22 12:04:18 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,40 @@ namespace ft
 		mapped_type& operator[] (const key_type& __k) { return insert(std::make_pair(__k, mapped_type())).first->secend; }
 	};
 
+	template<class _Key, class _Tp, class _Compare, class _Allocator>
+	bool operator == (const map<_Key, _Tp, _Compare, _Allocator>& __x,
+	                  const map<_Key, _Tp, _Compare, _Allocator>& __y)
+	{ return __x.size() == __y.size() && ft::equal(__x.begin(), __x.end(), __y.begin()); }
+
+	template<class _Key, class _Tp, class _Compare, class _Allocator>
+	bool operator < (const map<_Key, _Tp, _Compare, _Allocator>& __x,
+	                 const map<_Key, _Tp, _Compare, _Allocator>& __y)
+	{ return ft::lexicographical_compare(__x.begin(), __x.end(), __y.begin(), __y.end()); }
+
+	template<class _Key, class _Tp, class _Compare, class _Allocator>
+	bool operator != (const map<_Key, _Tp, _Compare, _Allocator>& __x,
+	                  const map<_Key, _Tp, _Compare, _Allocator>& __y)
+	{ return !(__x == __y); }
+
+	template<class _Key, class _Tp, class _Compare, class _Allocator>
+	bool operator > (const map<_Key, _Tp, _Compare, _Allocator>& __x,
+	                 const map<_Key, _Tp, _Compare, _Allocator>& __y)
+	{ return __y < __x; }
+
+	template<class _Key, class _Tp, class _Compare, class _Allocator>
+	bool operator >= (const map<_Key, _Tp, _Compare, _Allocator>& __x,
+	                  const map<_Key, _Tp, _Compare, _Allocator>& __y)
+	{ return !(__x < __y); }
+
+	template<class _Key, class _Tp, class _Compare, class _Allocator>
+	bool operator <= (const map<_Key, _Tp, _Compare, _Allocator>& __x,
+	                  const map<_Key, _Tp, _Compare, _Allocator>& __y)
+	{ return !(__y < __x); }
+
+	template<class _Key, class _Tp, class _Compare, class _Allocator>
+	void swap(map<_Key, _Tp, _Compare, _Allocator>& __x,
+	          map<_Key, _Tp, _Compare, _Allocator>& __y)
+	{ __x.swap(__y); }
 } // ft
 
 # endif

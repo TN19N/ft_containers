@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 11:37:05 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/22 12:12:06 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int main()
 	m[3] = 3;
 	m[4] = 4;
 
-	std::cout << std::boolalpha;
-
-	std::cout << "=> " << m.equal_range(1).second->first << std::endl;
+	m.lower_bound(4);
+	m.insert(m.begin(), std::pair<int, int>(10, 10));
 }

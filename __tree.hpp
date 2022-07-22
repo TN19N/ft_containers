@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 10:31:47 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/22 12:43:28 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,53 @@ namespace ft
 			try { __NIL_ = __head_ = __begin_ = get_node(BLACK); } catch (const std::bad_alloc& e) { throw e; }
 		}
 
-		iterator begin() { return (iterator(__begin_)); }
-		const_iterator begin() const { return (const_iterator(__begin_)); }
-		iterator end() { return (iterator(__NIL_)); }
-		const_iterator end() const { return (const_iterator(__NIL_)); }
+		iterator 		begin() 		{ return iterator(__begin_); }
+		const_iterator 	begin() const 	{ return const_iterator(__begin_); }
+		iterator 		end() 			{ return iterator(__NIL_); }
+		const_iterator 	end() 	const 	{ return const_iterator(__NIL_); }
 
-		//iterator lower_bound()
+		iterator lower_bound(const key_type& __k)
+		{
+			node* __tmp = __head_;
+			node* __res = __NIL_;
+
+			while (__tmp != __NIL_)
+			{
+				if (!__compar_(__tmp->__value_->first, __k))
+				{
+					__res = __tmp;
+					__tmp = __tmp->__left_;
+				}
+				else
+					__tmp = __tmp->__right_;
+			}
+			return iterator(__res);
+		}
+
+		iterator upper_bound(const key_type& __k)
+		{
+			node* __tmp = __head_;
+			node* __res = __NIL_;
+
+			while (__tmp != __NIL_)
+			{
+				if (__compar_(__k, __tmp->__value_->first))
+				{
+					__res = __tmp;
+					__tmp = __tmp->__left_;
+				}
+				else
+					__tmp = __tmp->__right_;
+			}
+			return iterator(__res);
+		}
 
 		iterator find(const key_type& __k)
 		{
-			
+			iterator __p = lower_bound(__k);
+			if (__p != end() && !__compar_(__k, (*__p).first))
+				return __p;
+			return end();
 		}
 
 	private:

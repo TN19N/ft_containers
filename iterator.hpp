@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 10:05:02 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/22 12:48:11 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,21 @@ namespace ft
 	public:
 		__wrap_iter() {}
 		template<class _Up> __wrap_iter(const ft::__wrap_iter<_Up>& __u) : __i(__u.base()) {}
-		template<class _Up> __wrap_iter& operator = (const ft::__wrap_iter<_Up>& __u) { __i == __u.base(); return (*this); }
+		template<class _Up> __wrap_iter& operator = (const ft::__wrap_iter<_Up>& __u) { __i == __u.base(); return *this; }
 
-		reference 		operator *  () const { return (*__i); }
-		pointer			operator -> () const { return (__i); }
-		__wrap_iter& 	operator ++ () { ++__i; return (*this); }
-		__wrap_iter		operator ++ (int) { __wrap_iter __tmp(*this); ++__i; return (__tmp); }
-		__wrap_iter& 	operator -- () { --__i; return (*this); }
-		__wrap_iter 	operator -- (int) { __wrap_iter __tmp(*this); --__i; return (__tmp); }
-		__wrap_iter		operator +  (difference_type __n) const { __wrap_iter __w(*this); __w += __n; return (__w); }
-		__wrap_iter&	operator += (difference_type __n) { __i += __n; return (*this); }
-		__wrap_iter		operator -  (difference_type __n) const { return (*this + (-__n)); }
-		__wrap_iter&	operator -= (difference_type __n) { __i -= __n; return (*this); }
-		reference		operator [] (difference_type __n) const { return (__i[__n]); }
+		reference 		operator *  () const { return *__i; }
+		pointer			operator -> () const { return __i; }
+		__wrap_iter& 	operator ++ () { ++__i; return *this; }
+		__wrap_iter		operator ++ (int) { __wrap_iter __tmp(*this); ++__i; return __tmp; }
+		__wrap_iter& 	operator -- () { --__i; return *this; }
+		__wrap_iter 	operator -- (int) { __wrap_iter __tmp(*this); --__i; return __tmp; }
+		__wrap_iter		operator +  (difference_type __n) const { __wrap_iter __w(*this); __w += __n; return __w; }
+		__wrap_iter&	operator += (difference_type __n) { __i += __n; return *this; }
+		__wrap_iter		operator -  (difference_type __n) const { return *this + (-__n); }
+		__wrap_iter&	operator -= (difference_type __n) { __i -= __n; return *this; }
+		reference		operator [] (difference_type __n) const { return __i[__n]; }
 
-		iterator_type base() const { return (__i); }
+		iterator_type base() const { return __i; }
 
 	private:
 		__wrap_iter(iterator_type __x) : __i(__x) {}
@@ -103,11 +103,11 @@ namespace ft
 
 	template<typename _Iter1, typename _Iter2>
 	bool operator == (const ft::__wrap_iter<_Iter1>& __x, const ft::__wrap_iter<_Iter2>& __y)
-	{ return (__x.base() == __y.base()); }
+	{ return __x.base() == __y.base(); }
 
 	template<typename _Iter1, typename _Iter2>
 	bool operator <  (const ft::__wrap_iter<_Iter1>& __x, const ft::__wrap_iter<_Iter2>& __y)
-	{ return (__x.base() < __y.base()); }
+	{ return __x.base() < __y.base(); }
 
 	template<typename _Iter1, typename _Iter2>
 	bool operator != (const ft::__wrap_iter<_Iter1>& __x, const ft::__wrap_iter<_Iter2>& __y)
@@ -115,7 +115,7 @@ namespace ft
 
 	template<typename _Iter1, typename _Iter2>
 	bool operator >  (const ft::__wrap_iter<_Iter1>& __x, const ft::__wrap_iter<_Iter2>& __y)
-	{ return (__y < __x); }
+	{ return __y < __x; }
 
 	template<typename _Iter1, typename _Iter2>
 	bool operator >= (const ft::__wrap_iter<_Iter1>& __x, const ft::__wrap_iter<_Iter2>& __y)
@@ -127,11 +127,11 @@ namespace ft
 
 	template<typename _Iter1, typename _Iter2>
 	typename __wrap_iter<_Iter1>::difference_type operator - (const ft::__wrap_iter<_Iter1>& __x, const ft::__wrap_iter<_Iter2>& __y)
-	{ return (__x.base() - __y.base()); }
+	{ return __x.base() - __y.base(); }
 
 	template<typename _Iter>
 	__wrap_iter<_Iter> operator + (typename ft::__wrap_iter<_Iter>::difference_type __n, ft::__wrap_iter<_Iter> __x)
-	{ __x += __n; return (__x); }
+	{ __x += __n; return __x; }
 	// -------------------------------------------------------------------------------------------------------------------------------
 
 	// reverse_iterator --------------------------------------------------------------------------------------------------------------
@@ -155,60 +155,60 @@ namespace ft
 		explicit reverse_iterator (_Iter __x) : current(__x) {}
 		template<typename _Up> reverse_iterator (const ft::reverse_iterator<_Up>& __u) : current(__u.base()) {}
 		template<typename _Up> 
-		reverse_iterator& operator = (const ft::reverse_iterator<_Up>& __u) { current = __u.base(); return (*this); } 
+		reverse_iterator& operator = (const ft::reverse_iterator<_Up>& __u) { current = __u.base(); return *this; } 
 		
-		_Iter base() const { return (current); }
+		_Iter base() const { return current; }
 
-		reference			operator *  () const { _Iter __tmp = current; return (*--__tmp); }
-		pointer				operator -> () const { return (&operator*()); }
-		reverse_iterator&	operator ++ () { --current; return (*this); }
-		reverse_iterator	operator ++ (int) { reverse_iterator __tmp(*this); --current; return (__tmp); }
-		reverse_iterator&	operator -- () { ++current; return (*this); }
-		reverse_iterator	operator -- (int) { reverse_iterator __tmp(*this); ++current; return (__tmp); }
-		reverse_iterator	operator +  (difference_type __n) const { return (reverse_iterator(current - __n)); }
-		reverse_iterator&	operator += (difference_type __n) { current -= __n; return (*this); }
-		reverse_iterator	operator -  (difference_type __n) const { return (reverse_iterator(current + __n)); }
-		reverse_iterator&	operator -= (difference_type __n) { current += __n; return (*this); }
+		reference			operator *  () const { _Iter __tmp = current; return *--__tmp; }
+		pointer				operator -> () const { return &operator*(); }
+		reverse_iterator&	operator ++ () { --current; return *this; }
+		reverse_iterator	operator ++ (int) { reverse_iterator __tmp(*this); --current; return __tmp; }
+		reverse_iterator&	operator -- () { ++current; return *this; }
+		reverse_iterator	operator -- (int) { reverse_iterator __tmp(*this); ++current; return __tmp; }
+		reverse_iterator	operator +  (difference_type __n) const { return reverse_iterator(current - __n); }
+		reverse_iterator&	operator += (difference_type __n) { current -= __n; return *this; }
+		reverse_iterator	operator -  (difference_type __n) const { return reverse_iterator(current + __n); }
+		reverse_iterator&	operator -= (difference_type __n) { current += __n; return *this; }
 		reference			operator [] (difference_type __n) { return *(*this + __n); }
 	};
 	template<typename _Iter1, typename _Iter2>
 	bool operator == (const ft::reverse_iterator<_Iter1>& __x, const ft::reverse_iterator<_Iter2>& __y)
-	{ return (__x.base() == __y.base()); }
+	{ return __x.base() == __y.base(); }
 
 	template<typename _Iter1, typename _Iter2>
 	bool operator < (const ft::reverse_iterator<_Iter1>& __x, const ft::reverse_iterator<_Iter2>& __y)
-	{ return (__x.base() > __y.base()); }
+	{ return __x.base() > __y.base(); }
 
 	template<typename _Iter1, typename _Iter2>
 	bool operator != (const ft::reverse_iterator<_Iter1>& __x, const ft::reverse_iterator<_Iter2>& __y)
-	{ return (__x.base() != __y.base()); }
+	{ return __x.base() != __y.base(); }
 
 	template<typename _Iter1, typename _Iter2>
 	bool operator > (const ft::reverse_iterator<_Iter1>& __x, const ft::reverse_iterator<_Iter2>& __y)
-	{ return (__x.base() < __y.base()); }
+	{ return __x.base() < __y.base(); }
 
 	template<typename _Iter1, typename _Iter2>
 	bool operator >= (const ft::reverse_iterator<_Iter1>& __x, const ft::reverse_iterator<_Iter2>& __y)
-	{ return (__x.base() <= __y.base()); }
+	{ return __x.base() <= __y.base(); }
 
 	template<typename _Iter1, typename _Iter2>
 	bool operator <= (const ft::reverse_iterator<_Iter1>& __x, const ft::reverse_iterator<_Iter2>& __y)
-	{ return (__x.base() >= __y.base()); }
+	{ return __x.base() >= __y.base(); }
 
 	template<typename _Iter1, typename _Iter2>
 	typename ft::reverse_iterator<_Iter1>::difference_type
 	operator - (const ft::reverse_iterator<_Iter1>& __x, const ft::reverse_iterator<_Iter2>& __y)
-	{ return (__y.base() - __x.base()); }
+	{ return __y.base() - __x.base(); }
 
 	template<typename _Iter>
 	ft::reverse_iterator<_Iter> operator + (typename ft::reverse_iterator<_Iter>::difference_type __n, const ft::reverse_iterator<_Iter>& __x)
-	{ return (ft::reverse_iterator<_Iter>(__x.base() - __n)); }
+	{ return ft::reverse_iterator<_Iter>(__x.base() - __n); }
 	// -------------------------------------------------------------------------------------------------------------------------------
 	
-	// reverse_iterator --------------------------------------------------------------------------------------------------------------
+	// distance ----------------------------------------------------------------------------------------------------------------------
 	template<typename _InputIter>
 	typename ft::iterator_traits<_InputIter>::difference_type
-	distance(_InputIter __first, _InputIter __last) { return (__last - __first); }
+	distance(_InputIter __first, _InputIter __last) { return __last - __first; }
 	// -------------------------------------------------------------------------------------------------------------------------------
 	
 	// __map_iter --------------------------------------------------------------------------------------------------------------------
@@ -229,10 +229,10 @@ namespace ft
 		template<class _Up, class _Up_node>
 		__map_iter(const ft::__map_iter<_Up, _Up_node>& __u) : __i(__u.__i) {}
 		template<class _Up, class _Up_node>
-		__map_iter& operator = (const ft::__map_iter<_Up, _Up_node>& __u) { __i = __u.__i; return (*this); }
+		__map_iter& operator = (const ft::__map_iter<_Up, _Up_node>& __u) { __i = __u.__i; return *this; }
 
-		reference	operator *  () const { return(*(__i->__value_)); }
-		pointer		operator -> () const { return(__i->__value_); }
+		reference	operator *  () const { return *(__i->__value_); }
+		pointer		operator -> () const { return __i->__value_; }
 
 		__map_iter& operator ++ ()
 		{
@@ -244,9 +244,9 @@ namespace ft
 				while(__i == __i->__parent_->__right_)
 					__i = __i->__parent_;
 			}
-			return(*this);
+			return *this;
 		}
-		__map_iter operator ++ (int) { __map_iter __tmp(*this); ++*this; return(__tmp); }
+		__map_iter operator ++ (int) { __map_iter __tmp(*this); ++*this; return __tmp; }
 		__map_iter& operator -- ()
 		{
 			if (__i->__left_ != NULL)
@@ -257,9 +257,9 @@ namespace ft
 				while(__i == __i->__parent_->__left_)
 					__i = __i->__parent_;
 			}
-			return (*this);
+			return *this;
 		}
-		__map_iter operator -- (int) {__map_iter __tmp(*this); --*this; return(__tmp); }
+		__map_iter operator -- (int) {__map_iter __tmp(*this); --*this; return __tmp; }
 	private:
 		__map_iter(_Node_ptr __x) : __i(__x) {}
 		
@@ -269,7 +269,7 @@ namespace ft
 	};
 	template<class _Iter1, class _Node_ptr1, class _Iter2, class _Node_ptr2>
 	bool operator == (const __map_iter<_Iter1, _Node_ptr1>& __x, const __map_iter<_Iter2, _Node_ptr2>& __y)
-	{ return (__x.__i == __y.__i); }
+	{ return __x.__i == __y.__i; }
 
 	template<class _Iter1, class _Node_ptr1, class _Iter2, class _Node_ptr2>
 	bool operator != (const __map_iter<_Iter1, _Node_ptr1>& __x, const __map_iter<_Iter2, _Node_ptr2>& __y)

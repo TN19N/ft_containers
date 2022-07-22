@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/18 10:32:03 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/22 12:42:41 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,25 +101,25 @@ namespace ft
 		{
 			if (this != &other)
 				assign(other.begin(), other.end());
-			return (*this);
+			return *this;
 		}
 
 		~vector() { clear(); if(__begin_) __alloc_.deallocate(__begin_, __capacity_); }
 
-		reverse_iterator		rbegin()		{ return (reverse_iterator(end())); }
-		const_reverse_iterator	rbegin() const	{ return (const_reverse_iterator(end())); }
-		reverse_iterator		rend()			{ return (reverse_iterator(begin())); }
-		const_reverse_iterator	rend()   const	{ return (const_reverse_iterator(begin())); }
-		iterator				begin()			{ return (iterator(__begin_)); }
-		const_iterator			begin()  const	{ return (const_iterator(__begin_)); }
-		iterator				end()			{ return (iterator(__end_)); }
-		const_iterator			end()    const	{ return (const_iterator(__end_)); }
+		reverse_iterator		rbegin()		{ return reverse_iterator(end()); }
+		const_reverse_iterator	rbegin() const	{ return const_reverse_iterator(end()); }
+		reverse_iterator		rend()			{ return reverse_iterator(begin()); }
+		const_reverse_iterator	rend()   const	{ return const_reverse_iterator(begin()); }
+		iterator				begin()			{ return iterator(__begin_); }
+		const_iterator			begin()  const	{ return const_iterator(__begin_); }
+		iterator				end()			{ return iterator(__end_); }
+		const_iterator			end()    const	{ return const_iterator(__end_); }
 
-		size_type		max_size() 		const { return (__alloc_.max_size()); }
-		size_type		capacity() 		const { return (__capacity_); }
-		size_type		size() 			const { return (static_cast<size_type>(ft::distance(__begin_, __end_))); }
-		bool			empty()			const { return (size() == 0); };
-		allocater_type	get_allocator() const { return(__alloc_); }
+		size_type		max_size() 		const { return __alloc_.max_size(); }
+		size_type		capacity() 		const { return __capacity_; }
+		size_type		size() 			const { return static_cast<size_type>(ft::distance(__begin_, __end_)); }
+		bool			empty()			const { return size() == 0; };
+		allocater_type	get_allocator() const { return __alloc_; }
 
 		void clear()
 		{
@@ -199,23 +199,23 @@ namespace ft
 				__alloc_.construct(__end_++, val);
 		}
 
-		reference front() { return (*__begin_); }
-		const_reference front() const { return (*__begin_); }
-		reference back() { return (*(__end_ - 1)); }
-		const_reference back() const { return (*(__end_ - 1)); }
+		reference front() { return *__begin_; }
+		const_reference front() const { return *__begin_; }
+		reference back() { return *(__end_ - 1); }
+		const_reference back() const { return *(__end_ - 1); }
 
 
-		reference operator [] (size_type __n) { return (__begin_[__n]); }
-		const_reference operator [] (size_type __n) const { return (__begin_[__n]); }
-		reference at(size_type __n) { if(__n >= size()) std::__throw_out_of_range("vector"); return (__begin_[__n]); }
-		const_reference at(size_type __n) const { if(__n >= size()) std::__throw_out_of_range("vector"); return (__begin_[__n]); }
+		reference operator [] (size_type __n) { return __begin_[__n]; }
+		const_reference operator [] (size_type __n) const { return __begin_[__n]; }
+		reference at(size_type __n) { if(__n >= size()) std::__throw_out_of_range("vector"); return __begin_[__n]; }
+		const_reference at(size_type __n) const { if(__n >= size()) std::__throw_out_of_range("vector"); return __begin_[__n]; }
 
 		iterator insert(iterator __pos, const value_type& val)
 		{
 			size_type __len = static_cast<size_type>(ft::distance(begin(), __pos));
 			insert(__pos, 1, val);
 			__pos = begin() + __len;
-			return(__pos);
+			return __pos;
 		}
 
 		void insert(iterator __pos, size_type __n, const value_type& val)
@@ -254,7 +254,7 @@ namespace ft
 			for (size_type i = 0; i < __len; ++i)
 				__alloc_.construct(__first.base() + i, *(__last + i));
 			__end_ -= ft::distance(__first, __last);
-			return (__first);
+			return __first;
 		}
 
 		void swap(vector& __x)
@@ -290,7 +290,7 @@ namespace ft
 
 	template<typename _Tp, typename _Allocater>
 	bool operator > (const ft::vector<_Tp, _Allocater>& __x, const ft::vector<_Tp, _Allocater>& __y)
-	{ return (__y < __x); }
+	{ return __y < __x; }
 
 	template<typename _Tp, typename _Allocater>
 	bool operator >= (const ft::vector<_Tp, _Allocater>& __x, const ft::vector<_Tp, _Allocater>& __y)

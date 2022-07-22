@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 16:41:15 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/22 18:46:56 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,15 @@ namespace ft
 		iterator 		end() 			{ return iterator(__NIL_); }
 		const_iterator 	end() 	const 	{ return const_iterator(__NIL_); }
 
-		iterator lower_bound(const key_type& __k)
+		iterator lower_bound(const key_type& __k, node*& parent = __NIL_)
 		{
 			node* __tmp = __head_;
 			node* __res = __NIL_;
 
 			while (__tmp != __NIL_)
 			{
+				if (parent != __NIL_)
+					parent = __tmp;
 				if (!__compar_(__tmp->__value_->first, __k))
 				{
 					__res = __tmp;
@@ -110,9 +112,9 @@ namespace ft
 			return iterator(__res);
 		}
 
-		iterator find(const key_type& __k)
+		iterator find(const key_type& __k, node*& parent = __NIL_)
 		{
-			iterator __p = lower_bound(__k);
+			iterator __p = lower_bound(__k, parent);
 			if (__p != end() && !__compar_(__k, (*__p).first))
 				return __p;
 			return end();
@@ -149,14 +151,24 @@ namespace ft
 				return (ft::make_pair(iterator(__head_), true));
 			}
 
-			node *parent;
-			node *__p = find_parent(__v.first, parent);
-			if (__p != __NIL_)
-				return ft::make_pair(iterator(__p), false);
+			node  *parent;
+			node* __holder;
+			iterator __p = find(__v.first, parent);
+		
+			if (__p != end())
+				return ft::make_pair(__p, false);
+	
+			__holder = get_node(RED, __v);
+			__holder->__parent_ = parent;
+
+			if (__compar_(__v, *parent->__value_))
+				parent->__left_ = __holder;
 			else
-			{
-				node*	__holder = get_node(RED, __v);
-			}
+				parent->__right_ = __holder;
+
+			if (parent->__color_ == RED)
+				balance(__head_, __holder);
+			return ft::make_pair(iterator(__holder), true);
 		}
 
 	private:
@@ -183,9 +195,19 @@ namespace ft
 			}
 		}
 
-		node* find_parent(const key_type& __k, )
+		void balance(node* __root, node* __x)
 		{
-			
+			while (__x != __root)
+			{
+				if (__x == __x->__parent_->__left_)
+				{
+
+				}
+				else
+				{
+					
+				}
+			}
 		}
 	};
 

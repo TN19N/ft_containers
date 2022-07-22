@@ -1,0 +1,20 @@
+1 -> if tree empty . create new node as root nod with color BLACK ;
+
+2 -> if tree not empty . create new nod as leaf node with color RED ;
+
+3 -> if parent of new node is BLACK exit ;
+
+4 -> if parent of new node is RED then check the color parent sibling :
+	
+	a ) if color is BLACK or __NIL_ then : do rotations && recoloring .
+
+	b ) if color is RED then : recoloring && check for parents of parent of new node .
+
+
+ROLS :
+
+	=> root == BLACK .
+
+	=> no adjacent RED nodes .
+
+	=> every path should have same number of BLACK nodes .

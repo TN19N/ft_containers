@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 12:04:18 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:31:55 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ namespace ft
 		key_compare		key_comp()		const { return value_comp().comp; }
 		value_compare	value_comp()	const { return __tree_.value_comp(); }
 
-		pair<iterator, bool> insert(const value_type& val) 				 { return __tree_.__insert(val); }
-		iterator			 insert(iterator __p, const value_type& val) { return __tree_.__insert(__p, val); }
+		ft::pair<iterator, bool> insert(const value_type& val) 				 { return __tree_.__insert(val); }
+		iterator			 	 insert(iterator __p, const value_type& val) { return __tree_.__insert(__p, val); }
 		template<class _Iter>
 		void insert(_Iter first, _Iter last)
 		{
@@ -128,7 +128,7 @@ namespace ft
 		void 		clear() 						 { __tree_.clear(); }
 		size_type 	count(const key_type& __k) const { return find(__k) != end(); }
 
-		std::pair<iterator, iterator> equal_range(const key_type& __k)
+		ft::pair<iterator, iterator> equal_range(const key_type& __k)
 		{
 			iterator __p = find(__k);
 			if (__p == end())
@@ -136,7 +136,7 @@ namespace ft
 			else
 				return ft::make_pair(__p++, __p);
 		}
-		std::pair<const_iterator, const_iterator> equal_range(const key_type& __k) const
+		ft::pair<const_iterator, const_iterator> equal_range(const key_type& __k) const
 		{
 			const_iterator __p = find(__k);
 			if (__p == end())
@@ -145,7 +145,7 @@ namespace ft
 				return ft::make_pair(__p++, __p);
 		}
 
-		mapped_type& operator[] (const key_type& __k) { return insert(std::make_pair(__k, mapped_type())).first->secend; }
+		mapped_type& operator[] (const key_type& __k) { return insert(ft::make_pair(__k, mapped_type())).first->secend; }
 	};
 
 	template<class _Key, class _Tp, class _Compare, class _Allocator>

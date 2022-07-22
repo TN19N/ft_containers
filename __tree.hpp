@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 12:43:28 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/22 16:41:15 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,49 @@ namespace ft
 			return end();
 		}
 
+		void clear()
+		{
+			destroy(__head_);
+			__count_ = 0;
+			__NIL_->__parent_ = NULL;
+			__head_ = __begin_ = __NIL_;
+		}
+
+		value_compare& 	value_comp() 	{ return __compar_; }
+		size_type&		size() 			{ return __count_; }
+		size_type		max_size()		{ return value_alloc.max_size(); }
+		allocator_type	get_alloc()		{ return value_alloc; }
+
+		void swap(tree& __x)
+		{
+			ft::swap(__head_, __x.__head_);
+			ft::swap(__begin_, __x.__begin_);
+			ft::swap(__count_, __x.__count_);
+			ft::swap(__NIL_, __x.__NIL_);
+			ft::swap(__compar_, __x.__compar_);
+		}
+
+		ft::pair<iterator, bool> insert(const value_type& __v)
+		{
+			if (__head_ == __NIL_)
+			{
+				__head_ = get_node(BLACK, __v);
+				__NIL_->__parent_ = __head_;
+				return (ft::make_pair(iterator(__head_), true));
+			}
+
+			node *parent;
+			node *__p = find_parent(__v.first, parent);
+			if (__p != __NIL_)
+				return ft::make_pair(iterator(__p), false);
+			else
+			{
+				node*	__holder = get_node(RED, __v);
+			}
+		}
+
 	private:
-		node*	get_node(bool __c, const value_type val = value_type(), void* p = NULL, void* l = NULL, void* r = NULL)
+		node*	get_node(bool __c, const value_type val = value_type(), void* p = __NIL_, void* l = __NIL_, void* r = __NIL_)
 		{
 			node*	__node;
 			try { __node = node_alloc.allocate(1); } catch (const std::bad_alloc& e) { throw e; }
@@ -127,6 +168,24 @@ namespace ft
 			try { __node->__value_ = value_alloc.allocate(1); } catch (const std::bad_alloc& e) { throw e; };
 			value_alloc.construct(__node->__value_, val);
 			return (__node);
+		}
+
+		void destroy(node* __p)
+		{
+			if (__p != __NIL_)
+			{
+				destroy(__p->__left_);
+				destroy(__p->__right_);
+				value_alloc.destroy(__p->__value_);
+				value_alloc.deallocate(__p->__value_, 1);
+				value_alloc.destroy(__p);
+				value_alloc.deallocate(__p, 1);
+			}
+		}
+
+		node* find_parent(const key_type& __k, )
+		{
+			
 		}
 	};
 

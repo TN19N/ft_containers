@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 12:12:06 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/22 16:44:04 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 int main()
 {
 	std::map<int, int> m;
+	std::allocator<int> a;
 
 	m[0] = 0;
 	m[1] = 1;
@@ -49,4 +50,10 @@ int main()
 
 	m.lower_bound(4);
 	m.insert(m.begin(), std::pair<int, int>(10, 10));
+	m.clear();
+
+	m.value_comp();
+	m.size();
+	m.get_allocator();
+	m.insert(std::pair<int, int>(1, 1));
 }

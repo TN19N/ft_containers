@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 14:31:55 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/23 19:06:21 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ namespace ft
 		value_compare	value_comp()	const { return __tree_.value_comp(); }
 
 		ft::pair<iterator, bool> insert(const value_type& val) 				 { return __tree_.__insert(val); }
-		iterator			 	 insert(iterator __p, const value_type& val) { return __tree_.__insert(__p, val); }
+		//iterator			 	 insert(iterator __p, const value_type& val) { return __tree_.__insert(__p, val); }
 		template<class _Iter>
 		void insert(_Iter first, _Iter last)
 		{
@@ -116,13 +116,13 @@ namespace ft
 				insert(*first);
 		}
 
-		void 		erase(iterator __pos) 				 { return __tree_.erase(__pos); }
-		size_type	erase(const Key_type& __k) 			 { return __tree_.erase(find(__k)); }
-		void		erase(iterator first, iterator last)
-		{
-			for (; first != last; ++first)
-				__tree_.erase(first);
-		}
+		// void 		erase(iterator __pos) 				 { return __tree_.erase(__pos); }
+		// size_type	erase(const Key_type& __k) 			 { return __tree_.erase(find(__k)); }
+		// void		erase(iterator first, iterator last)
+		// {
+		// 	for (; first != last; ++first)
+		// 		__tree_.erase(first);
+		// }
 
 		void 		swap(map& __x) 					 { __tree_.swap(__x.__tree_); }
 		void 		clear() 						 { __tree_.clear(); }

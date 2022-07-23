@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/23 18:28:14 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/23 18:32:56 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,11 +255,11 @@ namespace ft
 							left_rotate(__x);
 						}
 						__x = __x->__parent_;
-						__x->color = BLACK;
+						__x->__color_ = BLACK;
 						__x = __x->__parent_;
-						__x->color = RED;
+						__x->__color_ = RED;
 						right_rotate(__x);
-						break;
+						break ;
 					}
 				}
 				else
@@ -279,6 +279,12 @@ namespace ft
 							__x = __x->__parent_;
 							right_rotate(__x);
 						}
+						__x = __x->__parent_;
+						__x->__color_ = BLACK;
+						__x = __x->__parent_;
+						__x->__color_ = RED;
+						left_rotate(__x);
+						break ;
 					}
 				}
 			}

@@ -21,12 +21,12 @@ ROLS :
 
 ROTATIONS :
 	
-	=> L(R) :
-			[X]                        [Y]
-		       /   \                      /   \
+	=> L && R :
+			[X]                         [Y]
+		       /   \         L             /   \
 		      A    [Y]       =>         [X]    C
-                          /   \                /   \ 
-                         B     C              A     B
+                          /   \      R         /   \ 
+                         B     C     <=       A     B
 
 		- X.right = Y.left .
 		
@@ -43,3 +43,14 @@ ROTATIONS :
 		- Y.left = X
 	
 		- X.parent = Y
+
+	=> LR && RL :
+
+		
+		[X]                         [X]                            [Y]
+               /   \            R          /   \              L           /   \
+              A     [Z]         =>        A     [Y]           =>       [X]     [Z]                 
+	           /   \                       /   \                  /   \   /   \
+                 [Y]    B                     C     [Z]              A     C D     B
+                /   \                              /   \
+               C     D                            D     B

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/23 14:14:19 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/23 18:28:14 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,40 @@ namespace ft
 			}
 		}
 
+		void left_rotate(node* __x)
+		{
+			node*	__y = __x->__right_;
+			__x->__right_ = __y->__left_;
+			if (__x->__right_ != __NIL_)
+				__x->__right_->__parent_ = __x;
+			__y->__parent_ = __x->__parent_;
+			if (__x->__parent_ == __NIL_)
+				__head_ = __y;
+			else if (__x->__parent_->__left_ == __x)
+				__x->__parent_->__left_ = __y;
+			else
+				__x->__parent_->__right_ = __y;
+			__y->__left_ = __x;
+			__x->__parent_ = __y;
+		}
+
+		void right_rotate(node* __x)
+		{
+			node*	__y = __x->__left_;
+			__x->__left_ = __y->__right_;
+			if (__x->__left_ != __NIL_)
+				__x->__left_->__parent_ = __x;
+			__y->parent = __x->parent;
+			if (__x->__parent_ == __NIL_)
+				__head_ = __y;
+			else if (__x->__parent_->__right_ == __x)
+				__x->__parent_->__right_ = __y;
+			else
+				__x->__parent_->__left_ = __y;
+			__y->__right_ = __x;
+			__x->__parent_ = __y;
+		}
+
 		void balance(node* __x)
 		{
 			while (__x != __head_)
@@ -215,12 +249,37 @@ namespace ft
 					}
 					else
 					{
-						
+						if (__x == __x->__parent_->right)
+						{
+							__x = __x->__parent_;
+							left_rotate(__x);
+						}
+						__x = __x->__parent_;
+						__x->color = BLACK;
+						__x = __x->__parent_;
+						__x->color = RED;
+						right_rotate(__x);
+						break;
 					}
 				}
 				else
 				{
-					
+					node *__p = __x->__parent_->__parent_->__left_;
+					if (__p->__color_ == RED)
+					{
+						__x = __x->__parent;
+						__x->__color_ = BLACK;
+						__x = p->__parent_;
+						__p->__color_ = BLACK;
+					}
+					else
+					{
+						if (_x == __x->__parent_->__left_)
+						{
+							__x = __x->__parent_;
+							right_rotate(__x);
+						}
+					}
 				}
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 18:46:56 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/23 14:14:19 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,10 +164,14 @@ namespace ft
 			if (__compar_(__v, *parent->__value_))
 				parent->__left_ = __holder;
 			else
+			{
 				parent->__right_ = __holder;
+				if (__NIL_->parent == parent)
+					__NIL_->parent = __holder;
+			}
 
 			if (parent->__color_ == RED)
-				balance(__head_, __holder);
+				balance(__holder);
 			return ft::make_pair(iterator(__holder), true);
 		}
 
@@ -195,13 +199,24 @@ namespace ft
 			}
 		}
 
-		void balance(node* __root, node* __x)
+		void balance(node* __x)
 		{
-			while (__x != __root)
+			while (__x != __head_)
 			{
-				if (__x == __x->__parent_->__left_)
+				if (__x->__parent_ == __x->__parent_->__parent_->__left_)
 				{
-
+					node *__p = __x->__parent_->__parent_->__right_;
+					if (__p->__color_ == RED)
+					{
+						__x = __x->__parent;
+						__x->__color_ = BLACK;
+						__x = p->__parent_;
+						__p->__color_ = BLACK;
+					}
+					else
+					{
+						
+					}
 				}
 				else
 				{

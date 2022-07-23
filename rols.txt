@@ -18,3 +18,28 @@ ROLS :
 	=> no adjacent RED nodes .
 
 	=> every path should have same number of BLACK nodes .
+
+ROTATIONS :
+	
+	=> L(R) :
+			[X]                        [Y]
+		       /   \                      /   \
+		      A    [Y]       =>         [X]    C
+                          /   \                /   \ 
+                         B     C              A     B
+
+		- X.right = Y.left .
+		
+		- IF ( Y.left != __NIL_ ) : Y.left.parent = X .
+		
+		- Y.parent = X.parent .
+		
+ 		- IF ( X.parent == __NIL_ ) : __head_ = Y .
+		
+		- ELIF ( X == X.parent.left ) : X.parent.left = Y .
+			
+		- ELSE : X.parent.right = Y .
+		
+		- Y.left = X
+	
+		- X.parent = Y

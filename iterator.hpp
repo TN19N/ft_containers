@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 12:48:11 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/24 13:53:37 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,12 +236,12 @@ namespace ft
 
 		__map_iter& operator ++ ()
 		{
-			if(__i->__right_ != NULL)
+			if (__i->__right_ != NULL)
 				for(__i = __i->__right_; __i->__left_ != NULL;)
 					__i = __i->__left_;
 			else
 			{
-				while(__i == __i->__parent_->__right_)
+				while (__i == __i->__parent_->__right_)
 					__i = __i->__parent_;
 			}
 			return *this;
@@ -263,7 +263,7 @@ namespace ft
 	private:
 		__map_iter(_Node_ptr __x) : __i(__x) {}
 		
-		template<class key_type, class mapped_type, class value_type, class key_compare, class allocator_type> friend class tree;
+		template<class key_type, class mapped_type, class value_type, class key_compare, class value_compare, class allocator_type> friend class tree;
 		template<class _Iter1, class _Node_ptr1, class _Iter2, class _Node_ptr2>
 		friend bool operator == (const __map_iter<_Iter1, _Node_ptr1>& __x, const __map_iter<_Iter2, _Node_ptr2>& __y);
 	};

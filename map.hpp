@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/23 19:06:21 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/24 14:05:43 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ namespace ft
 			{ return comp(__x.first, __y.first); }
 		};
 	private:
-		typedef ft::tree<key_type, mapped_type, value_type, value_compare, allocator_type> tree_type;
+		typedef ft::tree<key_type, mapped_type, value_type, key_compare, value_compare, allocator_type> tree_type;
 		tree_type	__tree_;
 	public:
 		typedef typename tree_type::reference				reference;
@@ -58,12 +58,12 @@ namespace ft
 		typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
 		explicit map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-			: __tree_(value_compare(comp), alloc)
+			: __tree_(comp, alloc)
 		{}
 
 		template<class _Iter>
 		map(_Iter first, _Iter secend, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-			: __tree_(value_compare(comp), alloc)
+			: __tree_(comp, alloc)
 		{ insert(first, secend); }
 
 		map(const map& __x) : __tree_(__x.__tree_)
@@ -107,7 +107,7 @@ namespace ft
 		key_compare		key_comp()		const { return value_comp().comp; }
 		value_compare	value_comp()	const { return __tree_.value_comp(); }
 
-		ft::pair<iterator, bool> insert(const value_type& val) 				 { return __tree_.__insert(val); }
+		ft::pair<iterator, bool> insert(const value_type& val) 				 { return __tree_.insert(val); }
 		//iterator			 	 insert(iterator __p, const value_type& val) { return __tree_.__insert(__p, val); }
 		template<class _Iter>
 		void insert(_Iter first, _Iter last)
@@ -145,7 +145,7 @@ namespace ft
 				return ft::make_pair(__p++, __p);
 		}
 
-		mapped_type& operator[] (const key_type& __k) { return insert(ft::make_pair(__k, mapped_type())).first->secend; }
+		mapped_type& operator[] (const key_type& __k) { return insert(ft::make_pair(__k, mapped_type())).first->second; }
 	};
 
 	template<class _Key, class _Tp, class _Compare, class _Allocator>

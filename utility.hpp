@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:30:19 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/24 12:31:53 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/24 14:42:58 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ namespace ft
 
 		pair() : first(), second() {}
 		pair(_T1 const& __t1, _T2 const& __t2) : first(__t1), second(__t2) {}
-		template<class _U1, class _U2> pair(const pair<_U1, _U2>& __p) : first(__p.first), second(__p.secend) {}
+		template<class _U1, class _U2> pair(const pair<_U1, _U2>& __p) : first(__p.first), second(__p.second) {}
 
 		pair& operator = (pair const& __p)
 		{

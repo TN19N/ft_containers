@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/24 14:06:27 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/24 16:47:58 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define __TREE_HPP
 
 # include "iterator.hpp"
+# include "utility.hpp"
 # include <memory>
 
 namespace ft
@@ -24,7 +25,7 @@ namespace ft
 	const bool RED = 0;
 	const bool BLACK = 1;
 
-	template<class key_type, class mapped_type, class value_type, class key_compare , class value_compare, class allocator_type>
+	template<class key_type, class mapped_type, class value_type, class key_compare , class allocator_type>
 	class tree
 	{
 	private:
@@ -58,14 +59,13 @@ namespace ft
 		node*			__head_;
 		node*			__begin_;
 		size_type		__size_;
-		key_compare		__k_compar_;
-		value_compare	__v_compar_;
+		key_compare		__compar_;
 	public:
-		tree(const key_compare& k_comp, const allocator_type& alloc)
+		tree(const key_compare& comp, const allocator_type& alloc)
 			: 
 			  value_alloc(alloc),
 			  __size_(0),
-			  __k_compar_(k_comp)
+			  __compar_(comp)
 		{
 			try { __NIL_ = __head_ = __begin_ = get_node(BLACK); } catch (const std::bad_alloc& e) { throw e; }
 		}
@@ -75,16 +75,16 @@ namespace ft
 		iterator 		end() 			{ return iterator(__NIL_); }
 		const_iterator 	end() 	const 	{ return const_iterator(__NIL_); }
 
-		iterator lower_bound(const key_type& __k, node*& parent = NULL)
+		iterator lower_bound(const key_type& __k, node** parent = NULL)
 		{
 			node* __tmp = __head_;
 			node* __res = __NIL_;
 
-			while (__tmp != NULL)
+			while (__tmp != NULL && __tmp != __NIL_)
 			{
 				if (parent != NULL)
-					parent = __tmp;
-				if (!__k_compar_(__tmp->__value_->first, __k))
+					*parent = __tmp;
+				if (!__compar_(__tmp->__value_->first, __k))
 				{
 					__res = __tmp;
 					__tmp = __tmp->__left_;
@@ -102,7 +102,7 @@ namespace ft
 
 			while (__tmp != NULL)
 			{
-				if (__k_compar_(__k, __tmp->__value_->first))
+				if (__compar_(__k, __tmp->__value_->first))
 				{
 					__res = __tmp;
 					__tmp = __tmp->__left_;
@@ -113,10 +113,10 @@ namespace ft
 			return iterator(__res);
 		}
 
-		iterator find(const key_type& __k, node*& parent = NULL)
+		iterator find(const key_type& __k, node** parent = NULL)
 		{
 			iterator __p = lower_bound(__k, parent);
-			if (__p != end() && !__k_compar_(__k, __p->first))
+			if (__p != end() && !__compar_(__k, __p->first))
 				return __p;
 			return end();
 		}
@@ -129,10 +129,11 @@ namespace ft
 			__head_ = __begin_ = __NIL_;
 		}
 
-		value_compare& 	value_comp() 	{ return __v_compar_; }
-		size_type&		size() 			{ return __size_; }
-		size_type		max_size()		{ return value_alloc.max_size(); }
-		allocator_type	get_alloc()		{ return value_alloc; }
+		key_compare 	key_comp()  const 		{ return __compar_; }
+		key_compare& 	key_comp()   			{ return __compar_; }
+		size_type		size() 	    const		{ return __size_; }
+		size_type		max_size()  const		{ return value_alloc.max_size(); }
+		allocator_type	get_alloc() const		{ return value_alloc; }
 
 		void swap(tree& __x)
 		{
@@ -140,15 +141,14 @@ namespace ft
 			ft::swap(__begin_, __x.__begin_);
 			ft::swap(__size_, __x.__size_);
 			ft::swap(__NIL_, __x.__NIL_);
-			ft::swap(__v_compar_, __x.__v_compar_);
-			ft::swap(__k_compar_, __x.__k_compar_);
+			ft::swap(__compar_, __x.__compar_);
 		}
 
 		ft::pair<iterator, bool> insert(const value_type& __v)
 		{
 			if (__head_ == __NIL_)
 			{
-				__head_ = get_node(BLACK, __v);
+				__begin_ = __head_ = get_node(BLACK, __v);
 				__NIL_->__parent_ = __head_;
 				__head_->__right_ = __NIL_;
 				++__size_;
@@ -157,25 +157,30 @@ namespace ft
 
 			node  *parent;
 			node* __holder;
-			iterator __p = find(__v.first, parent);
-		
+			iterator __p = find(__v.first, &parent);
+	
 			if (__p != end())
 				return ft::make_pair(__p, false);
 	
 			__holder = get_node(RED, __v);
 			__holder->__parent_ = parent;
 
-			if (__v_compar_(__v, *parent->__value_))
+			if (__compar_(__v.first, parent->__value_->first))
+			{
 				parent->__left_ = __holder;
+				if (__begin_ == parent)
+					__begin_ = __holder;
+			}
 			else
 			{
 				parent->__right_ = __holder;
 				if (__NIL_->__parent_ == parent)
+				{
 					__NIL_->__parent_ = __holder;
+					__holder->__right_ = __NIL_;
+				}
 			}
-
-			if (parent->__color_ == RED)
-				balance(__holder);
+			balance(__holder);
 			++__size_;
 			return ft::make_pair(iterator(__holder), true);
 		}
@@ -211,12 +216,17 @@ namespace ft
 			if (__x->__right_ != NULL)
 				__x->__right_->__parent_ = __x;
 			__y->__parent_ = __x->__parent_;
+
+			if (__y == __NIL_->__parent_)
+				__NIL_->__parent_ = __x;
+
 			if (__x->__parent_ == NULL)
 				__head_ = __y;
 			else if (__x->__parent_->__left_ == __x)
 				__x->__parent_->__left_ = __y;
 			else
 				__x->__parent_->__right_ = __y;
+
 			__y->__left_ = __x;
 			__x->__parent_ = __y;
 		}
@@ -227,34 +237,41 @@ namespace ft
 			__x->__left_ = __y->__right_;
 			if (__x->__left_ != NULL)
 				__x->__left_->__parent_ = __x;
-			__y->parent = __x->parent;
+			__y->__parent_ = __x->__parent_;
+			
+			if (__begin_ == __y)
+				__begin_ = __x;
+
 			if (__x->__parent_ == NULL)
 				__head_ = __y;
 			else if (__x->__parent_->__right_ == __x)
 				__x->__parent_->__right_ = __y;
 			else
 				__x->__parent_->__left_ = __y;
+			
 			__y->__right_ = __x;
 			__x->__parent_ = __y;
 		}
 
 		void balance(node* __x)
 		{
-			while (__x != __head_)
+			while (__x != __head_ && __x->__parent_->__color_ == RED)
 			{
 				if (__x->__parent_ == __x->__parent_->__parent_->__left_)
 				{
 					node *__p = __x->__parent_->__parent_->__right_;
-					if (__p->__color_ == RED)
+					if (__p != NULL && __p->__color_ == RED)
 					{
-						__x = __x->__parent;
+						__x = __x->__parent_;
 						__x->__color_ = BLACK;
 						__x = __p->__parent_;
+						if (__x != __head_)
+							__x->__color_ = RED;
 						__p->__color_ = BLACK;
 					}
 					else
 					{
-						if (__x == __x->__parent_->right)
+						if (__x == __x->__parent_->__right_)
 						{
 							__x = __x->__parent_;
 							left_rotate(__x);
@@ -269,12 +286,16 @@ namespace ft
 				}
 				else
 				{
+					if (__x->__value_->first == 5)
+						std::cout << " ------------ " << std::endl;
 					node *__p = __x->__parent_->__parent_->__left_;
-					if (__p->__color_ == RED)
+					if (__p != NULL && __p->__color_ == RED)
 					{
-						__x = __x->__parent;
+						__x = __x->__parent_;
 						__x->__color_ = BLACK;
 						__x = __p->__parent_;
+						if (__x != __head_)
+							__x->__color_ = RED;
 						__p->__color_ = BLACK;
 					}
 					else

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/24 14:05:43 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/24 15:32:35 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 
 # include "__tree.hpp"
 # include "utility.hpp"
+# include "algorithm.hpp"
 # include <memory>
 
 namespace ft
 {
+
+	// map ----------------------------------------------------------------------------------------------------------------------
 	template<class _Key, class _Tp, class _Compare = std::less<_Key>,
 			 class _Allocator = std::allocator<ft::pair<const _Key, _Tp> > >
 	class map
@@ -43,7 +46,7 @@ namespace ft
 			{ return comp(__x.first, __y.first); }
 		};
 	private:
-		typedef ft::tree<key_type, mapped_type, value_type, key_compare, value_compare, allocator_type> tree_type;
+		typedef ft::tree<key_type, mapped_type, value_type, key_compare, allocator_type> tree_type;
 		tree_type	__tree_;
 	public:
 		typedef typename tree_type::reference				reference;
@@ -104,8 +107,8 @@ namespace ft
 		size_type		size() 			const { return __tree_.size(); }
 		size_type		max_size() 		const { return __tree_.max_size(); }
 		allocator_type 	get_allocator() const { return __tree_.get_allocator(); }
-		key_compare		key_comp()		const { return value_comp().comp; }
-		value_compare	value_comp()	const { return __tree_.value_comp(); }
+		key_compare		key_comp()		const { return __tree_.key_comp(); }
+		value_compare	value_comp()	const { return value_compare(key_comp()); }
 
 		ft::pair<iterator, bool> insert(const value_type& val) 				 { return __tree_.insert(val); }
 		//iterator			 	 insert(iterator __p, const value_type& val) { return __tree_.__insert(__p, val); }
@@ -182,6 +185,8 @@ namespace ft
 	void swap(map<_Key, _Tp, _Compare, _Allocator>& __x,
 	          map<_Key, _Tp, _Compare, _Allocator>& __y)
 	{ __x.swap(__y); }
+	// --------------------------------------------------------------------------------------------------------------------------
+
 } // ft
 
 # endif

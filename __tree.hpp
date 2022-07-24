@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/24 18:08:16 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/24 18:53:58 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,9 @@ namespace ft
 		iterator 		end() 			{ return iterator(__NIL_); }
 		const_iterator 	end() 	const 	{ return const_iterator(__NIL_); }
 
-		iterator lower_bound(const key_type& __k, node** parent = NULL, node* __start = NULL)
+		iterator lower_bound(const key_type& __k, node** parent = NULL)
 		{
-			node* __tmp;
-			if (__start != NULL)
-				__tmp = __start;
-			else
-				__tmp = __head_;
+			node* __tmp = __head_;
 			node* __res = __NIL_;
 
 			while (__tmp != NULL && __tmp != __NIL_)
@@ -117,9 +113,9 @@ namespace ft
 			return iterator(__res);
 		}
 
-		iterator find(const key_type& __k, node** parent = NULL, node* __start = NULL)
+		iterator find(const key_type& __k, node** parent = NULL)
 		{
-			iterator __p = lower_bound(__k, parent, __start);
+			iterator __p = lower_bound(__k, parent);
 			if (__p != end() && !__compar_(__k, __p->first))
 				return __p;
 			return end();
@@ -189,7 +185,7 @@ namespace ft
 			return ft::make_pair(iterator(__holder), true);
 		}
 
-		ft::pair<iterator, bool> insert(iterator __hint, const value_type& __v)
+		ft::pair<iterator, bool> insert(const node* __hint, const value_type& __v)
 		{
 			if (__head_ == __NIL_)
 			{
@@ -202,7 +198,7 @@ namespace ft
 
 			node  *parent = NULL;
 			node* __holder;
-			iterator __p = find(__v.first, &parent, __hint.base());
+			iterator __p = find(__v.first, &parent);
 
 			if (parent == NULL)
 
@@ -333,8 +329,6 @@ namespace ft
 				}
 				else
 				{
-					if (__x->__value_->first == 5)
-						std::cout << " ------------ " << std::endl;
 					node *__p = __x->__parent_->__parent_->__left_;
 					if (__p != NULL && __p->__color_ == RED)
 					{

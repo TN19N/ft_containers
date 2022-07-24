@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/24 15:32:35 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:06:59 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ namespace ft
 		value_compare	value_comp()	const { return value_compare(key_comp()); }
 
 		ft::pair<iterator, bool> insert(const value_type& val) 				 { return __tree_.insert(val); }
-		//iterator			 	 insert(iterator __p, const value_type& val) { return __tree_.__insert(__p, val); }
+		iterator			 	 insert(iterator __p, const value_type& val) { return __tree_.__insert(__p, val); }
 		template<class _Iter>
 		void insert(_Iter first, _Iter last)
 		{

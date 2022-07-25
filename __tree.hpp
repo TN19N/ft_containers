@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/25 13:58:05 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/25 14:16:48 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ namespace ft
 
 		iterator find(const key_type& __k, node** parent = NULL)
 		{
+			if (__k == 2)
+				std::cout << " ------------------------- " << std::endl;
 			iterator __p = lower_bound(__k, parent);
 			if (__p != end() && !__compar_(__k, __p->first))
 				return __p;
@@ -200,19 +202,21 @@ namespace ft
 			node* 	 __holder;
 			iterator __p = end();
 
-			if (key_comp(__v.first, __hint->first))
+			if (__compar_(__v.first, __hint->first))
 			{
+				std::cout << "***" << std::endl;
 				iterator pre(__hint);
-				if ((__hint == begin() || key_comp((--pre)->first, __v.first)) && __hint.base()->__left_ == NULL)
+				if ((__hint == begin() || __compar_((--pre)->first, __v.first)) && __hint.base()->__left_ == NULL)
 					parent = __hint.base();
 				else
 					__p = find(__v.first, &parent);
 			}
-			else if (key_comp(__hint->first, __v.first))
+			else if (__compar_(__hint->first, __v.first))
 			{
+				std::cout << "---" << std::endl;
 				iterator next(__hint);
 				++next;
-				if ((next == begin() || key_comp(__v.first, next->first)) && (__hint.base()->__right_ == NULL || __hint.base()->__right_ == __NIL_))
+				if ((next == end() || __compar_(__v.first, next->first)) && (__hint.base()->__right_ == NULL || __hint.base()->__right_ == __NIL_))
 					parent = __hint.base();
 				else
 					__p = find(__v.first, &parent);

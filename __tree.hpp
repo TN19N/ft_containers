@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/24 18:53:58 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/25 11:51:00 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ namespace ft
 			return ft::make_pair(iterator(__holder), true);
 		}
 
-		ft::pair<iterator, bool> insert(const node* __hint, const value_type& __v)
+		iterator insert(iterator __hint, const value_type& __v)
 		{
 			if (__head_ == __NIL_)
 			{
@@ -193,17 +193,26 @@ namespace ft
 				__NIL_->__parent_ = __head_;
 				__head_->__right_ = __NIL_;
 				++__size_;
-				return (ft::make_pair(iterator(__head_), true));
+				return (iterator(__head_));
 			}
 
-			node  *parent = NULL;
-			node* __holder;
-			iterator __p = find(__v.first, &parent);
+			node  	*parent = NULL;
+			node* 	 __holder;
+			iterator __p = end();
 
-			if (parent == NULL)
+			if ( || key_comp(__v.first, __hint->first))
+			{
+				
+			}
+			else if (key_comp(__hint->first, __v.first))
+			{
+				
+			}
+			else
+				return (iterator(__hint));
 
 			if (__p != end())
-				return ft::make_pair(__p, false);
+				return end();
 	
 			__holder = get_node(RED, __v);
 			__holder->__parent_ = parent;
@@ -225,7 +234,7 @@ namespace ft
 			}
 			balance(__holder);
 			++__size_;
-			return ft::make_pair(iterator(__holder), true);
+			return iterator(__holder);
 		}
 
 	private:

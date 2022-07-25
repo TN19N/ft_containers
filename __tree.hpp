@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/25 11:51:00 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/25 13:58:05 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,13 +200,22 @@ namespace ft
 			node* 	 __holder;
 			iterator __p = end();
 
-			if ( || key_comp(__v.first, __hint->first))
+			if (key_comp(__v.first, __hint->first))
 			{
-				
+				iterator pre(__hint);
+				if ((__hint == begin() || key_comp((--pre)->first, __v.first)) && __hint.base()->__left_ == NULL)
+					parent = __hint.base();
+				else
+					__p = find(__v.first, &parent);
 			}
 			else if (key_comp(__hint->first, __v.first))
 			{
-				
+				iterator next(__hint);
+				++next;
+				if ((next == begin() || key_comp(__v.first, next->first)) && (__hint.base()->__right_ == NULL || __hint.base()->__right_ == __NIL_))
+					parent = __hint.base();
+				else
+					__p = find(__v.first, &parent);
 			}
 			else
 				return (iterator(__hint));

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/25 16:22:33 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:14:31 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,12 @@ namespace ft
 		size_type	erase(const Key_type& __k) 			 
 		{
 			iterator __p = find(__k);
-			if (__k != end())
+			if (__p != end())
 			{
 				__tree_.erase(__p);
 				return (1);
 			}
-			return (0); 
+			return (0);
 		}
 		void		erase(iterator first, iterator last)
 		{

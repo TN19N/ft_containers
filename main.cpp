@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/25 14:32:45 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:15:57 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 int main()
 {
 	std::map<int, int> m;
+	std::allocator<int> a;
+	a.deallocate();
 
 	m.erase(m.begin());
 }

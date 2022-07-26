@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/25 16:20:37 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:22:53 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ namespace ft
 
 		iterator find(const key_type& __k, node** parent = NULL)
 		{
-			if (__k == 2)
-				std::cout << " ------------------------- " << std::endl;
 			iterator __p = lower_bound(__k, parent);
 			if (__p != end() && !__compar_(__k, __p->first))
 				return __p;
@@ -204,7 +202,6 @@ namespace ft
 
 			if (__compar_(__v.first, __hint->first))
 			{
-				std::cout << "***" << std::endl;
 				iterator pre(__hint);
 				if ((__hint == begin() || __compar_((--pre)->first, __v.first)) && __hint.base()->__left_ == NULL)
 					parent = __hint.base();
@@ -213,10 +210,9 @@ namespace ft
 			}
 			else if (__compar_(__hint->first, __v.first))
 			{
-				std::cout << "---" << std::endl;
 				iterator next(__hint);
 				++next;
-				if ((next == end() || __compar_(__v.first, next->first)) && (__hint.base()->__right_ == NULL || __hint.base()->__right_ == __NIL_))
+				if ((next == end() || __compar_(__v.first, next->first)) && check_right(__hint.base()->__right_))
 					parent = __hint.base();
 				else
 					__p = find(__v.first, &parent);
@@ -252,7 +248,51 @@ namespace ft
 
 		void erase(iterator __pos)
 		{
-			
+			node* __p = __pos.base();
+			while(__p->__left_ != NULL || !check_right(__p))
+			{
+				node* __old =  __p;
+				if (__p->__left_ != NULL)
+					__p = max_child(__p->__left_);
+				else
+					__p = min_child(__p->__right_);
+				__old->__value_ = __p->__value_;
+			}
+			if (__p->__color_ == RED || __p == __head_)
+				destroy_node(__p);
+			else
+			{		
+				while (__p != __head_)
+				{
+					if (__p == __p->__parent_->__left_)
+					{
+						if (check_right(__p->__parent_) || __p->__parent_->__right_->__color_ == BLACK)
+						{
+							
+						}
+						else
+						{
+							__p->__parent_->__color_ = RED;
+							if (!check_right(__p->__parent_))
+								__p->__parent_->__right_->__color_ = BLACK;
+						}
+					}
+					else
+					{
+						if (__p->__parent_->__left_ == NULL || __p->__parent_->__left_->__color_ == BLACK)
+						{
+							
+						}
+						else
+						{
+							__p->__parent_->__color_ = RED;
+							if (__p->__parent_->__left_ != NULL)
+								__p->__parent_->__left_->__color_ = BLACK;
+						}
+					}
+				}
+			}
+			--__size_;
 		}
 
 	private:
@@ -277,6 +317,24 @@ namespace ft
 				value_alloc.destroy(__p);
 				value_alloc.deallocate(__p, 1);
 			}
+		}
+
+		void destroy_node(node *__p)
+		{
+			if (__begin_ == __p)
+				__begin_ = __p->__parent_ ? __p->__parent_ : __NIL_;
+			else if (__NIL_->__parent_ == __p)
+				__NIL_->__parent_ = __p->__parent_;
+			
+			if (__p == __p->__parent_->__right_)
+				__p->__parent_ = __p->__right_;
+			else
+				__p->__parent_ = __p->__left_;
+
+			value_alloc.destroy(__p->__value_);
+			value_alloc.deallocate(__p->__value_, 1);
+			node_alloc.destroy(__p);
+			node_alloc.deallocate(__p, 1);
 		}
 
 		void left_rotate(node* __x)
@@ -382,6 +440,25 @@ namespace ft
 					}
 				}
 			}
+		}
+
+		bool check_right(node *__p)
+		{
+			return (__p->__right_ == NULL || __p->__right_ == __NIL_);
+		}
+
+		node* min_child(node *__p)
+		{
+			while (__p->__left_ != NULL)
+				__p = __p->__left_;
+			return (__p);
+		}
+
+		node* max_child(node *__p)
+		{
+			while (!check_right(__p))
+				__p = __p->__right_;
+			return (__p);
 		}
 	};
 

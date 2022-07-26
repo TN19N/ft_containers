@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/25 14:16:48 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:20:37 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,11 @@ namespace ft
 			balance(__holder);
 			++__size_;
 			return iterator(__holder);
+		}
+
+		void erase(iterator __pos)
+		{
+			
 		}
 
 	private:

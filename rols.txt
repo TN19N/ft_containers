@@ -54,3 +54,110 @@ ROTATIONS :
                  [Y]    B                     C     [Z]              A     C D     B
                 /   \                              /   \
                C     D                            D     B
+
+DELETION :
+
+	Step 1 : perform BST deletion
+
+	Step 2 : while ( is there DB ) do this :
+		
+		- case 1 : if node is RED just delete it .
+
+		
+		- case 2 : if root is DB just remove the DB .
+
+
+		- case 3 : if DB sibling is BLACK && both its children are BLACK .
+			
+			- remove DB .
+
+			- Add BLACK to its parents .
+
+				-> if parent is BLACK it becomes DB .
+				
+				-> if parent is RED it becomes BLACK .
+
+			- Make sibling RED .
+
+
+		- case 4 : if DB sibling is RED .
+
+			- swap colors of parent and its sibling .
+
+			- rotate parent in DB direction .
+
+		
+		- case 5 : DB sibling is BLACK && far child of sibling is BLACK && the near one is RED .
+
+			- swap colors of DB sibling && sibling child who is near to DB .
+
+			- rotate sibling in oppesite direction to DB .
+
+			- apply case 6 .
+
+		
+		- case 6 : DB sibling is BLACK && far child is RED .
+
+			- swap colors of parent && sibling .
+
+			- rotate parent in DB direction .
+
+			- remove DB .
+
+			- change color of RED child to BLACK .
+			
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

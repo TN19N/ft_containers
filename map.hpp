@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/25 14:09:53 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:22:33 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,22 @@ namespace ft
 				insert(*first);
 		}
 
-		// void 		erase(iterator __pos) 				 { return __tree_.erase(__pos); }
-		// size_type	erase(const Key_type& __k) 			 { return __tree_.erase(find(__k)); }
-		// void		erase(iterator first, iterator last)
-		// {
-		// 	for (; first != last; ++first)
-		// 		__tree_.erase(first);
-		// }
+		void 		erase(iterator __pos) 				 { return __tree_.erase(__pos); }
+		size_type	erase(const Key_type& __k) 			 
+		{
+			iterator __p = find(__k);
+			if (__k != end())
+			{
+				__tree_.erase(__p);
+				return (1);
+			}
+			return (0); 
+		}
+		void		erase(iterator first, iterator last)
+		{
+			for (; first != last; ++first)
+				__tree_.erase(first);
+		}
 
 		void 		swap(map& __x) 					 { __tree_.swap(__x.__tree_); }
 		void 		clear() 						 { __tree_.clear(); }

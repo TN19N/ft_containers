@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/26 14:22:53 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/26 18:11:35 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,8 +256,9 @@ namespace ft
 					__p = max_child(__p->__left_);
 				else
 					__p = min_child(__p->__right_);
-				__old->__value_ = __p->__value_;
+				ft::swap(__old->__value_, __p->__value_);
 			}
+			node *to_delet = __p;
 			if (__p->__color_ == RED || __p == __head_)
 				destroy_node(__p);
 			else
@@ -266,28 +267,90 @@ namespace ft
 				{
 					if (__p == __p->__parent_->__left_)
 					{
-						if (check_right(__p->__parent_) || __p->__parent_->__right_->__color_ == BLACK)
+						node *__sib = __p->__parent_->__right_;
+						if (check_right(__p->__parent_) || __sib->__color_ == BLACK)
 						{
-							
+							if (!check_right(__p->__parent_) &&  !check_right(__sib) && __sib->__right_->__color_ == RED)
+							{
+								std::cout << "NOOOOOOOO" << std::endl;
+								ft::swap(__sib->__color_, __p->__parent_->__color_);
+								left_rotate(__p->__parent_);
+								__sib->__right_->__color_ = BLACK ;
+								if (__p == to_delet)
+									destroy_node(to_delet);
+								break ;
+							}
+							else if (!check_right(__p->__parent_) && __sib->__left_ != NULL && __sib->__left_->__color_ == RED)
+							{
+								__sib->__left_->__color_ = BLACK;
+								__sib->__color_ = RED;
+								right_rotate(__sib);
+							}
+							else
+							{
+								if (!check_right(__p->__parent_))
+									__sib->__color_ = RED;
+								if (__p == to_delet)
+								{
+									__p = __p->__parent_;
+									destroy_node(to_delet);
+								}
+								if (__p->__color_ == RED)
+								{
+									__p->__color_ = BLACK;
+									break ;
+								}
+							}
 						}
 						else
 						{
 							__p->__parent_->__color_ = RED;
 							if (!check_right(__p->__parent_))
-								__p->__parent_->__right_->__color_ = BLACK;
+								__sib->__color_ = BLACK;
+							left_rotate(__p->__parent_);
 						}
 					}
 					else
 					{
-						if (__p->__parent_->__left_ == NULL || __p->__parent_->__left_->__color_ == BLACK)
+						node *__sib = __p->__parent_->__left_;
+						if (__sib == NULL || __sib->__color_ == BLACK)
 						{
-							
+							if (__sib != NULL && __sib->__left_ != NULL && __sib->__left_->__color_ == RED)
+							{
+								ft::swap(__sib->__color_, __p->__parent_->__color_);
+								right_rotate(__p->__parent_);
+								__sib->__left_->__color_ = BLACK;
+								if (__p == to_delet)
+									destroy_node(to_delet);
+							}
+							else if (__sib != NULL && !check_right(__sib) && __sib->__right_->__color_ == RED)
+							{
+								__sib->__right_->__color_ = BLACK;
+								__sib->__color_ = RED;
+								left_rotate(__sib);
+							}
+							else
+							{
+								if (__sib != NULL)
+									__sib->__color_ = RED;
+								if (__p == to_delet)
+								{
+									__p = __p->__parent_;
+									destroy_node(to_delet);
+								}
+								if (__p->__color_ == RED)
+								{
+									__p->__color_ = BLACK;
+									break ;
+								}
+							}
 						}
 						else
 						{
 							__p->__parent_->__color_ = RED;
-							if (__p->__parent_->__left_ != NULL)
-								__p->__parent_->__left_->__color_ = BLACK;
+							if (__sib != NULL)
+								__sib->__color_ = BLACK;
+							right_rotate(__p->__parent_);
 						}
 					}
 				}
@@ -323,13 +386,20 @@ namespace ft
 		{
 			if (__begin_ == __p)
 				__begin_ = __p->__parent_ ? __p->__parent_ : __NIL_;
-			else if (__NIL_->__parent_ == __p)
+			if (__NIL_->__parent_ == __p)
+			{
 				__NIL_->__parent_ = __p->__parent_;
-			
-			if (__p == __p->__parent_->__right_)
-				__p->__parent_ = __p->__right_;
+				__p->__parent_->__right_ = __NIL_;
+			}
+			if (__head_ == __p)
+				__head_ = __NIL_;
 			else
-				__p->__parent_ = __p->__left_;
+			{
+				if (__p == __p->__parent_->__right_)
+					__p->__parent_->__right_ = __p->__right_;
+				else
+					__p->__parent_->__left_ = __p->__left_;
+			}
 
 			value_alloc.destroy(__p->__value_);
 			value_alloc.deallocate(__p->__value_, 1);

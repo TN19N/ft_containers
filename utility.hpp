@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:30:19 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/24 14:42:58 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:14:11 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ namespace ft
 		pair& operator = (pair const& __p)
 		{
 			first = __p.first;
-			second = __p.secend;
+			second = __p.second;
 			return (*this);
 		}
 

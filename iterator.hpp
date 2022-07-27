@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/25 14:25:33 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/27 09:04:05 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ namespace ft
 		__map_iter(_Node_ptr __x) : __i(__x) {}
 		_Node_ptr base() const { return (__i); }
 		
-		template<class key_type, class mapped_type, class value_type, class key_compare, class allocator_type> friend class tree;
+		template<class key_type, class value_type, class key_compare, class allocator_type> friend class tree;
 		template<class _U_Iter, class _U_Node_ptr> friend class __map_iter;
 		template<class _Iter1, class _Node_ptr1, class _Iter2, class _Node_ptr2>
 		friend bool operator == (const __map_iter<_Iter1, _Node_ptr1>& __x, const __map_iter<_Iter2, _Node_ptr2>& __y);

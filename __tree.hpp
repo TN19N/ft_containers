@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/26 18:11:35 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/27 09:01:42 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ namespace ft
 	const bool RED = 0;
 	const bool BLACK = 1;
 
-	template<class key_type, class mapped_type, class value_type, class key_compare , class allocator_type>
+	template<class key_type, class value_type, class key_compare , class allocator_type>
 	class tree
 	{
 	private:
@@ -53,7 +53,7 @@ namespace ft
 		typedef typename allocator_type::difference_type	difference_type;
 		typedef typename allocator_type::size_type			size_type;
 		typedef ft::__map_iter<pointer, node*>				iterator;
-		typedef ft::__map_iter<const_pointer, const node*>	const_iterator;
+		typedef ft::__map_iter<const_pointer, node*>	const_iterator;
 	private:
 		node*			__NIL_;
 		node*			__head_;
@@ -95,6 +95,26 @@ namespace ft
 			return iterator(__res);
 		}
 
+		const_iterator lower_bound(const key_type& __k, node** parent = NULL) const
+		{
+			node* __tmp = __head_;
+			node* __res = __NIL_;
+
+			while (__tmp != NULL && __tmp != __NIL_)
+			{
+				if (parent != NULL)
+					*parent = __tmp;
+				if (!__compar_(__tmp->__value_->first, __k))
+				{
+					__res = __tmp;
+					__tmp = __tmp->__left_;
+				}
+				else
+					__tmp = __tmp->__right_;
+			}
+			return const_iterator(__res);
+		}
+
 		iterator upper_bound(const key_type& __k)
 		{
 			node* __tmp = __head_;
@@ -113,9 +133,35 @@ namespace ft
 			return iterator(__res);
 		}
 
+		const_iterator upper_bound(const key_type& __k) const
+		{
+			node* __tmp = __head_;
+			node* __res = __NIL_;
+
+			while (__tmp != NULL)
+			{
+				if (__compar_(__k, __tmp->__value_->first))
+				{
+					__res = __tmp;
+					__tmp = __tmp->__left_;
+				}
+				else
+					__tmp = __tmp->__right_;
+			}
+			return const_iterator(__res);
+		}
+
 		iterator find(const key_type& __k, node** parent = NULL)
 		{
 			iterator __p = lower_bound(__k, parent);
+			if (__p != end() && !__compar_(__k, __p->first))
+				return __p;
+			return end();
+		}
+
+		const_iterator find(const key_type& __k, node** parent = NULL) const
+		{
+			const_iterator __p = lower_bound(__k, parent);
 			if (__p != end() && !__compar_(__k, __p->first))
 				return __p;
 			return end();
@@ -133,7 +179,7 @@ namespace ft
 		key_compare& 	key_comp()   			{ return __compar_; }
 		size_type		size() 	    const		{ return __size_; }
 		size_type		max_size()  const		{ return value_alloc.max_size(); }
-		allocator_type	get_alloc() const		{ return value_alloc; }
+		allocator_type	get_allocator() const		{ return value_alloc; }
 
 		void swap(tree& __x)
 		{
@@ -272,7 +318,6 @@ namespace ft
 						{
 							if (!check_right(__p->__parent_) &&  !check_right(__sib) && __sib->__right_->__color_ == RED)
 							{
-								std::cout << "NOOOOOOOO" << std::endl;
 								ft::swap(__sib->__color_, __p->__parent_->__color_);
 								left_rotate(__p->__parent_);
 								__sib->__right_->__color_ = BLACK ;
@@ -377,8 +422,8 @@ namespace ft
 				destroy(__p->__right_);
 				value_alloc.destroy(__p->__value_);
 				value_alloc.deallocate(__p->__value_, 1);
-				value_alloc.destroy(__p);
-				value_alloc.deallocate(__p, 1);
+				node_alloc.destroy(__p);
+				node_alloc.deallocate(__p, 1);
 			}
 		}
 

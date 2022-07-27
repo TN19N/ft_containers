@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/26 16:26:38 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/27 09:01:49 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ namespace ft
 			{ return comp(__x.first, __y.first); }
 		};
 	private:
-		typedef ft::tree<key_type, mapped_type, value_type, key_compare, allocator_type> tree_type;
+		typedef ft::tree<key_type, value_type, key_compare, allocator_type> tree_type;
 		tree_type	__tree_;
 	public:
 		typedef typename tree_type::reference				reference;
@@ -77,7 +77,7 @@ namespace ft
 			if (this != &__x)
 			{
 				__tree_.clear();
-				__tree_.value_comp() = __x.__tree_.value_comp();
+				__tree_.key_comp() = __x.__tree_.key_comp();
 				insert(__x.begin(), __x.end());
 			}
 			return *this;

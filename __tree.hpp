@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/28 15:05:42 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 15:38:04 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,13 +345,17 @@ namespace ft
 								if (!check_right(__p->__parent_))
 									__sib->__color_ = RED;
 								if (__p == to_delet)
+								{
+									__p = __p->__parent_;
 									destroy_node(to_delet);
-								__p = __p->__parent_;
+								}
+								else
+									__p = __p->__parent_;
 								if (__p->__color_ == RED)
 								{
 									__p->__color_ = BLACK;
 									break ;
-								}
+								} 
 							}
 						}
 						else
@@ -386,8 +390,12 @@ namespace ft
 								if (__sib != NULL)
 									__sib->__color_ = RED;
 								if (__p == to_delet)
+								{
+									__p = __p->__parent_;
 									destroy_node(to_delet);
-								__p = __p->__parent_;
+								}
+								else
+									__p = __p->__parent_;
 								if (__p->__color_ == RED)
 								{
 									__p->__color_ = BLACK;

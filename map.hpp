@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/28 14:44:07 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 15:38:16 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ namespace ft
 			ft::vector<value_type> holder(first, last);
 			for (size_t i = 0; i < holder.size(); ++i)
 			{
-				std::cout << " => " << holder[i].first << std::endl;
+				// std::cout << " => " << holder[i].first << std::endl;
 				erase(holder[i].first);
 			}
 		}

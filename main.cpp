@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/28 11:17:35 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 14:40:03 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,15 @@ bool comparemaps(Iter1 first1, Iter1 last1, Iter2 first2, Iter2 last2)
 
 int main()
 {
-	bool cond;
-    std::map<char, int> first;
-    ft::map<char, int> m_first;
+	ft::map<int, int> m;
 
-    for (size_t i = 97; i < 110; i++)
-    {
-        first[i - 97] = i;
-        m_first[i - 97] = i;
-    }
+	for (int i = 0; i < 10; ++i)
+		m[i] = i;
 
-    std::map<char, int> copy(first);
-    ft::map<char, int> m_copy(m_first);
+	// m.erase(0);
+	// m.erase(1);
+	// m.erase(2);
+	m.erase(m.begin(), m.end());
 
-    cond = first.size() == m_first.size() && comparemaps(first.begin(), first.end(), m_first.begin(), m_first.end());
-
-	std::cout << "=> cond = " << cond << std::endl;
-}
+	std::cout << "size : " << m.size() << std::endl;
+} 

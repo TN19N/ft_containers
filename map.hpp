@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/28 11:03:47 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 14:41:06 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "__tree.hpp"
 # include "utility.hpp"
 # include "algorithm.hpp"
+# include "vector.hpp"
 # include <memory>
 
 namespace ft
@@ -152,6 +153,7 @@ namespace ft
 			iterator __p = find(__k);
 			if (__p != end())
 			{
+				std::cout << __p->first << std::endl;
 				__tree_.erase(__p);
 				return (1);
 			}
@@ -159,8 +161,12 @@ namespace ft
 		}
 		void		erase(iterator first, iterator last)
 		{
-			for (; first != last; ++first)
-				__tree_.erase(first);
+			ft::vector<value_type> holder(first, last);
+			for (size_t i = 0; i < holder.size(); ++i)
+			{
+				//std::cout << " => " << holder[i].first << std::endl;
+				erase(holder[i].first);
+			}
 		}
 
 		void 		swap(map& __x) 					 { __tree_.swap(__x.__tree_); }

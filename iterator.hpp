@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/28 10:49:44 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 12:30:06 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,27 @@ namespace ft
 	// distance ----------------------------------------------------------------------------------------------------------------------
 	template<typename _InputIter>
 	typename ft::iterator_traits<_InputIter>::difference_type
-	distance(_InputIter __first, _InputIter __last) { return __last - __first; }
+	distance(_InputIter __first, _InputIter __last, std::input_iterator_tag)
+	{
+		typename ft::iterator_traits<_InputIter>::difference_type __i(0);
+
+		for (; __first != __last ; ++__first)
+			++__i;
+
+		return __i;
+	}
+	
+	template<typename _InputIter>
+	typename ft::iterator_traits<_InputIter>::difference_type
+	distance(_InputIter __first, _InputIter __last, std::random_access_iterator_tag)
+	{ return __last - __first; }
+	
+	template<typename _InputIter>
+	typename ft::iterator_traits<_InputIter>::difference_type
+	distance(_InputIter __first, _InputIter __last) 
+	{ 
+		return distance(__first, __last, typename ft::iterator_traits<_InputIter>::iterator_category());
+	}
 	// -------------------------------------------------------------------------------------------------------------------------------
 	
 	// __map_iter --------------------------------------------------------------------------------------------------------------------

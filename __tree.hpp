@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/28 14:40:38 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 15:05:42 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,7 +327,6 @@ namespace ft
 						{
 							if (!check_right(__p->__parent_) &&  !check_right(__sib) && __sib->__right_->__color_ == RED)
 							{
-								//std::cout << "case 6 : far child is RED" << std::endl;
 								ft::swap(__sib->__color_, __p->__parent_->__color_);
 								left_rotate(__p->__parent_);
 								__sib->__right_->__color_ = BLACK ;
@@ -337,14 +336,12 @@ namespace ft
 							}
 							else if (!check_right(__p->__parent_) && __sib->__left_ != NULL && __sib->__left_->__color_ == RED)
 							{
-								//std::cout << "case 5 : close child is RED" << std::endl;
 								__sib->__left_->__color_ = BLACK;
 								__sib->__color_ = RED;
 								right_rotate(__sib);
 							}
 							else
 							{
-								//std::cout << "case 4 : all child are BLACK" << std::endl;
 								if (!check_right(__p->__parent_))
 									__sib->__color_ = RED;
 								if (__p == to_delet)
@@ -359,7 +356,6 @@ namespace ft
 						}
 						else
 						{
-							//std::cout << "case 3 : sibling is RED" << std::endl;
 							__p->__parent_->__color_ = RED;
 							if (!check_right(__p->__parent_))
 								__sib->__color_ = BLACK;
@@ -373,7 +369,6 @@ namespace ft
 						{
 							if (__sib != NULL && __sib->__left_ != NULL && __sib->__left_->__color_ == RED)
 							{
-								//std::cout << "case 6 : far child is RED" << std::endl;
 								ft::swap(__sib->__color_, __p->__parent_->__color_);
 								right_rotate(__p->__parent_);
 								__sib->__left_->__color_ = BLACK;
@@ -382,14 +377,12 @@ namespace ft
 							}
 							else if (__sib != NULL && !check_right(__sib) && __sib->__right_->__color_ == RED)
 							{
-								//std::cout << "case 5 : close child is RED" << std::endl;
 								__sib->__right_->__color_ = BLACK;
 								__sib->__color_ = RED;
 								left_rotate(__sib);
 							}
 							else
 							{
-								//std::cout << "case 4 : all child are BLACK" << std::endl;
 								if (__sib != NULL)
 									__sib->__color_ = RED;
 								if (__p == to_delet)
@@ -404,7 +397,6 @@ namespace ft
 						}
 						else
 						{
-							//std::cout << "case 3 : sibling is RED" << std::endl;
 							__p->__parent_->__color_ = RED;
 							if (__sib != NULL)
 								__sib->__color_ = BLACK;

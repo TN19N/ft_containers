@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/27 09:01:49 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:03:47 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,32 @@
 
 namespace ft
 {
+
+	// __map_comp ---------------------------------------------------------------------------------------------------------------
+	template<class _key_comp, class value_type, class key_type>
+	class __map_comp
+	{
+		private:
+			_key_comp	key_comp;
+
+		public:
+			__map_comp(const _key_comp& key) : key_comp(key) {}
+			
+			_key_comp get_comp() const { return key_comp; }
+			
+			bool operator () (const value_type& __x, const value_type& __y) const
+			{ return key_comp(__x.first, __y.first); }
+
+			bool operator () (const key_type& __x, const key_type& __y) const
+			{ return key_comp(__x, __y); }
+
+			bool operator () (const key_type& __x, const value_type& __y) const
+ 			{ return key_comp(__x, __y.first); }
+
+			bool operator () (const value_type& __x, const key_type& __y) const
+			{ return key_comp(__x.first, __y); }
+	};
+	// --------------------------------------------------------------------------------------------------------------------------
 
 	// map ----------------------------------------------------------------------------------------------------------------------
 	template<class _Key, class _Tp, class _Compare = std::less<_Key>,
@@ -46,7 +72,8 @@ namespace ft
 			{ return comp(__x.first, __y.first); }
 		};
 	private:
-		typedef ft::tree<key_type, value_type, key_compare, allocator_type> tree_type;
+		typedef ft::__map_comp<key_compare, value_type, key_type>	  			map_comp;
+		typedef ft::tree<key_type, value_type, map_comp, allocator_type>		tree_type;
 		tree_type	__tree_;
 	public:
 		typedef typename tree_type::reference				reference;
@@ -77,7 +104,7 @@ namespace ft
 			if (this != &__x)
 			{
 				__tree_.clear();
-				__tree_.key_comp() = __x.__tree_.key_comp();
+				__tree_.value_comp() = __x.__tree_.value_comp();
 				insert(__x.begin(), __x.end());
 			}
 			return *this;
@@ -107,7 +134,7 @@ namespace ft
 		size_type		size() 			const { return __tree_.size(); }
 		size_type		max_size() 		const { return __tree_.max_size(); }
 		allocator_type 	get_allocator() const { return __tree_.get_allocator(); }
-		key_compare		key_comp()		const { return __tree_.key_comp(); }
+		key_compare		key_comp()		const { return __tree_.value_comp().get_comp(); }
 		value_compare	value_comp()	const { return value_compare(key_comp()); }
 
 		ft::pair<iterator, bool> insert(const value_type& val) 				 { return __tree_.insert(val); }

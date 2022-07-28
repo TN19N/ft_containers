@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/27 09:04:05 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 10:49:44 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,9 +227,9 @@ namespace ft
 	public:
 		__map_iter() {}
 		template<class _Up, class _Up_node>
-		__map_iter(const ft::__map_iter<_Up, _Up_node>& __u) : __i(__u.__i) {}
+		__map_iter(const __map_iter<_Up, _Up_node>& __u) : __i((_Node_ptr)__u.__i) {}
 		template<class _Up, class _Up_node>
-		__map_iter& operator = (const ft::__map_iter<_Up, _Up_node>& __u) { __i = __u.__i; return *this; }
+		__map_iter& operator = (const ft::__map_iter<_Up, _Up_node>& __u) { __i = (_Node_ptr)__u.__i; return *this; }
 
 		reference	operator *  () const { return *(__i->__value_); }
 		pointer		operator -> () const { return __i->__value_; }
@@ -273,7 +273,7 @@ namespace ft
 	};
 	template<class _Iter1, class _Node_ptr1, class _Iter2, class _Node_ptr2>
 	bool operator == (const __map_iter<_Iter1, _Node_ptr1>& __x, const __map_iter<_Iter2, _Node_ptr2>& __y)
-	{ return __x.__i == __y.__i; }
+	{ return __x.__i == (_Node_ptr1)__y.__i; }
 
 	template<class _Iter1, class _Node_ptr1, class _Iter2, class _Node_ptr2>
 	bool operator != (const __map_iter<_Iter1, _Node_ptr1>& __x, const __map_iter<_Iter2, _Node_ptr2>& __y)

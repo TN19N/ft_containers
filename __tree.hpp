@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/27 09:01:42 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:03:28 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ namespace ft
 	const bool RED = 0;
 	const bool BLACK = 1;
 
-	template<class key_type, class value_type, class key_compare , class allocator_type>
+	template<class key_type, class value_type, class value_compare , class allocator_type>
 	class tree
 	{
 	private:
@@ -53,15 +53,15 @@ namespace ft
 		typedef typename allocator_type::difference_type	difference_type;
 		typedef typename allocator_type::size_type			size_type;
 		typedef ft::__map_iter<pointer, node*>				iterator;
-		typedef ft::__map_iter<const_pointer, node*>	const_iterator;
+		typedef ft::__map_iter<const_pointer, node*>		const_iterator;
 	private:
 		node*			__NIL_;
 		node*			__head_;
 		node*			__begin_;
 		size_type		__size_;
-		key_compare		__compar_;
+		value_compare	__compar_;
 	public:
-		tree(const key_compare& comp, const allocator_type& alloc)
+		tree(const value_compare& comp, const allocator_type& alloc)
 			: 
 			  value_alloc(alloc),
 			  __size_(0),
@@ -84,7 +84,7 @@ namespace ft
 			{
 				if (parent != NULL)
 					*parent = __tmp;
-				if (!__compar_(__tmp->__value_->first, __k))
+				if (!__compar_(*(__tmp->__value_), __k))
 				{
 					__res = __tmp;
 					__tmp = __tmp->__left_;
@@ -104,7 +104,7 @@ namespace ft
 			{
 				if (parent != NULL)
 					*parent = __tmp;
-				if (!__compar_(__tmp->__value_->first, __k))
+				if (!__compar_(*(__tmp->__value_), __k))
 				{
 					__res = __tmp;
 					__tmp = __tmp->__left_;
@@ -122,7 +122,7 @@ namespace ft
 
 			while (__tmp != NULL)
 			{
-				if (__compar_(__k, __tmp->__value_->first))
+				if (__compar_(__k, *(__tmp->__value_)))
 				{
 					__res = __tmp;
 					__tmp = __tmp->__left_;
@@ -140,7 +140,7 @@ namespace ft
 
 			while (__tmp != NULL)
 			{
-				if (__compar_(__k, __tmp->__value_->first))
+				if (__compar_(__k, *(__tmp->__value_)))
 				{
 					__res = __tmp;
 					__tmp = __tmp->__left_;
@@ -154,7 +154,7 @@ namespace ft
 		iterator find(const key_type& __k, node** parent = NULL)
 		{
 			iterator __p = lower_bound(__k, parent);
-			if (__p != end() && !__compar_(__k, __p->first))
+			if (__p != end() && !__compar_(__k, *__p))
 				return __p;
 			return end();
 		}
@@ -162,7 +162,7 @@ namespace ft
 		const_iterator find(const key_type& __k, node** parent = NULL) const
 		{
 			const_iterator __p = lower_bound(__k, parent);
-			if (__p != end() && !__compar_(__k, __p->first))
+			if (__p != end() && !__compar_(__k, *__p))
 				return __p;
 			return end();
 		}
@@ -175,11 +175,11 @@ namespace ft
 			__head_ = __begin_ = __NIL_;
 		}
 
-		key_compare 	key_comp()  const 		{ return __compar_; }
-		key_compare& 	key_comp()   			{ return __compar_; }
-		size_type		size() 	    const		{ return __size_; }
-		size_type		max_size()  const		{ return value_alloc.max_size(); }
-		allocator_type	get_allocator() const		{ return value_alloc; }
+		value_compare 	value_comp()    const 	{ return __compar_; }
+		value_compare& 	value_comp()   			{ return __compar_; }
+		size_type		size() 	        const	{ return __size_; }
+		size_type		max_size()      const	{ return value_alloc.max_size(); }
+		allocator_type	get_allocator() const	{ return value_alloc; }
 
 		void swap(tree& __x)
 		{
@@ -203,7 +203,7 @@ namespace ft
 
 			node  *parent;
 			node* __holder;
-			iterator __p = find(__v.first, &parent);
+			iterator __p = find(__get_key(__v), &parent);
 	
 			if (__p != end())
 				return ft::make_pair(__p, false);
@@ -211,7 +211,7 @@ namespace ft
 			__holder = get_node(RED, __v);
 			__holder->__parent_ = parent;
 
-			if (__compar_(__v.first, parent->__value_->first))
+			if (__compar_(__v, *(parent->__value_)))
 			{
 				parent->__left_ = __holder;
 				if (__begin_ == parent)
@@ -246,22 +246,22 @@ namespace ft
 			node* 	 __holder;
 			iterator __p = end();
 
-			if (__compar_(__v.first, __hint->first))
+			if (__compar_(__get_key(__v), *__hint))
 			{
 				iterator pre(__hint);
-				if ((__hint == begin() || __compar_((--pre)->first, __v.first)) && __hint.base()->__left_ == NULL)
+				if ((__hint == begin() || __compar_(*--pre, __get_key(__v))) && __hint.base()->__left_ == NULL)
 					parent = __hint.base();
 				else
-					__p = find(__v.first, &parent);
+					__p = find(__get_key(__v), &parent);
 			}
-			else if (__compar_(__hint->first, __v.first))
+			else if (__compar_(*__hint, __get_key(__v)))
 			{
 				iterator next(__hint);
 				++next;
-				if ((next == end() || __compar_(__v.first, next->first)) && check_right(__hint.base()->__right_))
+				if ((next == end() || __compar_(__get_key(__v), *next)) && check_right(__hint.base()->__right_))
 					parent = __hint.base();
 				else
-					__p = find(__v.first, &parent);
+					__p = find(__get_key(__v), &parent);
 			}
 			else
 				return (iterator(__hint));
@@ -272,7 +272,7 @@ namespace ft
 			__holder = get_node(RED, __v);
 			__holder->__parent_ = parent;
 
-			if (__compar_(__v.first, parent->__value_->first))
+			if (__compar_(__get_key(__v), *(parent->__value_)))
 			{
 				parent->__left_ = __holder;
 				if (__begin_ == parent)
@@ -575,6 +575,9 @@ namespace ft
 				__p = __p->__right_;
 			return (__p);
 		}
+		
+		const key_type __get_key(const value_type& __p)
+		{ return (__p.first); }
 	};
 
 } // ft

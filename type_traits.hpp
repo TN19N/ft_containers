@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 18:08:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/18 10:34:43 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:33:16 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,30 @@ namespace ft
 	// -------------------------------------------------------------------------------------------------------------------------------------
 
 	// is_integral -------------------------------------------------------------------------------------------------------------------------
-	template<typename _Tp> 	struct tmp_is_integral 						: public false_type {};
-	template<>			   	struct tmp_is_integral<bool> 				: public true_type {};
-	template<>			   	struct tmp_is_integral<char> 				: public true_type {};
-	template<>			   	struct tmp_is_integral<signed char> 		: public true_type {};
-	template<>			   	struct tmp_is_integral<unsigned char> 		: public true_type {};
-	template<>			   	struct tmp_is_integral<wchar_t> 			: public true_type {};
-	template<>			   	struct tmp_is_integral<char16_t> 			: public true_type {};
-	template<>			   	struct tmp_is_integral<char32_t> 			: public true_type {};
-	template<>			   	struct tmp_is_integral<short> 				: public true_type {};
-	template<>			   	struct tmp_is_integral<unsigned short> 		: public true_type {};
-	template<>			   	struct tmp_is_integral<int> 				: public true_type {};
-	template<>			   	struct tmp_is_integral<unsigned int> 		: public true_type {};
-	template<>			   	struct tmp_is_integral<long> 				: public true_type {};
-	template<>			   	struct tmp_is_integral<unsigned long> 		: public true_type {};
-	template<>			   	struct tmp_is_integral<long long> 			: public true_type {};
-	template<>			   	struct tmp_is_integral<unsigned long long>	: public true_type {};
+	template<typename _Tp> 	struct tmp_is_integral 						: public ft::false_type {};
+	template<>			   	struct tmp_is_integral<bool> 				: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<char> 				: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<signed char> 		: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<unsigned char> 		: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<wchar_t> 			: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<char16_t> 			: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<char32_t> 			: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<short> 				: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<unsigned short> 		: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<int> 				: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<unsigned int> 		: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<long> 				: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<unsigned long> 		: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<long long> 			: public ft::true_type {};
+	template<>			   	struct tmp_is_integral<unsigned long long>	: public ft::true_type {};
 
 
 	template<typename _Tp> struct is_integral : public tmp_is_integral<typename ft::remove_cv<_Tp>::type> {};
+	// -------------------------------------------------------------------------------------------------------------------------------------
+
+	// is_same -----------------------------------------------------------------------------------------------------------------------------
+	template<class _Tp, class _Up> 	struct is_same 				: public  ft::false_type {};
+	template<class _Tp> 			struct is_same<_Tp, _Tp>  	: public  ft::true_type {};
 	// -------------------------------------------------------------------------------------------------------------------------------------
 
 } // ft

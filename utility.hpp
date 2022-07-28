@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 09:30:19 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/26 19:14:11 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 11:17:22 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,27 @@ namespace ft
 	};
 
 	template<class _T1, class _T2>
-	bool operator == (const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+	bool operator == (const ft::pair<_T1, _T2>& __x, const ft::pair<_T1, _T2>& __y)
 	{ return (__x.first == __y.first && __x.second == __y.second); }
 
 	template<class _T1, class _T2>
-	bool operator != (const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+	bool operator != (const ft::pair<_T1, _T2>& __x, const ft::pair<_T1, _T2>& __y)
 	{ return !(__x == __y); }
 
 	template<class _T1, class _T2>
-	bool operator < (const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+	bool operator < (const ft::pair<_T1, _T2>& __x, const ft::pair<_T1, _T2>& __y)
 	{ return __x.first < __y.first || ( !(__y.first < __x.first) && __x.second < __y.second ); }
 
 	template<class _T1, class _T2>
-	bool operator > (const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+	bool operator > (const ft::pair<_T1, _T2>& __x, const ft::pair<_T1, _T2>& __y)
 	{ return (__y < __x); }
 
 	template<class _T1, class _T2>
-	bool operator >= (const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+	bool operator >= (const ft::pair<_T1, _T2>& __x, const ft::pair<_T1, _T2>& __y)
 	{ return !(__x < __y); }
 
 	template<class _T1, class _T2>
-	bool operator <= (const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+	bool operator <= (const ft::pair<_T1, _T2>& __x, const ft::pair<_T1, _T2>& __y)
 	{ return !(__y < __x); }
 	// ------------------------------------------------------------------------------------------------------------------------------------------------
 

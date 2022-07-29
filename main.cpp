@@ -6,41 +6,58 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/28 15:04:24 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:21:54 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include <iostream>
+
 #include <type_traits>
+#include "type_traits.hpp"
+
 #include <algorithm>
+#include "algorithm.hpp"
+
 #include <iterator>
+#include "iterator.hpp"
+
 #include <vector>
+#include "vector.hpp"
+
 #include <stack>
+#include "stack.hpp"
+
 #include <utility>
+#include "utility.hpp"
+
 #include <map>
+#include "map.hpp"
+
+#include <set>
+#include "set.hpp"
+
 #include <memory>
 #include <chrono>
-#include <set>
 
-# if 1
-#include "algorithm.hpp"
-#include "iterator.hpp"
-#include "vector.hpp"
-#include "stack.hpp"
-#include "map.hpp"
-#include "utility.hpp"
-#include "type_traits.hpp"
-# endif
+
+class A
+{
+	int* a;
+	public:
+		A() { a = new int[1]; }
+		A(const A& other) { a = new int[1]; *a = *(other.a); }
+		~A() {  delete a; }
+};
+
+void ft_main()
+{
+	ft::vector<A> alloc(100);
+	std::vector<A> a;
+}
 
 int main()
 {
-	ft::map<int, int> m;
-
-	for (int i = 0; i < 1000000; ++i)
-		m[i] = i;
-	
- 	m.erase(m.begin(), m.end());
-
-	std::cout << "size : " << m.size() << std::endl;
-} 
+	ft_main();
+	system("leaks run");
+}  

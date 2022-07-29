@@ -8,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Thu Jul 28 15:35:56 2022
+# Make data base, printed on Fri Jul 29 12:52:46 2022
 
 # Variables
 
@@ -30,6 +30,7 @@ SHELL = /bin/sh
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
+ 
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
@@ -37,7 +38,7 @@ P9K_SSH = 0
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.PrMv4EVGTF/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.KMHTxB9G5b/Render
 # environment
 PATH = /Users/mannouao/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # environment
@@ -47,7 +48,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.WKKu6EDkxv/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.9PsjAcVmE7/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -113,7 +114,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000005.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000003.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -127,12 +128,11 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # environment
- 
 PAGER = less
 # environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 186bc
+SECURITYSESSIONID = 186a8
 # automatic
 ^F = $(notdir $^)
 # default
@@ -144,7 +144,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 4075
+VSCODE_PID = 3811
 # variable set hash-table stats:
 # Load=66/1024=6%, Rehash=0, Collisions=1/92=1%
 
@@ -154,9 +154,9 @@ VSCODE_PID = 4075
 
 # Directories
 
-# . (device 16777227, inode 6462681): 19 files, no impossibilities.
+# . (device 16777227, inode 6462681): 20 files, no impossibilities.
 
-# 19 files, no impossibilities in 1 directories.
+# 20 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -165,6 +165,7 @@ VSCODE_PID = 4075
 # Files
 
 all:
+ 
 #  Command-line target.
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: `'
@@ -190,7 +191,7 @@ all:
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/10=10%
 #  commands to execute (from `Makefile', line 14):
-	c++ -std=c++98 -Wall -Wextra -Werror -fsanitize=address -g3 main.cpp  -o run
+	c++ -std=c++98 -Wall -Wextra -Werror -g3 main.cpp  -o run
 	
 
 # Not a target:
@@ -202,7 +203,7 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-28 15:35:50
+#  Last modified 2022-07-29 12:52:35
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -235,6 +236,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Jul 28 15:35:56 2022
+# Finished Make data base on Fri Jul 29 12:52:46 2022
 
  

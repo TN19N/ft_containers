@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 18:08:44 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/27 19:33:16 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/28 19:55:37 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TYPE_TRAITS_HPP
 
 # include <__config>
+# include "utility.hpp"
 # include <iterator>
 
 namespace ft
@@ -73,9 +74,9 @@ namespace ft
 	template<typename _Tp> struct is_integral : public tmp_is_integral<typename ft::remove_cv<_Tp>::type> {};
 	// -------------------------------------------------------------------------------------------------------------------------------------
 
-	// is_same -----------------------------------------------------------------------------------------------------------------------------
-	template<class _Tp, class _Up> 	struct is_same 				: public  ft::false_type {};
-	template<class _Tp> 			struct is_same<_Tp, _Tp>  	: public  ft::true_type {};
+	// is_pair -----------------------------------------------------------------------------------------------------------------------------
+	template<class>				struct is_pair 									: public ft::false_type {};
+	template<class T, class U> 	struct is_pair<ft::pair<T, U> > 				: public  ft::true_type {};
 	// -------------------------------------------------------------------------------------------------------------------------------------
 
 } // ft

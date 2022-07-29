@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 10:10:38 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/22 12:42:41 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:56:43 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ namespace ft
 			if (__n > 0)
 			{
 				if(__n > max_size()) std::__throw_length_error("vector");
-				try { __begin_ = __end_ = __alloc_.allocate(__n); } catch (const std::bad_alloc& e) { throw (e); }
-				__capacity_ = __n;
-				while (__n-- > 0)
-					__alloc_.construct(__end_++, val);
+				__begin_ = __end_ = __alloc_.allocate(__n);
+				for (; __capacity_ < __n ; ++__capacity_) __alloc_.construct(__end_++, val);
 			}
 		}
 
@@ -75,10 +73,8 @@ namespace ft
 			if (__n > 0)
 			{
 				if(__n > max_size()) std::__throw_length_error("vector");
-				try { __begin_ = __end_ = __alloc_.allocate(__n); } catch (const std::bad_alloc& e) { throw (e); }
-				__capacity_ = __n;
-				for (; first != secend ; ++first)
-					__alloc_.construct(__end_++, *first);
+				__begin_ = __end_ = __alloc_.allocate(__n);
+				for (; first != secend ; ++first, ++__capacity_) __alloc_.construct(__end_++, *first);
 			}
 		}
 
@@ -90,10 +86,9 @@ namespace ft
 		{
 			if (other.size() > 0)
 			{
-				try { __begin_ = __end_ = __alloc_.allocate(other.size()); } catch (const std::bad_alloc& e) { throw (e); }
-				__capacity_ = other.capacity();
-				for (size_type i = 0; i < other.size(); ++i)
-					__alloc_.construct(__end_++, other[i]);
+				if(other.size() > max_size()) std::__throw_length_error("vector");
+				__begin_ = __end_ = __alloc_.allocate(other.size());
+				for (size_type i = 0; i < other.size(); ++i, ++__capacity_) __alloc_.construct(__end_++, other[i]);
 			}
 		}
 
@@ -121,25 +116,15 @@ namespace ft
 		bool			empty()			const { return size() == 0; };
 		allocater_type	get_allocator() const { return __alloc_; }
 
-		void clear()
-		{
-			for (pointer __tmp = __begin_; __tmp != __end_ ; ++__tmp)
-				__alloc_.destroy(__tmp);
-			__end_ = __begin_;
-		}
+		void clear() { while ( __end_ != __begin_ ) __alloc_.destroy(--__end_); }
 
 		void push_back(const value_type& val)
 		{
-			if (__capacity_ == size())
-				reserve(__capacity_ ? __capacity_ * 2 : 1);
+			if (__capacity_ == size()) reserve(__capacity_ ? __capacity_ * 2 : 1);
 			__alloc_.construct(__end_++, val);
 		}
 
-		void pop_back()
-		{
-			if(!empty())
-				__alloc_.destroy(--__end_);
-		}
+		void pop_back() { if(!empty()) __alloc_.destroy(--__end_); }
 
 		void reserve(size_type __n)
 		{
@@ -147,35 +132,23 @@ namespace ft
 			{
 				if(__n > max_size()) std::__throw_length_error("vector");
 				vector __tmp(*this);
-				if (__begin_ != NULL)
-					__alloc_.deallocate(__begin_, __capacity_);
-				try { __begin_ = __end_ = __alloc_.allocate(__n); } catch (const std::bad_alloc& e) { throw (e); }
+				clear();
+				if (__begin_ != NULL) __alloc_.deallocate(__begin_, __capacity_);
+				__begin_ = __end_ = __alloc_.allocate(__n);
 				__capacity_ = __n;
-				for (size_type i = 0; i < __tmp.size(); ++i)
-					__alloc_.construct(__end_++, __tmp[i]);
+				for (size_type i = 0; i < __tmp.size(); ++i) __alloc_.construct(__end_++, __tmp[i]);
 			}
 		}
 
 		void resize(size_type __n, value_type val = value_type())
 		{
 			size_type __cs = size();
-			(void)val;
 
-			if (__n < __cs)
-			{
-				pointer __tmp = __begin_ + __n;
-				__end_ = __tmp;
-				for (size_type i = __n; i < __cs; ++i)
-					__alloc_.destroy(__tmp++);
-			}
+			if 		(__n < __cs) while (__end_ != __begin_ + __n) __alloc_.destroy(--__end_);
 			else if (__n > __cs)
 			{
-				if (__n > __capacity_ * 2)
-					reserve(__n);
-				else if (__n > __capacity_)
-					reserve(__capacity_ * 2);
-				for (size_type i = size(); i < __n; ++i)
-					__alloc_.construct(__end_++, val);
+				if (__n > __capacity_) reserve(__n > __capacity_ * 2 ? __n : __capacity_ * 2);
+				while (size() < __n) __alloc_.construct(__end_++, val);
 			}
 		}
 
@@ -184,38 +157,34 @@ namespace ft
 		{
 			size_type __n = static_cast<size_type>(ft::distance(_first, _last));
 			clear();
-			if(__n > __capacity_)
-				reserve(__n);
-			for (; _first != _last; ++_first)
-				__alloc_.construct(__end_++, *_first);
+			if (__n > __capacity_) reserve(__n);
+			while (_first != _last) __alloc_.construct(__end_++, *_first++);
 		}
 
 		void assign(size_type __n, const value_type& val)
 		{
 			clear();
-			if (__n > __capacity_)
-				reserve(__n);
-			while (__n-- > 0)
-				__alloc_.construct(__end_++, val);
+			if (__n > __capacity_) reserve(__n);
+			while (__n-- > 0) __alloc_.construct(__end_++, val);
 		}
 
-		reference front() { return *__begin_; }
-		const_reference front() const { return *__begin_; }
-		reference back() { return *(__end_ - 1); }
-		const_reference back() const { return *(__end_ - 1); }
+		reference 		front() 		{ return *__begin_; }
+		const_reference front() const 	{ return *__begin_; }
 
+		reference 		back() 			{ return *(__end_ - 1); }
+		const_reference back()  const 	{ return *(__end_ - 1); }
 
-		reference operator [] (size_type __n) { return __begin_[__n]; }
-		const_reference operator [] (size_type __n) const { return __begin_[__n]; }
-		reference at(size_type __n) { if(__n >= size()) std::__throw_out_of_range("vector"); return __begin_[__n]; }
+		reference 		operator [] (size_type __n) 		{ return __begin_[__n]; }
+		const_reference operator [] (size_type __n) const 	{ return __begin_[__n]; }
+	
+		reference 		at(size_type __n) 		{ if(__n >= size()) std::__throw_out_of_range("vector"); return __begin_[__n]; }
 		const_reference at(size_type __n) const { if(__n >= size()) std::__throw_out_of_range("vector"); return __begin_[__n]; }
 
 		iterator insert(iterator __pos, const value_type& val)
 		{
 			size_type __len = static_cast<size_type>(ft::distance(begin(), __pos));
 			insert(__pos, 1, val);
-			__pos = begin() + __len;
-			return __pos;
+			return begin() + __len;
 		}
 
 		void insert(iterator __pos, size_type __n, const value_type& val)
@@ -225,7 +194,10 @@ namespace ft
 			else if (__n + size() > __capacity_) reserve(__capacity_ * 2);
 			__pos = begin() + __len;
 			for (iterator __tp = end(); __tp != __pos; --__tp)
+			{
 				__alloc_.construct(__tp.base() + __n - 1, *(__tp - 1));
+				__alloc_.destroy(__tp.base() - 1);
+			}
 			for (size_type i = 0; i < __n; ++i, ++__end_)
 				__alloc_.construct(__pos.base() + i, val);
 		}
@@ -239,7 +211,10 @@ namespace ft
 			else if (__n + size() > __capacity_) reserve(__capacity_ * 2);
 			__pos = begin() + __len;
 			for (iterator __tp = end(); __tp != __pos; --__tp)
+			{
 				__alloc_.construct(__tp.base() + __n - 1, *(__tp - 1));
+				__alloc_.destroy(__tp.base() - 1);
+			}
 			for (size_type i = 0; i < __n; ++i, ++__end_, ++__first)
 				__alloc_.construct(__pos.base() + i, *__first);
 		}
@@ -252,7 +227,10 @@ namespace ft
 				__alloc_.destroy(__tp.base());
 			size_type __len = ft::distance(__last, end());
 			for (size_type i = 0; i < __len; ++i)
+			{
 				__alloc_.construct(__first.base() + i, *(__last + i));
+				__alloc_.destroy(__last.base() + i);
+			}
 			__end_ -= ft::distance(__first, __last);
 			return __first;
 		}

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/28 15:38:04 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/29 12:57:59 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,15 @@ namespace ft
 			  __compar_(__x.__compar_)
 		{
 			try { __NIL_ = __head_ = __begin_ = get_node(BLACK); } catch (const std::bad_alloc& e) { throw e; }
+		}
+
+		~tree() 
+		{
+			clear();
+			value_alloc.destroy(__NIL_->__value_);
+			value_alloc.deallocate(__NIL_->__value_, 1);
+			node_alloc.destroy(__NIL_);
+			node_alloc.deallocate(__NIL_, 1);
 		}
 
 		iterator 		begin() 		{ return iterator(__begin_); }
@@ -162,7 +171,7 @@ namespace ft
 		iterator find(const key_type& __k, node** parent = NULL)
 		{
 			iterator __p = lower_bound(__k, parent);
-			if (__p != end() && !__compar_(__k, *__p))
+			if (__p != end() && __get_key(*__p) == __k)
 				return __p;
 			return end();
 		}
@@ -170,7 +179,7 @@ namespace ft
 		const_iterator find(const key_type& __k, node** parent = NULL) const
 		{
 			const_iterator __p = lower_bound(__k, parent);
-			if (__p != end() && !__compar_(__k, *__p))
+			if (__p != end() && __get_key(*__p) == __k)
 				return __p;
 			return end();
 		}
@@ -589,9 +598,9 @@ namespace ft
 				__p = __p->__right_;
 			return (__p);
 		}
-		
-		const key_type __get_key(const value_type& __p)
-		{ return (__p.first); }
+
+		template<class T> 			const T __get_key(const T& __x) 			 const	{ return __x; }
+		template<class T, class U> 	const T __get_key(const ft::pair<T, U>& __x) const 	{ return __x.first; }
 	};
 
 } // ft

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/28 15:38:16 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/29 12:54:50 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ namespace ft
 		map(const map& __x) : __tree_(__x.__tree_)
 		{ insert(__x.begin(), __x.end()); }
 
+		~map() {};
+
 		map& operator = (const map& __x)
 		{
 			if (this != &__x)
@@ -153,7 +155,6 @@ namespace ft
 			iterator __p = find(__k);
 			if (__p != end())
 			{
-				//std::cout << __p->first << std::endl;
 				__tree_.erase(__p);
 				return (1);
 			}
@@ -163,10 +164,7 @@ namespace ft
 		{
 			ft::vector<value_type> holder(first, last);
 			for (size_t i = 0; i < holder.size(); ++i)
-			{
-				// std::cout << " => " << holder[i].first << std::endl;
 				erase(holder[i].first);
-			}
 		}
 
 		void 		swap(map& __x) 					 { __tree_.swap(__x.__tree_); }
@@ -175,16 +173,16 @@ namespace ft
 
 		ft::pair<iterator, iterator> equal_range(const key_type& __k)
 		{
-			iterator __p = find(__k);
-			if (__p == end())
+			iterator __p = lower_bound(__k);
+			if (__p == end() || __p->first != __k)
 				return ft::make_pair(__p, __p);
 			else
 				return ft::make_pair(__p++, __p);
 		}
 		ft::pair<const_iterator, const_iterator> equal_range(const key_type& __k) const
 		{
-			const_iterator __p = find(__k);
-			if (__p == end())
+			const_iterator __p = lower_bound(__k);
+			if (__p == end() || __p->first != __k)
 				return ft::make_pair(__p, __p);
 			else
 				return ft::make_pair(__p++, __p);

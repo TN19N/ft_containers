@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:26:09 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/29 12:54:50 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/29 16:32:42 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ namespace ft
 			friend class map;
 		protected:
 			key_compare comp;
-
 			value_compare(key_compare c) : comp(c) {}
 		public:
 			bool operator () (const value_type& __x, const value_type& __y) const
@@ -111,7 +110,7 @@ namespace ft
 				insert(__x.begin(), __x.end());
 			}
 			return *this;
-		} 
+		}
 		
 		iterator 				begin() 		{ return __tree_.begin(); }
 		const_iterator			begin()  const	{ return __tree_.begin(); }
@@ -143,11 +142,7 @@ namespace ft
 		ft::pair<iterator, bool> insert(const value_type& val) 				 { return __tree_.insert(val); }
 		iterator			 	 insert(iterator __p, const value_type& val) { return __tree_.insert(__p, val); }
 		template<class _Iter>
-		void insert(_Iter first, _Iter last)
-		{
-			for (; first != last; ++first)
-				insert(*first);
-		}
+		void insert(_Iter first, _Iter last) { for (; first != last; ++first) insert(*first); }
 
 		void 		erase(iterator __pos) 				 { return __tree_.erase(__pos); }
 		size_type	erase(const key_type& __k) 			 

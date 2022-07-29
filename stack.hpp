@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 15:14:25 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/18 10:41:36 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/29 17:21:52 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ namespace ft
 	public:
 		explicit stack(const container_type& ctnr = container_type()) : c(ctnr) {}
 		stack(const stack& __q) : c(__q.c) {}
+		~stack() {}
 
 		stack& operator = (const stack& __q) { c = __q.c; return(*this); }
 

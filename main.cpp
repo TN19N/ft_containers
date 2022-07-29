@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/29 14:21:54 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/29 17:05:27 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,23 @@
 #include <memory>
 #include <chrono>
 
-
-class A
-{
-	int* a;
-	public:
-		A() { a = new int[1]; }
-		A(const A& other) { a = new int[1]; *a = *(other.a); }
-		~A() {  delete a; }
-};
-
 void ft_main()
 {
-	ft::vector<A> alloc(100);
-	std::vector<A> a;
+	ft::map<int, int> m;
+
+	m[0] = 0;
+	m[1] = 100;
+	m[2] = 200;
+
+	m.erase(m.find(2), m.end());
+
+	for (ft::map<int, int>::const_iterator iter = m.begin(); iter != m.end(); ++iter)
+		std::cout << "[" << iter->first << "] => " << iter->second << std::endl;
 }
 
 int main()
 {
 	ft_main();
 	system("leaks run");
-}  
+	return (0);
+}

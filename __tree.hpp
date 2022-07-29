@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/29 12:57:59 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/29 17:10:06 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,13 @@ namespace ft
 			  value_alloc(alloc),
 			  __size_(0),
 			  __compar_(comp)
-		{
-			try { __NIL_ = __head_ = __begin_ = get_node(BLACK); } catch (const std::bad_alloc& e) { throw e; }
-		}
+		{ __NIL_ = __head_ = __begin_ = get_node(BLACK); }
 
 		tree(const tree& __x)
 			: value_alloc(__x.value_alloc),
 			  __size_(0),
 			  __compar_(__x.__compar_)
-		{
-			try { __NIL_ = __head_ = __begin_ = get_node(BLACK); } catch (const std::bad_alloc& e) { throw e; }
-		}
+		{ __NIL_ = __head_ = __begin_ = get_node(BLACK); }
 
 		~tree() 
 		{
@@ -310,7 +306,7 @@ namespace ft
 		}
 
 		void erase(iterator __pos)
-		{
+		{		
 			node* __p = __pos.base();
 			while(__p->__left_ != NULL || !check_right(__p))
 			{
@@ -453,12 +449,10 @@ namespace ft
 		{
 			if (__begin_ == __p)
 				__begin_ = __p->__parent_ ? __p->__parent_ : __NIL_;
+	
 			if (__NIL_->__parent_ == __p)
-			{
 				__NIL_->__parent_ = __p->__parent_;
-				if (__p->__parent_ != NULL)
-					__p->__parent_->__right_ = __NIL_;
-			}
+
 			if (__head_ == __p)
 				__head_ = __NIL_;
 			else
@@ -483,9 +477,6 @@ namespace ft
 				__x->__right_->__parent_ = __x;
 			__y->__parent_ = __x->__parent_;
 
-			if (__y == __NIL_->__parent_)
-				__NIL_->__parent_ = __x;
-
 			if (__x->__parent_ == NULL)
 				__head_ = __y;
 			else if (__x->__parent_->__left_ == __x)
@@ -504,9 +495,6 @@ namespace ft
 			if (__x->__left_ != NULL)
 				__x->__left_->__parent_ = __x;
 			__y->__parent_ = __x->__parent_;
-			
-			if (__begin_ == __y)
-				__begin_ = __x;
 
 			if (__x->__parent_ == NULL)
 				__head_ = __y;

@@ -6,9 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
 
-# Make data base, printed on Fri Jul 29 12:52:46 2022
+# Make data base, printed on Sat Jul 30 12:05:33 2022
 
 # Variables
 
@@ -30,7 +29,6 @@ SHELL = /bin/sh
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
- 
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
@@ -38,7 +36,7 @@ P9K_SSH = 0
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.KMHTxB9G5b/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.sAYSrv7YaN/Render
 # environment
 PATH = /Users/mannouao/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
 # environment
@@ -48,7 +46,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.9PsjAcVmE7/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.1cL2HHgv9n/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -114,7 +112,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000003.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x1000000c.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -132,7 +130,7 @@ PAGER = less
 # environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 186a8
+SECURITYSESSIONID = 1877f
 # automatic
 ^F = $(notdir $^)
 # default
@@ -144,7 +142,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3811
+VSCODE_PID = 23033
 # variable set hash-table stats:
 # Load=66/1024=6%, Rehash=0, Collisions=1/92=1%
 
@@ -154,9 +152,9 @@ VSCODE_PID = 3811
 
 # Directories
 
-# . (device 16777227, inode 6462681): 20 files, no impossibilities.
+# . (device 16777227, inode 6462681): 22 files, no impossibilities.
 
-# 20 files, no impossibilities in 1 directories.
+# 22 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -165,7 +163,6 @@ VSCODE_PID = 3811
 # Files
 
 all:
- 
 #  Command-line target.
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: `'
@@ -236,6 +233,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Fri Jul 29 12:52:46 2022
+# Finished Make data base on Sat Jul 30 12:05:33 2022
 
  

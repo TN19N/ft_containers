@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/29 17:10:06 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/30 18:17:15 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,7 +315,8 @@ namespace ft
 					__p = max_child(__p->__left_);
 				else
 					__p = min_child(__p->__right_);
-				ft::swap(__old->__value_, __p->__value_);
+				swap_nodes(__old, __p);
+				__p = __old;
 			}
 			node *to_delet = __p;
 			
@@ -425,9 +426,9 @@ namespace ft
 		node*	get_node(bool __c, const value_type val = value_type(), node* p = NULL, node* l = NULL, node* r = NULL)
 		{
 			node*	__node;
-			try { __node = node_alloc.allocate(1); } catch (const std::bad_alloc& e) { throw e; }
+			__node = node_alloc.allocate(1);
 			node_alloc.construct(__node, node(__c, p, l, r));
-			try { __node->__value_ = value_alloc.allocate(1); } catch (const std::bad_alloc& e) { throw e; };
+			__node->__value_ = value_alloc.allocate(1);
 			value_alloc.construct(__node->__value_, val);
 			return (__node);
 		}
@@ -585,6 +586,48 @@ namespace ft
 			while (!check_right(__p))
 				__p = __p->__right_;
 			return (__p);
+		}
+
+		void swap_nodes(node* __x, node* __y)
+		{
+
+			if (__x == __head_)
+				__head_ = __y;
+			else if (__x->__parent_->__right_ == __x)
+				__x->__parent_->__right_ = __y;
+			else
+				__x->__parent_->__left_ = __y;
+
+			if (__y->__parent_->__right_ == __y)
+				__y->__parent_->__right_ = __x;
+			else
+				__y->__parent_->__left_ = __x;
+
+			if (__begin_ == __x)
+				__begin_ = __y;
+			else if (__begin_ == __y)
+				__begin_ = __x;
+
+			if (__x->__right_ != NULL)
+				__x->__right_->__parent_ = __y;
+			if (__x->__left_ != NULL)
+				__x->__left_->__parent_ = __y;
+			if (__y->__right_ != NULL)
+				__y->__right_->__parent_ = __x;
+			if (__y->__left_ != NULL)
+				__y->__left_->__parent_ = __x;
+
+			ft::swap(__x->__parent_, __y->__parent_);
+			ft::swap(__x->__right_, __y->__right_);
+			ft::swap(__x->__left_, __y->__left_);
+			ft::swap(__x->__color_, __y->__color_);
+
+			if (__x->__parent_ == __x)
+				__x->__parent_ = __y;
+			if (__y->__right_ == __y)
+				__y->__right_ = __x;
+			if (__y->__left_ == __y)
+				__y->__left_ = __x;
 		}
 
 		template<class T> 			const T __get_key(const T& __x) 			 const	{ return __x; }

@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/28 12:30:06 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/30 19:18:26 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,7 @@ namespace ft
 
 		iterator_type base() const { return __i; }
 
-	private:
 		__wrap_iter(iterator_type __x) : __i(__x) {}
-		
-		template<typename _Tp, typename _Alloc> friend class vector;
 	};
 
 	template<typename _Iter1, typename _Iter2>
@@ -247,7 +244,7 @@ namespace ft
 	public:
 		__map_iter() {}
 		template<class _Up, class _Up_node>
-		__map_iter(const __map_iter<_Up, _Up_node>& __u) : __i((_Node_ptr)__u.__i) {}
+		__map_iter(const __map_iter<_Up, _Up_node>& __u) : __i((_Node_ptr)__u.base()) {}
 		template<class _Up, class _Up_node>
 		__map_iter& operator = (const ft::__map_iter<_Up, _Up_node>& __u) { __i = (_Node_ptr)__u.__i; return *this; }
 
@@ -282,12 +279,10 @@ namespace ft
 			return *this;
 		}
 		__map_iter operator -- (int) {__map_iter __tmp(*this); --*this; return __tmp; }
-	private:
+
 		__map_iter(_Node_ptr __x) : __i(__x) {}
 		_Node_ptr base() const { return (__i); }
 		
-		template<class key_type, class value_type, class key_compare, class allocator_type> friend class tree;
-		template<class _U_Iter, class _U_Node_ptr> friend class __map_iter;
 		template<class _Iter1, class _Node_ptr1, class _Iter2, class _Node_ptr2>
 		friend bool operator == (const __map_iter<_Iter1, _Node_ptr1>& __x, const __map_iter<_Iter2, _Node_ptr2>& __y);
 	};

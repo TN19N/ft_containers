@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/30 12:04:31 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/30 18:48:26 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,25 @@
 
 int main()
 {
+	ft::map<int, int> m;
+
+
+	for (int i = 0; i < 4; ++i)
+		m[i] = i;
+	ft::map<int, int>::const_iterator iter = m.find(3);
+	
+	m.erase(m.find(2));
+
+	// while (iter != m.begin())
+	// {
+	// 	std::cout  << "---" << std::endl;
+	// 	--iter;
+	// }
+	--iter;
+
+	//while (iter != m.end())
+	//{
+		std::cout << "=> " << iter->first << std::endl;
+		//++iter;
+	//}
 }

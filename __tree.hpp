@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/30 18:17:15 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/30 19:25:52 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -598,7 +598,8 @@ namespace ft
 			else
 				__x->__parent_->__left_ = __y;
 
-			if (__y->__parent_->__right_ == __y)
+			if (__x == __y)
+			else if (__y->__parent_->__right_ == __y)
 				__y->__parent_->__right_ = __x;
 			else
 				__y->__parent_->__left_ = __x;

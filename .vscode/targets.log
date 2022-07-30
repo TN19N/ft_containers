@@ -6,14 +6,16 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
 
-# Make data base, printed on Sat Jul 30 13:45:57 2022
+# Make data base, printed on Sat Jul 30 21:59:17 2022
 
 # Variables
 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
+ 
 ?F = $(notdir $?)
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
@@ -32,25 +34,19 @@ _ = /usr/bin/make
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
-P9K_SSH = 0
-# environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.dtNynmC5B0/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.4bs9LcpbYv/Render
 # environment
-PATH = /Users/mannouao/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
-# environment
-LSCOLORS = Gxfxcxdxbxegedabagacad
+PATH = /usr/bin:/bin:/usr/sbin:/sbin
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.Dk2RUzDD36/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.zPThtD9r77/Listeners
 # automatic
 %F = $(notdir $%)
-# environment
-HOMEBREW_TEMP = /tmp/mannouao/Homebrew/Temp
 # environment
 PWD = /Users/mannouao/Desktop/containers
 # environment
@@ -68,8 +64,6 @@ LOGNAME = mannouao
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
-ZSH = /Users/mannouao/.oh-my-zsh
-# environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
@@ -80,8 +74,6 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-HOMEBREW_CACHE = /tmp/mannouao/Homebrew/Caches
-# environment
 SHLVL = 1
 # default
 MAKE_VERSION := 3.81
@@ -89,8 +81,6 @@ MAKE_VERSION := 3.81
 USER = mannouao
 # makefile
 .DEFAULT_GOAL := all
-# environment
-LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
@@ -112,7 +102,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000003.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000004.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -125,8 +115,6 @@ COMMAND_MODE = unix2003
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
-# environment
-PAGER = less
 # environment
 LC_ALL = C
 # environment
@@ -142,9 +130,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 6191
+VSCODE_PID = 8889
 # variable set hash-table stats:
-# Load=66/1024=6%, Rehash=0, Collisions=1/92=1%
+# Load=59/1024=6%, Rehash=0, Collisions=1/85=1%
 
 # Pattern-specific Variable Values
 
@@ -152,9 +140,9 @@ VSCODE_PID = 6191
 
 # Directories
 
-# . (device 16777227, inode 6462681): 19 files, no impossibilities.
+# . (device 16777227, inode 6462681): 20 files, no impossibilities.
 
-# 19 files, no impossibilities in 1 directories.
+# 20 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -233,6 +221,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Jul 30 13:45:57 2022
+# Finished Make data base on Sat Jul 30 21:59:17 2022
 
  

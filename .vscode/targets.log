@@ -8,10 +8,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Sun Jul 31 09:26:26 2022
+# Make data base, printed on Sun Jul 31 12:30:43 2022
 
 # Variables
 
+ 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
@@ -35,15 +36,15 @@ MAKEFILE_LIST :=  Makefile
 # environment
 VSCODE_CWD = /
 # environment
-Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.JuSfqRI17e/Render
+Apple_PubSub_Socket_Render = /private/tmp/com.apple.launchd.PMTrUTrVVO/Render
 # environment
-PATH = /usr/bin:/bin:/usr/sbin:/sbin
+PATH = /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.BOoIbdIkJL/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.CzOGIIMcBF/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -128,9 +129,8 @@ SUFFIXES :=
 MAKELEVEL := 0
 # environment
 LANG = C
- 
 # environment
-VSCODE_PID = 68585
+VSCODE_PID = 3500
 # variable set hash-table stats:
 # Load=59/1024=6%, Rehash=0, Collisions=1/85=1%
 
@@ -140,9 +140,9 @@ VSCODE_PID = 68585
 
 # Directories
 
-# . (device 16777227, inode 6462681): 20 files, no impossibilities.
+# . (device 16777227, inode 6462681): 21 files, no impossibilities.
 
-# 20 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -176,7 +176,7 @@ all:
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/10=10%
 #  commands to execute (from `Makefile', line 14):
-	c++ -std=c++98 -Wall -Wextra -Werror -g3 main.cpp  -o run
+	c++ -std=c++98 -Wall -Wextra -Werror main.cpp -o run
 	
 
 # Not a target:
@@ -188,11 +188,19 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-29 12:52:35
+#  Last modified 2022-07-31 12:30:37
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+ft:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 18):
+	c++ -std=c++98 -Wall -Wextra -Werror my_test.cpp -o run -D FT
+	
 
 # Not a target:
 .DEFAULT:
@@ -204,12 +212,20 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 16):
+#  commands to execute (from `Makefile', line 20):
 	rm run
 	
 
+std:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 16):
+	c++ -std=c++98 -Wall -Wextra -Werror my_test.cpp -o run -D STD
+	
+
 # files hash-table stats:
-# Load=5/1024=0%, Rehash=0, Collisions=0/19=0%
+# Load=7/1024=1%, Rehash=0, Collisions=1/21=5%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -221,6 +237,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sun Jul 31 09:26:26 2022
+# Finished Make data base on Sun Jul 31 12:30:43 2022
 
  

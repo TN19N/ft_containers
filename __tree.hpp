@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/30 19:25:52 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/31 10:44:47 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -590,33 +590,32 @@ namespace ft
 
 		void swap_nodes(node* __x, node* __y)
 		{
-
 			if (__x == __head_)
 				__head_ = __y;
 			else if (__x->__parent_->__right_ == __x)
 				__x->__parent_->__right_ = __y;
 			else
 				__x->__parent_->__left_ = __y;
-
-			if (__x == __y)
-			else if (__y->__parent_->__right_ == __y)
-				__y->__parent_->__right_ = __x;
-			else
-				__y->__parent_->__left_ = __x;
-
+				
 			if (__begin_ == __x)
 				__begin_ = __y;
 			else if (__begin_ == __y)
 				__begin_ = __x;
-
-			if (__x->__right_ != NULL)
-				__x->__right_->__parent_ = __y;
-			if (__x->__left_ != NULL)
-				__x->__left_->__parent_ = __y;
+			
 			if (__y->__right_ != NULL)
 				__y->__right_->__parent_ = __x;
 			if (__y->__left_ != NULL)
 				__y->__left_->__parent_ = __x;
+				
+			if (__x->__right_ != __y && __x->__right_ != NULL)
+				__x->__right_->__parent_ = __y;
+			if (__x->__left_ != __y && __x->__left_ != NULL)
+				__x->__left_->__parent_ = __y;
+
+			if (__y->__parent_->__right_ == __y && __y->__parent_ != __x)
+				__y->__parent_->__right_ = __x;
+			else if (__y->__parent_->__left_ == __y && __y->__parent_ != __x)
+				__y->__parent_->__left_ = __x;
 
 			ft::swap(__x->__parent_, __y->__parent_);
 			ft::swap(__x->__right_, __y->__right_);
@@ -628,7 +627,7 @@ namespace ft
 			if (__y->__right_ == __y)
 				__y->__right_ = __x;
 			if (__y->__left_ == __y)
-				__y->__left_ = __x;
+				__y->__left_ = __y;
 		}
 
 		template<class T> 			const T __get_key(const T& __x) 			 const	{ return __x; }

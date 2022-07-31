@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:25:49 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/30 19:18:26 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/31 10:46:40 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,7 @@ namespace ft
 		template<class _Up, class _Up_node>
 		__map_iter(const __map_iter<_Up, _Up_node>& __u) : __i((_Node_ptr)__u.base()) {}
 		template<class _Up, class _Up_node>
-		__map_iter& operator = (const ft::__map_iter<_Up, _Up_node>& __u) { __i = (_Node_ptr)__u.__i; return *this; }
+		__map_iter& operator = (const ft::__map_iter<_Up, _Up_node>& __u) { __i = (_Node_ptr)__u.base(); return *this; }
 
 		reference	operator *  () const { return *(__i->__value_); }
 		pointer		operator -> () const { return __i->__value_; }

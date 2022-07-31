@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 17:49:54 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/31 10:44:47 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/31 10:48:51 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -627,7 +627,7 @@ namespace ft
 			if (__y->__right_ == __y)
 				__y->__right_ = __x;
 			if (__y->__left_ == __y)
-				__y->__left_ = __y;
+				__y->__left_ = __x;
 		}
 
 		template<class T> 			const T __get_key(const T& __x) 			 const	{ return __x; }

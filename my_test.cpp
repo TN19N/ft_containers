@@ -6,7 +6,7 @@
 /*   By: mannouao <mannouao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 17:39:06 by mannouao          #+#    #+#             */
-/*   Updated: 2022/07/31 12:31:03 by mannouao         ###   ########.fr       */
+/*   Updated: 2022/07/31 12:45:56 by mannouao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int main()
 	map[1337];
 	ft::map<int, A>::const_iterator iter = map.begin();
 	map.insert(v.begin(), v.end());
-
-	std::cout << "size : " << v.size() << std::endl;
 	
 	unsigned long long count = 0;
 	for (; iter != map.begin() ; --iter)

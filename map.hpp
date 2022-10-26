@@ -157,9 +157,14 @@ namespace ft
 		}
 		void		erase(iterator first, iterator last)
 		{
-			ft::vector<value_type> holder(first, last);
-			for (size_t i = 0; i < holder.size(); ++i)
-				erase(holder[i].first);
+			//ft::vector<value_type> holder(first, last);
+			//for (size_t i = 0; i < holder.size(); ++i)
+			//	erase(holder[i].first);
+			while (first != last)
+			{
+				erase(first);
+				++first;
+			}
 		}
 
 		void 		swap(map& __x) 					 { __tree_.swap(__x.__tree_); }

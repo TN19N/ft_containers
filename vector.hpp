@@ -62,8 +62,9 @@ namespace ft
 		}
 
 		template<typename _Iter>
-		explicit vector(_Iter first, _Iter secend, const allocater_type& alloc = allocater_type(),
-						typename ft::enable_if<std::__is_input_iterator<_Iter>::value, bool>::type = true)
+		explicit vector(_Iter first, 
+		typename ft::enable_if<std::__is_forward_iterator<_Iter>::value, _Iter>::type secend,
+						const allocater_type& alloc = allocater_type())
 			: __begin_(NULL),
 			  __end_(NULL),
 			  __capacity_(0),
@@ -76,6 +77,19 @@ namespace ft
 				__begin_ = __end_ = __alloc_.allocate(__n);
 				for (; first != secend ; ++first, ++__capacity_) __alloc_.construct(__end_++, *first);
 			}
+		}
+
+		template<typename _Iter>
+		explicit vector(_Iter first, 
+		typename ft::enable_if<std::__is_input_iterator<_Iter>::value && !std::__is_forward_iterator<_Iter>::value, _Iter>::type secend,
+						const allocater_type& alloc = allocater_type())
+			: __begin_(NULL),
+			  __end_(NULL),
+			  __capacity_(0),
+			  __alloc_(alloc)
+		{
+			while (first != secend)
+				push_back(*first++);
 		}
 
 		vector(const vector& other)
@@ -153,12 +167,23 @@ namespace ft
 		}
 
 		template<typename _Iter>
-		void assign(_Iter _first, _Iter _last)
+		void assign(_Iter _first,
+		typename ft::enable_if<std::__is_forward_iterator<_Iter>::value, _Iter>::type _last)
 		{
 			size_type __n = static_cast<size_type>(ft::distance(_first, _last));
 			clear();
 			if (__n > __capacity_) reserve(__n);
-			while (_first != _last) __alloc_.construct(__end_++, *_first++);
+			while (_first != _last)
+				__alloc_.construct(__end_++, *_first++);
+		}
+
+		template<typename _Iter>
+		void assign(_Iter _first,
+		typename ft::enable_if<std::__is_input_iterator<_Iter>::value && !std::__is_forward_iterator<_Iter>::value, _Iter>::type _last)
+		{
+			clear();
+			while (_first != _last)
+				push_back(*_first++);
 		}
 
 		void assign(size_type __n, const value_type& val)
@@ -223,6 +248,8 @@ namespace ft
 
 		iterator erase(iterator __first, iterator __last)
 		{
+			if (__first == __last)
+				return __first;
 			for (iterator __tp = __first; __tp != __last; ++__tp)
 				__alloc_.destroy(__tp.base());
 			size_type __len = ft::distance(__last, end());
